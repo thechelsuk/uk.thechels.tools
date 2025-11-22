@@ -55,7 +55,6 @@ seo: toolkit
 
 ## Ensemblism Social Programming
 
-* [Feedback](/ensemblism/feedback)
 * [Resources](/ensemblism/resources)
 * [Roles](/ensemblism/roles)
 * [Rules](/ensemblism/rules)
