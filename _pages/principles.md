@@ -52,7 +52,7 @@ We accept and welcome change, we embrace uncertainty and we estimate our work gi
 
 - We work in small cross-functional teams with a focus on collaboration
 - With psychological safety
-- Encouraging open and honest feedback in a caring way ([Radical Candor](https://www.radicalcandor.com/our-approach/))
+- Encouraging open and honest feedback in a caring way ([Radical Candor](https://www.radicalcandor.com/our-approach))
 
 - Trust (sharing vulnerabilities with the group)
 - Embrace conflict (utilising constructive and passionate debate over feigning agreement and "I don't mind")
