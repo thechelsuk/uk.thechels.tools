@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<opml version="2.0">
+	<head>
+		<title>Castro Podcasts OPML</title>
+		<dateCreated>Fri, 14 Nov 2025 08:32:00 GMT</dateCreated>
+	</head>
+	<body>
+		<outline text="Smashing Security" type="rss" xmlUrl="https://feeds.redcircle.com/c478d684-038f-4b13-8507-bc32af486a2c" />
+		<outline text="Daily Cyber Threat Brief" type="rss" xmlUrl="https://feeds.transistor.fm/simply-cyber" />
+		<outline text="NextGen Planners" type="rss" xmlUrl="https://rss.libsyn.com/shows/83359/destinations/392364.xml" />
+		<outline text="Compile Swift Podcast" type="rss" xmlUrl="https://feeds.transistor.fm/compile-swift" />
+		<outline text="Simon Mayo&apos;s Confessions" type="rss" xmlUrl="https://rss.podplaystudio.com/1332.xml" />
+		<outline text="Software Engineering Radio - the podcast for professional software developers" type="rss" xmlUrl="https://seradio.libsyn.com/rss" />
+		<outline text="The Media Show" type="rss" xmlUrl="https://podcasts.files.bbci.co.uk/b00dv9hq.rss" />
+		<outline text="The AdviserTech Show" type="rss" xmlUrl="https://feed.podbean.com/moneyinfo/feed.xml" />
+		<outline text="Overdue" type="rss" xmlUrl="https://rss.art19.com/overdue" />
+		<outline text="Three Bean Salad" type="rss" xmlUrl="https://feeds.captivate.fm/three-bean-salad/" />
+		<outline text="The Podcast Engineering Show" type="rss" xmlUrl="https://podcastengineering.libsyn.com/rss" />
+		<outline text="Founders" type="rss" xmlUrl="https://feeds.megaphone.fm/DSLLC6297708582" />
+		<outline text="The Money Marketing Podcast" type="rss" xmlUrl="https://feed.podbean.com/moneymarketing/feed.xml" />
+		<outline text="Vibe Coded" type="rss" xmlUrl="https://feeds.transistor.fm/vibe-coded" />
+		<outline text="Political Fix" type="rss" xmlUrl="https://feeds.acast.com/public/shows/8e80ba05-2f15-4479-a6cc-b2f6635a1fe0" />
+		<outline text="Sh**ged Married Annoyed" type="rss" xmlUrl="https://feeds.megaphone.fm/sma" />
+		<outline text="Inside Octopus Energy" type="rss" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:878491849/sounds.rss" />
+		<outline text="99% Invisible" type="rss" xmlUrl="https://feeds.simplecast.com/BqbsxVfO" />
+		<outline text="Media Confidential" type="rss" xmlUrl="https://feeds.acast.com/public/shows/650ac5ba0434d000118468a9" />
+		<outline text="The Rebooting Show" type="rss" xmlUrl="https://feeds.captivate.fm/the-rebooting-show/" />
+		<outline text="PoliticsJOE Podcast" type="rss" xmlUrl="https://feeds.acast.com/public/shows/642d7a0cfe7063001135a38f" />
+		<outline text="Acquired" type="rss" xmlUrl="https://feeds.transistor.fm/acquired" />
+		<outline text="Syntax - Tasty Web Development Treats" type="rss" xmlUrl="https://feed.syntax.fm/rss" />
+		<outline text="Swift Package Indexing" type="rss" xmlUrl="https://feeds.transistor.fm/swift-package-indexing" />
+		<outline text="The Rest Is Entertainment" type="rss" xmlUrl="https://feeds.megaphone.fm/GLT2052042801" />
+		<outline text="AB Testing" type="rss" xmlUrl="https://anchor.fm/s/45580f58/podcast/rss" />
+		<outline text="The New Statesman: politics and culture" type="rss" xmlUrl="https://feeds.acast.com/public/shows/6b2fc9ba-b9b7-4b7a-b980-e0024facd926" />
+		<outline text="Unhedged" type="rss" xmlUrl="https://feeds.acast.com/public/shows/6478a825654260001190a7cb" />
+		<outline text="The Good News Podcast" type="rss" xmlUrl="https://feeds.transistor.fm/the-good-news-podcast" />
+		<outline text="Worklife with Adam Grant" type="rss" xmlUrl="https://feeds.acast.com/public/shows/67585d9cc705e441796ddaf6" />
+		<outline text="The Rest Is History" type="rss" xmlUrl="https://feeds.megaphone.fm/GLT4787413333" />
+		<outline text="IFA Talk" type="rss" xmlUrl="https://feed.podbean.com/IFAMagazine/feed.xml" />
+		<outline text="How to Age Up" type="rss" xmlUrl="https://feeds.megaphone.fm/howto" />
+		<outline text="The Secure Developer" type="rss" xmlUrl="https://feeds.simplecast.com/47yfLpm0" />
+		<outline text="The Pension Confident Podcast" type="rss" xmlUrl="https://pensionconfident.libsyn.com/rss" />
+		<outline text="Football Cliches" type="rss" xmlUrl="https://feeds.megaphone.fm/GLT7974369854" />
+		<outline text="iOS Today (Audio)" type="rss" xmlUrl="https://feeds.twit.tv/ipad.xml" />
+		<outline text="80,000 Hours Podcast" type="rss" xmlUrl="https://feeds.transistor.fm/80000-hours-podcast" />
+		<outline text="ShopTalk" type="rss" xmlUrl="https://shoptalkshow.com/feed/podcast/" />
+		<outline text="Relay All-Network Feed" type="rss" xmlUrl="https://www.relay.fm/master/feed" />
+		<outline text="TED Business" type="rss" xmlUrl="https://feeds.acast.com/public/shows/675727607205a5bc68e57057" />
+		<outline text="Making Money" type="rss" xmlUrl="https://feeds.megaphone.fm/makingmoney" />
+		<outline text="This is Money Podcast" type="rss" xmlUrl="https://audioboom.com/channels/3223350.rss" />
+		<outline text="The Book Review" type="rss" xmlUrl="https://feeds.simplecast.com/MssIhx9y" />
+		<outline text="Hacking Humans" type="rss" xmlUrl="https://feeds.megaphone.fm/hacking-humans" />
+		<outline text="Random but Memorable" type="rss" xmlUrl="https://feeds.simplecast.com/eEZHk2aL" />
+		<outline text="State of the Markets" type="rss" xmlUrl="https://anchor.fm/s/c95b184/podcast/rss" />
+		<outline text="The Leadership in Insurance Podcast - Insurtech &amp; Innovation" type="rss" xmlUrl="https://feeds.acast.com/public/shows/62822c55f7114f0012f2582a" />
+		<outline text="Merryn Talks Money" type="rss" xmlUrl="https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/1742e0df-336e-4798-9bdf-af4d00f3c918/b65f5d94-dd18-419c-9276-af4d00f43c32/podcast.rss" />
+		<outline text="The Slow Newscast" type="rss" xmlUrl="https://feeds.acast.com/public/shows/a8a5a759-8cb1-52ad-b50a-8e08dcee4d1f" />
+		<outline text="Open Source Security" type="rss" xmlUrl="https://opensourcesecuritypodcast.libsyn.com/rss" />
+		<outline text="Hacked" type="rss" xmlUrl="https://feeds.megaphone.fm/hackedpodcast" />
+		<outline text="Darknet Diaries" type="rss" xmlUrl="https://podcast.darknetdiaries.com" />
+		<outline text="Investors&apos; Chronicle" type="rss" xmlUrl="https://feeds.acast.com/public/shows/a4c5de36-8260-4222-8e38-ff997dc73436" />
+		<outline text="The Compound and Friends" type="rss" xmlUrl="https://feeds.megaphone.fm/TCP4771071679" />
+		<outline text="Economist Podcasts" type="rss" xmlUrl="https://access.acast.com/rss/ec380acc-fe13-46a0-991f-a1e508d126f8/default" />
+		<outline text="The Talk Show With John Gruber" type="rss" xmlUrl="https://daringfireball.net/thetalkshow/rss" />
+		<outline text="The Conversation Weekly" type="rss" xmlUrl="https://feeds.captivate.fm/the-conversation-weekly/" />
+		<outline text="Candid Contributions" type="rss" xmlUrl="https://www.spreaker.com/show/4200995/episodes/feed" />
+		<outline text="We Are Chelsea" type="rss" xmlUrl="https://feeds.acast.com/public/shows/65eb34e28e0ea40016a7159c" />
+		<outline text="Oxide and Friends" type="rss" xmlUrl="https://feeds.transistor.fm/oxide-and-friends" />
+		<outline text="EconTalk" type="rss" xmlUrl="https://feeds.simplecast.com/wgl4xEgL" />
+		<outline text="Decoder with Nilay Patel" type="rss" xmlUrl="https://feeds.megaphone.fm/recodedecode" />
+		<outline text="The Meaningful Money Personal Finance Podcast" type="rss" xmlUrl="https://meaningfulmoney.libsyn.com/rss" />
+		<outline text="Enginears" type="rss" xmlUrl="https://feed.ausha.co/PdLGMIYGG1GM" />
+		<outline text="The Rest Is Football" type="rss" xmlUrl="https://feeds.megaphone.fm/GLT8847082992" />
+		<outline text="Page 94: The Private Eye Podcast" type="rss" xmlUrl="https://audioboom.com/channels/5112392.rss" />
+		<outline text="The Diverse Minds Podcast" type="rss" xmlUrl="https://feeds.simplecast.com/mtWJMYrr" />
+		<outline text="London Is Blue - Chelsea FC Podcast" type="rss" xmlUrl="https://rss.art19.com/london-is-blue" />
+		<outline text="KCBS Bloomberg Tech and Business Report" type="rss" xmlUrl="https://rss.amperwave.net/v2/feed/audacy/f1c70aa47121cb4a9e7b2350f233980e" />
+		<outline text="Sharp Tech with Ben Thompson" type="rss" xmlUrl="https://sharptech.fm/feed/podcast" />
+		<outline text="Security This Week" type="rss" xmlUrl="https://www.spreaker.com/show/5634794/episodes/feed" />
+		<outline text="The Rebound" type="rss" xmlUrl="https://rss.art19.com/the-rebound" />
+		<outline text="The 404 Media Podcast" type="rss" xmlUrl="https://feeds.megaphone.fm/TBIEA2761282490" />
+		<outline text="The Rest Is Classified" type="rss" xmlUrl="https://feeds.megaphone.fm/therestisclassified" />
+		<outline text="AppStories" type="rss" xmlUrl="https://appstories.net/feed/podcast/appstories" />
+		<outline text="9to5Mac Daily" type="rss" xmlUrl="https://feedpress.me/9to5macdaily" />
+		<outline text="Everything Electric Podcast" type="rss" xmlUrl="https://fullychargedshow.libsyn.com/rss" />
+		<outline text="RSA Events" type="rss" xmlUrl="https://feeds.simplecast.com/oFb7TFSC" />
+		<outline text="Troy Hunt&apos;s Weekly Update Podcast" type="rss" xmlUrl="https://www.omnycontent.com/d/playlist/1439345f-6152-486d-a9c2-a6bf0067f2b7/3ba9af7f-3bfb-48fd-aae7-a6bf00689c10/fde26e49-9fb8-457d-8f16-a6bf00696676/podcast.rss" />
+		<outline text="Tech Lead Journal" type="rss" xmlUrl="https://anchor.fm/s/265d7c64/podcast/rss" />
+		<outline text="FNO: InsureTech" type="rss" xmlUrl="https://fnopodcast.libsyn.com/rss" />
+		<outline text="Philosophy Bites" type="rss" xmlUrl="https://philosophybites.libsyn.com/rss" />
+		<outline text="Soft Skills Engineering" type="rss" xmlUrl="https://softskills.audio/feed.xml" />
+		<outline text="Upfront" type="rss" xmlUrl="https://www.omnycontent.com/d/playlist/2e9a850c-e6b9-48c2-afec-a8f8010f70f4/59833122-0b32-4ba8-b5c7-ae7c00ef4766/66a56824-b863-41a7-92e3-ae7c00f12d6e/podcast.rss" />
+		<outline text="I&apos;d Rather Be Writing Podcast" type="rss" xmlUrl="https://idratherbewriting.com/itunes.rss" />
+		<outline text="The Apple WatchCast Podcast - A podcast dedicated to the Apple Watch" type="rss" xmlUrl="http://feeds.podtrac.com/4nQu_j5cJ_vi" />
+		<outline text="The Obi One Podcast" type="rss" xmlUrl="https://feeds.megaphone.fm/COMG7001339357" />
+		<outline text="The Guardian&apos;s Women&apos;s Football Weekly" type="rss" xmlUrl="https://www.theguardian.com/football/series/theguardianswomensfootballweekly/podcast.xml" />
+		<outline text="Software Engineering Unlocked" type="rss" xmlUrl="https://feeds.simplecast.com/K1_mv0CJ" />
+		<outline text="The Business of Content with Simon Owens" type="rss" xmlUrl="https://businessofcontent.libsyn.com/rss" />
+		<outline text="CyberWire Daily" type="rss" xmlUrl="https://feeds.megaphone.fm/cyberwire-daily-podcast" />
+		<outline text="The AI Fix" type="rss" xmlUrl="https://feeds.redcircle.com/73aff9ee-3659-4771-9e10-c0b2ce914d38" />
+		<outline text="TED Talks Daily" type="rss" xmlUrl="https://pa.tedcdn.com/feeds/talks.rss?apikey=172BB350-0207&amp;type=audio" />
+		<outline text="Whale Hunting" type="rss" xmlUrl="https://feeds.megaphone.fm/whalehunting" />
+		<outline text="Bookworm" type="rss" xmlUrl="https://bookworm.fm/feed/podcast" />
+		<outline text="Adviser 3.0: The Podcast" type="rss" xmlUrl="https://anchor.fm/s/41f55cbc/podcast/rss" />
+		<outline text="Hope and Help For Fatigue Chronic Illness" type="rss" xmlUrl="https://feeds.libsyn.com/502283/rss" />
+		<outline text="Tech Brew Ride Home" type="rss" xmlUrl="https://feeds.megaphone.fm/ridehome" />
+		<outline text="Another Podcast" type="rss" xmlUrl="https://feeds.simplecast.com/bZ7U2PEk" />
+		<outline text="AppleInsider Podcast" type="rss" xmlUrl="https://feeds.transistor.fm/appleinsider" />
+		<outline text="Getting Things Done" type="rss" xmlUrl="https://gettingthingsdone.libsyn.com/rss" />
+		<outline text="In The News This Week (the Have I Got News For You podcast)" type="rss" xmlUrl="https://audioboom.com/channels/5146200.rss" />
+		<outline text="Smashing Podcast" type="rss" xmlUrl="https://feeds.transistor.fm/smashing" />
+		<outline text="No Such Thing As A Fish" type="rss" xmlUrl="https://audioboom.com/channels/2399216.rss" />
+		<outline text="The Martin Lewis Podcast" type="rss" xmlUrl="https://podcasts.files.bbci.co.uk/p02pc9xt.rss" />
+		<outline text="The Rest Is Money" type="rss" xmlUrl="https://feeds.megaphone.fm/therestismoney" />
+		<outline text="Working Code" type="rss" xmlUrl="https://feeds.redcircle.com/30227421-bc27-45c2-bfb4-861def7dd4cc" />
+		<outline text="The Rest Is Politics" type="rss" xmlUrl="https://feeds.megaphone.fm/GLT9190936013" />
+		<outline text="IGN UK Podcast" type="rss" xmlUrl="https://feeds.megaphone.fm/ignukpod" />
+		<outline text="Not Overthinking" type="rss" xmlUrl="https://feeds.transistor.fm/notoverthinking" />
+		<outline text="Talk Python To Me" type="rss" xmlUrl="https://talkpython.fm/episodes/rss" />
+		<outline text="Sky Sports Premier League Podcast" type="rss" xmlUrl="https://podcast.global.com/show/3382902/episodes/feed" />
+		<outline text="The Wild Ones Cycling Podcast" type="rss" xmlUrl="https://feeds.acast.com/public/shows/6477148d8332f1001103c9af" />
+		<outline text="The Pragmatic Engineer" type="rss" xmlUrl="https://api.substack.com/feed/podcast/458709.rss" />
+		<outline text="All-In with Chamath, Jason, Sacks &amp; Friedberg" type="rss" xmlUrl="https://allinchamathjason.libsyn.com/rss" />
+		<outline text="Derek Sivers" type="rss" xmlUrl="https://sive.rs/podcast.rss" />
+		<outline text="Kermode &amp; Mayo’s Take" type="rss" xmlUrl="https://feeds.megaphone.fm/kermodeandmayo" />
+		<outline text="Let&apos;s talk Transformation : The business leaders podcast" type="rss" xmlUrl="https://feeds.captivate.fm/lets-talk-transformation/" />
+		<outline text="Blue Royalty: A Chelsea FC Women&apos;s Podcast" type="rss" xmlUrl="https://anchor.fm/s/f53e51d4/podcast/rss" />
+		<outline text="The Spawn Chunks - A Minecraft Podcast" type="rss" xmlUrl="https://feeds.acast.com/public/shows/6682ce21b4551f12f4ad6b1c" />
+		<outline text="Waveform: The MKBHD Podcast" type="rss" xmlUrl="https://feeds.megaphone.fm/STU4418364045" />
+		<outline text="The Rest Is Politics: Leading" type="rss" xmlUrl="https://feeds.megaphone.fm/GLT9029505120" />
+		<outline text="The Vernon Richard Show" type="rss" xmlUrl="https://feeds.transistor.fm/the-vernon-richard-show" />
+		<outline text="The Gary Neville Podcast" type="rss" xmlUrl="https://podcast.global.com/show/3382900/episodes/feed" />
+		<outline text="Thoughtworks Technology Podcast" type="rss" xmlUrl="https://thoughtworks.libsyn.com/rss" />
+		<outline text="Money Clinic with Claer Barrett" type="rss" xmlUrl="https://feeds.acast.com/public/shows/18b8cecc-3331-4621-9f92-f207f4b2c4ea" />
+		<outline text="The Knowledge Project" type="rss" xmlUrl="https://feeds.megaphone.fm/FSMI7575968096" />
+		<outline text="Quality Talks Podcast" type="rss" xmlUrl="https://anchor.fm/s/f6e76df4/podcast/rss" />
+		<outline text="Political Currency" type="rss" xmlUrl="https://feeds.acast.com/public/shows/64fb2b0f977e5a001226cb16" />
+		<outline text="Google DeepMind: The Podcast" type="rss" xmlUrl="https://feeds.simplecast.com/JT6pbPkg" />
+		<outline text="The Working Genius Podcast with Patrick Lencioni" type="rss" xmlUrl="https://feeds.captivate.fm/workinggeniuspodcast/" />
+		<outline text="Molly White&apos;s Citation Needed" type="rss" xmlUrl="https://www.spreaker.com/show/6019906/episodes/feed" />
+		<outline text="The Vergecast" type="rss" xmlUrl="https://feeds.megaphone.fm/vergecast" />
+		<outline text="GitHub" type="rss" xmlUrl="https://feeds.listenbox.app/rss/PBosx_gFCU7x/video.rss" />
+		<outline text="FTAdviser Podcast" type="rss" xmlUrl="https://feeds.acast.com/public/shows/74715c1d-098c-441c-a141-5599d9dd67ae" />
+		<outline text="Bletchley Park" type="rss" xmlUrl="https://audioboom.com/channels/451365.rss" />
+		<outline text="The Chronic Fatigue and Burnout Recovery Podcast" type="rss" xmlUrl="https://feeds.castos.com/jdn3m" />
+		<outline text="Swift over Coffee" type="rss" xmlUrl="https://anchor.fm/s/572fc68/podcast/rss" />
+		<outline text=".NET Rocks!" type="rss" xmlUrl="https://www.spreaker.com/show/5634793/episodes/feed" />
+		<outline text="Morning Brew Daily" type="rss" xmlUrl="https://feeds.megaphone.fm/business-casual" />
+		<outline text="The world, the universe and us" type="rss" xmlUrl="https://feeds.megaphone.fm/ARML6831509338" />
+		<outline text="Culture First with Damon Klotz" type="rss" xmlUrl="https://rss.art19.com/culture-first" />
+		<outline text="The Sports Agents" type="rss" xmlUrl="https://feeds.captivate.fm/the-sports-agents/" />
+		<outline text="Modern CTO" type="rss" xmlUrl="https://feeds.megaphone.fm/LDB8042666505" />
+		<outline text="Drk Mode" type="rss" xmlUrl="https://media.rss.com/drkmode/feed.xml" />
+		<outline text="The Supermassive Podcast" type="rss" xmlUrl="https://feeds.acast.com/public/shows/67af33c006ec54e1d2363808" />
+		<outline text="Developer Tea" type="rss" xmlUrl="https://feeds.simplecast.com/dLRotFGk" />
+		<outline text="Ask The Compound" type="rss" xmlUrl="https://feeds.megaphone.fm/askthecompound" />
+		<outline text="Sub Club by RevenueCat" type="rss" xmlUrl="https://feeds.transistor.fm/sub-club" />
+		<outline text="Uncanny Valley | WIRED" type="rss" xmlUrl="https://publicfeeds.net/f/5901/gadget-lab" />
+		<outline text="Effective Engineering Manager" type="rss" xmlUrl="https://www.effectiveem.com/feed/podcast/" />
+		<outline text="TED Tech" type="rss" xmlUrl="https://feeds.acast.com/public/shows/67585c62102e6d4448d44969" />
+		<outline text="Changelog Master Feed" type="rss" xmlUrl="https://changelog.com/master/feed" />
+		<outline text="Question Time" type="rss" xmlUrl="https://podcasts.files.bbci.co.uk/b01sfcms.rss" />
+		<outline text="Software Engineering Daily" type="rss" xmlUrl="https://softwareengineeringdaily.com/feed/podcast/" />
+		<outline text="Coding Blocks" type="rss" xmlUrl="https://www.codingblocks.net/feed/podcast" />
+		<outline text="Sensemaker" type="rss" xmlUrl="https://feeds.acast.com/public/shows/d348aacb-00cd-4b2d-9b3b-ee9d99cdb735" />
+		<outline text="The News Agents" type="rss" xmlUrl="https://feeds.captivate.fm/the-news-agents/" />
+		<outline text="This Week in Startups" type="rss" xmlUrl="https://anchor.fm/s/7c624c84/podcast/rss" />
+		<outline text="The News Meeting" type="rss" xmlUrl="https://feeds.acast.com/public/shows/6447cb7391dbd3001135bccf" />
+		<outline text="Developers Who Test" type="rss" xmlUrl="https://anchor.fm/s/ecc9c4d4/podcast/rss" />
+		<outline text="Software Delivery in Small Batches" type="rss" xmlUrl="https://feeds.transistor.fm/small-batches" />
+		<outline text="All Songs Considered" type="rss" xmlUrl="https://feeds.npr.org/510019/podcast.xml" />
+		<outline text="Inside Counter Terrorism Policing" type="rss" xmlUrl="https://feeds.acast.com/public/shows/67b867b786a56284d05dc87f" />
+		<outline text="Application Security Weekly (Audio)" type="rss" xmlUrl="https://aswaudio.libsyn.com/rss" />
+		<outline text="UKTN | The Podcast" type="rss" xmlUrl="https://feeds.transistor.fm/uktn-the-podcast" />
+		<outline text="Accidental Tech Podcast" type="rss" xmlUrl="https://cdn.atp.fm/rss/public?wtvryzdm" />
+		<outline text="Comfort Zone" type="rss" xmlUrl="https://feeds.libsyn.com/531557/rss" />
+		<outline text="The Rest Is Football: Daly Brightness" type="rss" xmlUrl="https://feeds.megaphone.fm/dalybrightness" />
+		<outline text="Mac Geek Gab — Apple Tips, Tricks, and Troubleshooting" type="rss" xmlUrl="https://www.macgeekgab.com/feed/podcast/" />
+		<outline text="1905: The Chelsea FC Podcast" type="rss" xmlUrl="https://feeds.megaphone.fm/COMG5530220765/" />
+		<outline text="Launched" type="rss" xmlUrl="https://feeds.transistor.fm/launched" />
+		<outline text="Simon Mayo&apos;s Books Of The Year" type="rss" xmlUrl="https://feeds.megaphone.fm/AUDD1666051198" />
+		<outline text="New Podcasts - trailers for new and noteworthy shows" type="rss" xmlUrl="https://podnews.net/sitemap/trailers.xml" />
+		<outline text="Not PC with Mark and Rob" type="rss" xmlUrl="https://feed.podbean.com/eightorsixteen/feed.xml" />
+		<outline text="Shut Up &amp; Sit Down" type="rss" xmlUrl="https://anchor.fm/s/6ccc9108/podcast/rss" />
+		<outline text="Electoral Dysfunction" type="rss" xmlUrl="https://feeds.captivate.fm/electoral-dysfunction/" />
+		<outline text="Waiting For Review" type="rss" xmlUrl="https://feeds.fireside.fm/waitingforreview/rss" />
+		<outline text="Podnews Daily - podcast industry news" type="rss" xmlUrl="https://podnews.net/rss" />
+		<outline text="GitHub at Work Podcast" type="rss" xmlUrl="https://feeds.simplecast.com/s2ZX29_X" />
+		<outline text="The GitHub Podcast" type="rss" xmlUrl="https://feeds.simplecast.com/ioCY0vfY" />
+		<outline text="Politics At Sam and Anne&apos;s" type="rss" xmlUrl="https://feeds.captivate.fm/politics-at-sam-and-anne/" />
+		<outline text="The OSINT Output Hosted by Tim and Chris" type="rss" xmlUrl="https://anchor.fm/s/1017b3750/podcast/rss" />
+		<outline text="Cheat Sheet with Ridge &amp; Frost" type="rss" xmlUrl="https://feeds.captivate.fm/cheat-sheet/" />
+		<outline text="Masked Actors" type="rss" xmlUrl="https://rss.buzzsprout.com/2489886.rss" />
+		<outline text="Fraud Intel" type="rss" xmlUrl="https://rss.buzzsprout.com/2522076.rss" />
+		<outline text="Cyber Security Headlines" type="rss" xmlUrl="https://cisoseries.libsyn.com/rss" />
+		<outline text="NCSC Cyber Series" type="rss" xmlUrl="https://anchor.fm/s/f408358c/podcast/rss" />
+		<outline text="Primary Technology" type="rss" xmlUrl="https://rss.buzzsprout.com/2551891.rss" />
+		<outline text="Testing Peers" type="rss" xmlUrl="https://rss.buzzsprout.com/1078751.rss" />
+		<outline text="CRAFTED." type="rss" xmlUrl="https://api.substack.com/feed/podcast/3215891.rss" />
+		<outline text="Digital Works Podcast" type="rss" xmlUrl="https://rss.buzzsprout.com/841957.rss" />
+		<outline text="Long Covid Podcast" type="rss" xmlUrl="https://rss.buzzsprout.com/1835170.rss" />
+		<outline text="The Unhandled Exception Podcast" type="rss" xmlUrl="https://rss.buzzsprout.com/978640.rss" />
+		<outline text="If Books Could Kill" type="rss" xmlUrl="https://rss.buzzsprout.com/2040953.rss" />
+		<outline text="Counter Crisis" type="rss" xmlUrl="https://rss.buzzsprout.com/2328968.rss" />
+		<outline text="Arguing Agile" type="rss" xmlUrl="https://rss.buzzsprout.com/1781319.rss" />
+		<outline text="Maintenance Phase" type="rss" xmlUrl="https://rss.buzzsprout.com/1411126.rss" />
+		<outline text="The Book Club Review" type="rss" xmlUrl="https://rss.art19.com/the-book-club-review" />
+		<outline text="Risky Business" type="rss" xmlUrl="https://risky.biz/feeds/risky-business/" />
+		<outline text="Startup Europe — The Sifted Podcast" type="rss" xmlUrl="https://rss.buzzsprout.com/1877446.rss" />
+		<outline text="GOTO - The Brightest Minds in Tech" type="rss" xmlUrl="https://rss.buzzsprout.com/1714721.rss" />
+		<outline text="Quite right!" type="rss" xmlUrl="https://access.acast.com/rss/6851792d002f9da49a7fbef5/default" />
+		<outline text="Product Agility" type="rss" xmlUrl="https://rss.buzzsprout.com/1858491.rss" />
+	</body>
+</opml>

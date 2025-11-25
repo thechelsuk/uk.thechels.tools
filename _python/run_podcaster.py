@@ -20,6 +20,6 @@ def process_opml(opml_file, output_file):
         yaml.dump(podcasts, yaml_file, default_flow_style=False)
 
 # Call the function with the path to your OPML file and the output YAML file
-opml_file = config.OPML_INPUT
+opml_file = config.OPML_FILE
 output_file =  config.POD_OUT
 process_opml(opml_file, output_file)

@@ -7,10 +7,10 @@ url: https://tools.thechels.uk
 copyright: "MB"
 encoding: UTF-8
 future: false
-repository: Mat-0/Tools
+repository: Mat-0/uk.thechels.tools
 defaultImagePath: "/images/splashscreens/apple-touch-icon-180x180.png"
 github:
-  repository_url: https://github.com/Mat-0/Tools
+  repository_url: https://github.com/Mat-0/uk.thechels.tools
   branch: main
 sass:
   style: compressed
@@ -45,11 +45,13 @@ include:
 navigation_header:
   - link: "https://thechels.uk/"
     name: "thechelsuk"
+  - link: "https://linksthechels.uk/"
+    name: "Links"
   - link: "https://cod.thechels.uk/"
     name: "Cheltenham Open Data"
   - link: "https://feeds.thechels.uk/"
     name: "News Feeds"
-  - link: "https://hiyd.uk"
+  - link: "https://hiyd.uk/"
     name: "Hiyd"
   - link: "https://apps.apple.com/gb/developer/mat-benfield/id1818791310"
     name: "AppStore"
