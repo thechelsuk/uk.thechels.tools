@@ -21,6 +21,7 @@ jobs:
               with:
                 fail: false
                 format: markdown
+                args: --exclude localhost --exclude %7B%7B .
               env:
                 GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
