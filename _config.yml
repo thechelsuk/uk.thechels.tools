@@ -45,7 +45,7 @@ include:
 navigation_header:
   - link: "https://thechels.uk/"
     name: "thechelsuk"
-  - link: "https://linksthechels.uk/"
+  - link: "https://links.thechels.uk/"
     name: "Links"
   - link: "https://cod.thechels.uk/"
     name: "Cheltenham Open Data"
