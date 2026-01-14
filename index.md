@@ -7,6 +7,7 @@ seo: toolkit
 
 ## Tools
 
+* [Activity Plan](/activity-plan) - Hourly activity planner over 4 weeks with effort level tracking
 * [Weather Forecast by postcode](/weather-forecast) - Weather for a specific postcode (requires OpenWeatherMap API key)
 * [Refinement Thought Provoker](/refinement) - Randomly generated thought provoker for refinement sessions
 * [Teaming](/teaming) - Helping Engineers in group programming sessions

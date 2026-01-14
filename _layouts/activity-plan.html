@@ -1,0 +1,386 @@
+{% include header.html %}
+
+<h1 class="post-title">{{ page.title }}</h1>
+
+<div id="activity-plan-container">
+    <div class="date-picker-section">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" />
+    </div>
+    
+    <div id="planGrid"></div>
+</div>
+
+<style>
+    #activity-plan-container {
+        max-width: 100%;
+        margin: 20px auto;
+    }
+    
+    .date-picker-section {
+        margin-bottom: 20px;
+        padding: 10px;
+        background: #f0f0f0;
+        border-radius: 5px;
+    }
+    
+    .date-picker-section label {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    
+    .date-picker-section input {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    
+    .week-container {
+        margin-bottom: 30px;
+    }
+    
+    .week-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #005ca3;
+    }
+    
+    .hour-header-row {
+        display: flex;
+        margin-bottom: 5px;
+        border-bottom: 2px solid #005ca3;
+        padding-bottom: 3px;
+    }
+    
+    .hour-header-cell {
+        width: 20px;
+        height: 15px;
+        font-size: 0.65em;
+        text-align: center;
+        font-weight: bold;
+        color: #005ca3;
+        box-sizing: border-box;
+    }
+    
+    .day-row {
+        display: flex;
+        margin-bottom: 2px;
+    }
+    
+    .date-cell {
+        width: 100px;
+        padding: 5px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        font-size: 0.9em;
+        box-sizing: border-box;
+    }
+    
+    .hour-cell {
+        width: 20px;
+        height: 20px;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-sizing: border-box;
+    }
+    
+    .hour-cell:hover {
+        border-color: #333;
+        box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    }
+    
+    /* Color states - blue scale */
+    .hour-cell.blank {
+        background-color: white;
+    }
+    
+    .hour-cell.sleep {
+        background-color: #d6e9f5; /* Lighter blue */
+    }
+    
+    .hour-cell.rest {
+        background-color: #a8cce5; /* Light blue */
+    }
+    
+    .hour-cell.low-effort {
+        background-color: #6ba3d1; /* Medium-light blue */
+    }
+    
+    .hour-cell.medium-effort {
+        background-color: #3d7eb8; /* Medium blue */
+    }
+    
+    .hour-cell.high-effort {
+        background-color: #1a5a9e; /* Darker blue */
+    }
+    
+    .legend {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f9f9f9;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+    
+    .legend h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    
+    .legend-item {
+        display: inline-block;
+        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .legend-color {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #ddd;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+</style>
+
+<script>
+    const STATES = ['blank', 'sleep', 'rest', 'low-effort', 'medium-effort', 'high-effort'];
+    const DAYS_PER_WEEK = 7;
+    const WEEKS = 4;
+    const HOURS_PER_DAY = 24;
+    const STORAGE_KEY = 'activityPlanData';
+    const STORAGE_DATE_KEY = 'activityPlanStartDate';
+    
+    let planData = {};
+    let startDate = new Date();
+    
+    // Initialize
+    function init() {
+        loadFromStorage();
+        setupDatePicker();
+        renderGrid();
+    }
+    
+    // Setup date picker
+    function setupDatePicker() {
+        const dateInput = document.getElementById('startDate');
+        
+        // Set to UK format by ensuring we use the correct date
+        dateInput.value = formatDateForInput(startDate);
+        
+        dateInput.addEventListener('change', function() {
+            startDate = new Date(this.value + 'T00:00:00');
+            saveStartDate();
+            renderGrid();
+        });
+    }
+    
+    // Format date for input field (YYYY-MM-DD)
+    function formatDateForInput(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+    
+    // Format date for display (UK format: DD/MM/YYYY)
+    function formatDateUK(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+    
+    // Get date key for storage
+    function getDateKey(weekIndex, dayIndex) {
+        const date = new Date(startDate);
+        date.setDate(date.getDate() + (weekIndex * DAYS_PER_WEEK) + dayIndex);
+        return formatDateForInput(date);
+    }
+    
+    // Render the grid
+    function renderGrid() {
+        const container = document.getElementById('planGrid');
+        container.innerHTML = '';
+        
+        for (let week = 0; week < WEEKS; week++) {
+            const weekDiv = document.createElement('div');
+            weekDiv.className = 'week-container';
+            
+            const weekTitle = document.createElement('div');
+            weekTitle.className = 'week-title';
+            weekTitle.textContent = `Week ${week + 1}`;
+            weekDiv.appendChild(weekTitle);
+            
+            // Add hour header row
+            const headerRow = document.createElement('div');
+            headerRow.className = 'hour-header-row';
+            
+            // Empty cell for date column
+            const emptyHeader = document.createElement('div');
+            emptyHeader.className = 'date-cell';
+            headerRow.appendChild(emptyHeader);
+            
+            // Hour headers (0-23)
+            for (let hour = 0; hour < HOURS_PER_DAY; hour++) {
+                const hourHeader = document.createElement('div');
+                hourHeader.className = 'hour-header-cell';
+                hourHeader.textContent = hour;
+                headerRow.appendChild(hourHeader);
+            }
+            
+            weekDiv.appendChild(headerRow);
+            
+            for (let day = 0; day < DAYS_PER_WEEK; day++) {
+                const dayRow = document.createElement('div');
+                dayRow.className = 'day-row';
+                
+                // Date cell
+                const dateCell = document.createElement('div');
+                dateCell.className = 'date-cell';
+                const currentDate = new Date(startDate);
+                currentDate.setDate(currentDate.getDate() + (week * DAYS_PER_WEEK) + day);
+                dateCell.textContent = formatDateUK(currentDate);
+                dayRow.appendChild(dateCell);
+                
+                // Hour cells
+                const dateKey = getDateKey(week, day);
+                for (let hour = 0; hour < HOURS_PER_DAY; hour++) {
+                    const hourCell = document.createElement('div');
+                    hourCell.className = 'hour-cell';
+                    hourCell.dataset.week = week;
+                    hourCell.dataset.day = day;
+                    hourCell.dataset.hour = hour;
+                    hourCell.dataset.dateKey = dateKey;
+                    
+                    // Get saved state
+                    const cellKey = `${dateKey}-${hour}`;
+                    const state = planData[cellKey] || 'blank';
+                    hourCell.classList.add(state);
+                    
+                    // Add click handler
+                    hourCell.addEventListener('click', handleCellClick);
+                    
+                    // Add title for accessibility
+                    hourCell.title = `${formatDateUK(currentDate)} - ${hour}:00`;
+                    
+                    dayRow.appendChild(hourCell);
+                }
+                
+                weekDiv.appendChild(dayRow);
+            }
+            
+            container.appendChild(weekDiv);
+        }
+        
+        // Add legend if not already present
+        if (!document.querySelector('.legend')) {
+            addLegend(container);
+        }
+    }
+    
+    // Add legend
+    function addLegend(container) {
+        const legend = document.createElement('div');
+        legend.className = 'legend';
+        legend.innerHTML = `
+            <h3>Categories</h3>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: white; border: 1px solid #ddd;"></span>
+                <span>Blank</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #d6e9f5;"></span>
+                <span>Sleep</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #a8cce5;"></span>
+                <span>Rest</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #6ba3d1;"></span>
+                <span>Low Effort</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #3d7eb8;"></span>
+                <span>Medium Effort</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #1a5a9e;"></span>
+                <span>High Effort</span>
+            </div>
+        `;
+        container.appendChild(legend);
+    }
+    
+    // Handle cell click
+    function handleCellClick(event) {
+        const cell = event.target;
+        const dateKey = cell.dataset.dateKey;
+        const hour = cell.dataset.hour;
+        const cellKey = `${dateKey}-${hour}`;
+        
+        // Get current state
+        const currentState = planData[cellKey] || 'blank';
+        const currentIndex = STATES.indexOf(currentState);
+        
+        // Cycle to next state
+        const nextIndex = (currentIndex + 1) % STATES.length;
+        const nextState = STATES[nextIndex];
+        
+        // Remove old state class
+        STATES.forEach(state => cell.classList.remove(state));
+        
+        // Add new state class
+        cell.classList.add(nextState);
+        
+        // Update data
+        planData[cellKey] = nextState;
+        
+        // Save to storage
+        saveToStorage();
+    }
+    
+    // Save to local storage
+    function saveToStorage() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(planData));
+        } catch (e) {
+            console.error('Failed to save to localStorage:', e);
+        }
+    }
+    
+    // Save start date
+    function saveStartDate() {
+        try {
+            localStorage.setItem(STORAGE_DATE_KEY, formatDateForInput(startDate));
+        } catch (e) {
+            console.error('Failed to save start date:', e);
+        }
+    }
+    
+    // Load from local storage
+    function loadFromStorage() {
+        try {
+            const savedData = localStorage.getItem(STORAGE_KEY);
+            if (savedData) {
+                planData = JSON.parse(savedData);
+            }
+            
+            const savedDate = localStorage.getItem(STORAGE_DATE_KEY);
+            if (savedDate) {
+                startDate = new Date(savedDate + 'T00:00:00');
+            }
+        } catch (e) {
+            console.error('Failed to load from localStorage:', e);
+        }
+    }
+    
+    // Initialize when page loads
+    init();
+</script>
+
+{% include footer.html %}
