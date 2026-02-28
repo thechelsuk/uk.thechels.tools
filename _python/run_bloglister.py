@@ -20,8 +20,11 @@ def process_opml(opml_file, output_file):
                 xml_url = outline.get('xmlUrl', '')
                 # Only include items with a title starting with 'Blog'
                 if title and title.strip().startswith('Blog') and html_url.strip():
+                    clean_title = title.strip()
+                    if clean_title.startswith('Blog - '):
+                        clean_title = clean_title[len('Blog - '):]
                     blogs.append({
-                        'title': title.strip(),
+                        'title': clean_title,
                         'htmlUrl': html_url.strip(),
                         'xmlUrl': xml_url.strip() if xml_url else ''
                     })
