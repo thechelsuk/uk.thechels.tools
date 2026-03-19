@@ -121,6 +121,7 @@ def main():
                 {
                     'published_date': latest_item['published_date'],
                     'published_date_str': latest_item['published_date_str'],
+                    'opml_title': subscription['opml_title'] or '',
                     'feed_title': latest_item['feed_title'] or feed_label,
                     'post_title': latest_item['post_title'],
                     'link_url': link_url,
@@ -135,16 +136,17 @@ def main():
         f.write(f"title: Latest RSS Items\nlayout: blogroll-dates\npermalink: /blogroll-dates/\n\n---\n\n")
         f.write(f"*Updated on {datetime.datetime.now().strftime('%Y-%m-%d')}*\n\n")
 
-        f.write("| Date | Blog | Last Post |\n")
-        f.write("|------|------|-----------|\n")
+        f.write("| Date | Feed | Blog | Last Post |\n")
+        f.write("|------|------|------|-----------|\n")
 
         for stale_feed in stale_feeds:
+            opml_label = stale_feed['opml_title'].replace('|', '\\|')
             blog_title = stale_feed['feed_title'].replace('|', '\\|')
             last_post_title = stale_feed['post_title'].replace('|', '\\|')
             blog_link = f"[{blog_title}]({stale_feed['link_url']})"
 
             f.write(
-                f"| {stale_feed['published_date_str']} | {blog_link} | {last_post_title} |\n"
+                f"| {stale_feed['published_date_str']} | {opml_label} | {blog_link} | {last_post_title} |\n"
             )
 
     print(f"Results written to {OUTPUT_FILE}")
