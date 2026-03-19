@@ -96,12 +96,15 @@ def main():
 
     # Generate the markdown with a table
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        f.write("# Latest Podcast Episodes\n\n")
-        f.write(f"*Updated on {datetime.datetime.now().strftime('%Y-%m-%d')}*\n\n")
+        f.write("---\n")
+        f.write(f"title: Latest Podcast's Episode Dates\nlayout: page\npermalink: /podcast-dates/\n\n")
+        f.write("---\n\n")
+
+        f.write(f"Last Updated: _{datetime.datetime.now().strftime('%Y-%m-%d')}_\n\n")
 
         # Create a markdown table
         f.write("| Podcast | Latest Episode | Published |\n")
-        f.write("|---------|----------------|----------|\n")
+        f.write("| --------- | ---------------- | ---------- |\n")
 
         for episode in results:
             # Escape pipe characters in titles to prevent breaking the table format

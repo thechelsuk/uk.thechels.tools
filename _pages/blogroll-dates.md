@@ -1,14 +1,14 @@
 ---
 title: Latest RSS Items
-layout: blogroll-dates
+layout: page
 permalink: /blogroll-dates/
 
 ---
 
-*Updated on 2026-03-19*
+Updated on 2026-03-19
 
 | Date | Feed | Blog | Last Post |
-|------|------|------|-----------|
+| ------ | ------ | ------ | ----------- |
 | 2016-10-18 | Blog - Dan North | [Welcome to DNA](https://dannorth.net/) | Talks |
 | 2019-03-02 | Blog - Aaron Randall | [Aaron Randall](https://aaronrandall.com/) | A Personal Growth Framework |
 | 2023-01-10 | Blog - Rosemary Orchard | [Rosemary Orchard \|](https://rosemaryorchard.com/) | Documenting My Smart Home |

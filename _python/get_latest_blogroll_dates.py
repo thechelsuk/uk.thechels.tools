@@ -133,11 +133,12 @@ def main():
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
 
         f.write("---\n")
-        f.write(f"title: Latest RSS Items\nlayout: blogroll-dates\npermalink: /blogroll-dates/\n\n---\n\n")
-        f.write(f"*Updated on {datetime.datetime.now().strftime('%Y-%m-%d')}*\n\n")
+        f.write(f"title: Latest RSS Items\nlayout: page\npermalink: /blogroll-dates/\n\n")
+        f.write("---\n\n")
+        f.write(f"Last Updated: _{datetime.datetime.now().strftime('%Y-%m-%d')}_\n\n")
 
         f.write("| Date | Feed | Blog | Last Post |\n")
-        f.write("|------|------|------|-----------|\n")
+        f.write("| ------ | ------ | ------ | ----------- |\n")
 
         for stale_feed in stale_feeds:
             opml_label = stale_feed['opml_title'].replace('|', '\\|')

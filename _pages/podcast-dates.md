@@ -1,12 +1,12 @@
 ---
 
-layout: podcast-dates
+layout: page
 title: Podcast Dates
 seo: Podcast Dates
 permalink: /podcast-dates
 ---
 
-Updated on 2026-02-28
+Last Updated: _2026-02-28_
 
 | Podcast | Latest Episode | Published |
 | --------- | ---------------- | ---------- |
