@@ -6,6 +6,8 @@ seo: Data
 permalink: /templates/data
 ---
 
+{% raw %}
+
 ```html
 {% include header.html %}
 {{ page.title }}
@@ -27,3 +29,5 @@ permalink: /templates/data
 {% endfor %}
 {% include footer.html %}
 ```
+
+{% endraw %}

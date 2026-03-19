@@ -67,7 +67,7 @@ seo: toolkit
 * [E4](/e4)
 * [Q3](/q3)
 
-## Markdown Templates
+## Markdown Publishing Templates
 
 * [Film Template](/templates/film)
 * [Quote Post Template](/templates/quote)
