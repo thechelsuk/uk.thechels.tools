@@ -66,3 +66,12 @@ seo: toolkit
 * [E3](/e3)
 * [E4](/e4)
 * [Q3](/q3)
+
+## Markdown Templates
+
+* [Film Template](/templates/film)
+* [Quote Post Template](/templates/quote)
+* [Regular Post Template](/templates/post)
+* [Music Post Template](/templates/music)
+* [Data Template](/templates/data)
+* [WeekNotes Template](/templates/weeknotes)
