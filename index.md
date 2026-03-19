@@ -15,7 +15,6 @@ seo: toolkit
 * [Monte Carlo Simulator](/monte-carlo) - Run Monte Carlo simulations and visualize results for agile teams
 * [Rolling Average Chart](/rolling-average) - A charting tool to calculate rolling averages
 * [Hex Codes](/hex-codes) - Colors for the web
-* [Podcast Grid](/podcast-grid) - Podcast artwork as a grid from an OPML file
 * [Fire Calculator](/fire) - Fire Calculator
 * [Invoice Editor](/invoice) - Create, edit, and print invoices as PDF
 
@@ -66,6 +65,16 @@ seo: toolkit
 * [E3](/e3)
 * [E4](/e4)
 * [Q3](/q3)
+
+## RSS/OPML/Feed Tools
+
+* [Get RSS Feed from YouTube Channel](/youtube-rss) - Get RSS feed URL from a YouTube channel URL.
+
+Using local machine to run python scripts to parse, these are just outputs of those scripts
+
+* [Blogroll-dates](/blogroll-dates) - Extract and display latest publication dates from blogroll OPML file.
+* [Podcast-dates](/podcast-dates) - Extract and display latest publication dates from podcast OPML file.
+* [Podcast Grid](/podcast-grid) - Podcast artwork as a grid from an OPML file
 
 ## Markdown Publishing Templates
 
