@@ -16,7 +16,6 @@ seo: toolkit
 * [Rolling Average Chart](/rolling-average) - A charting tool to calculate rolling averages
 * [Hex Codes](/hex-codes) - Colors for the web
 * [Podcast Grid](/podcast-grid) - Podcast artwork as a grid from an OPML file
-* [Podcast Dates](/podcast-dates) - Find the last published episode for each podcast in an OPML file
 * [Fire Calculator](/fire) - Fire Calculator
 * [Invoice Editor](/invoice) - Create, edit, and print invoices as PDF
 
