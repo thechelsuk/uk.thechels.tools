@@ -7,86 +7,87 @@ seo: toolkit
 
 ## Feeds
 
-- [Dotnet news and updates](https://feeds.thechels.uk/dotnet)
-- [SecOps news and updates](https://feeds.thechels.uk/secops)
-- [Insurance news and updates](https://feeds.thechels.uk/insurance)
+- [Dotnet news and updates](https://feeds.thechels.uk/dotnet) - Combined news from top sources into one page and feed.
+- [SecOps news and updates](https://feeds.thechels.uk/secops) - Combined news from top sources into one page and feed.
+- [Insurance news and updates](https://feeds.thechels.uk/insurance) - Combined news from top sources into one page and feed.
+- [Cheltenham news and updates](https://cod.thechels.uk/news) - Combined news from local sources into one page and feed.
 
 ## Tools
 
-* [Activity Plan](/activity-plan) - Hourly activity planner over 4 weeks with effort level tracking
-* [Weather Forecast by postcode](/weather-forecast) - Weather for a specific postcode (requires OpenWeatherMap API key)
-* [Refinement Thought Provoker](/refinement) - Randomly generated thought provoker for refinement sessions
-* [Teaming](/teaming) - Helping Engineers in group programming sessions
-* [Pomodoro Timer](/pomodoro) - Use the Pomodoro technique for time management.
-* [Monte Carlo Simulator](/monte-carlo) - Run Monte Carlo simulations and visualize results for agile teams
-* [Rolling Average Chart](/rolling-average) - A charting tool to calculate rolling averages
-* [Hex Codes](/hex-codes) - Colors for the web
-* [Fire Calculator](/fire) - Fire Calculator
-* [Invoice Editor](/invoice) - Create, edit, and print invoices as PDF
+- [Activity Plan](/activity-plan) - Hourly activity planner over 4 weeks with effort level tracking
+- [Weather Forecast by postcode](/weather-forecast) - Weather for a specific postcode (requires OpenWeatherMap API key)
+- [Refinement Thought Provoker](/refinement) - Randomly generated thought provoker for refinement sessions
+- [Teaming](/teaming) - Helping Engineers in group programming sessions
+- [Pomodoro Timer](/pomodoro) - Use the Pomodoro technique for time management.
+- [Monte Carlo Simulator](/monte-carlo) - Run Monte Carlo simulations and visualize results for agile teams
+- [Rolling Average Chart](/rolling-average) - A charting tool to calculate rolling averages
+- [Hex Codes](/hex-codes) - Colors for the web
+- [Fire Calculator](/fire) - Fire Calculator
+- [Invoice Editor](/invoice) - Create, edit, and print invoices as PDF
 
 ## Additional Helpers
 
-* [Writing Style](/writing-style) - Analyze and improve writing style removing passive voice and weasel words
-* [YAML explorer](/yaml-explorer) - Explore and edit YAML files.
-* [Paste Rich Text](/paste-rich-text) - Paste and format rich text.
-* [Extract Urls](/extract-urls) - Extract URLs from text.
-* [GitHub Issue Checker](/github-issue) - Check and manage GitHub issues.
+- [Writing Style](/writing-style) - Analyze and improve writing style removing passive voice and weasel words
+- [YAML explorer](/yaml-explorer) - Explore and edit YAML files.
+- [Paste Rich Text](/paste-rich-text) - Paste and format rich text.
+- [Extract Urls](/extract-urls) - Extract URLs from text.
+- [GitHub Issue Checker](/github-issue) - Check and manage GitHub issues.
 
 ## Manipulations
 
-* [Escape Entities](/escape-entities) - Convert special characters to HTML entities.
-* [JSON Pretty Printer](/json-pretty-printer) - Format JSON data for readability.
-* [JSON to Yaml Converter](/json-to-yaml) - Convert JSON data to YAML format.
-* [List Sorter](/list-sorter) - Sort lists of items alphabetically and reverse alphabetically.
-* [QR Code](/qr) - Generate QR codes.
-* [SQL Pretty Printer](/sql-pretty-printer) - Format SQL queries for readability.
-* [String sorter](/string-sorter) - Reverse and sort strings.
+- [Escape Entities](/escape-entities) - Convert special characters to HTML entities.
+- [JSON Pretty Printer](/json-pretty-printer) - Format JSON data for readability.
+- [JSON to Yaml Converter](/json-to-yaml) - Convert JSON data to YAML format.
+- [List Sorter](/list-sorter) - Sort lists of items alphabetically and reverse alphabetically.
+- [QR Code](/qr) - Generate QR codes.
+- [SQL Pretty Printer](/sql-pretty-printer) - Format SQL queries for readability.
+- [String sorter](/string-sorter) - Reverse and sort strings.
 
 ## Images
 
-* [Image Resize Quality](/image-resize-quality) - Resize images while maintaining quality.
-* [Convert Image to JPEG](/image-to-jpeg) - Convert images to JPEG format.
-* [Convert Image to SVG](/image-to-svg) - Convert images to SVG format.
-* [Exif data](/exif) - Extract and display EXIF data from images.
+- [Image Resize Quality](/image-resize-quality) - Resize images while maintaining quality.
+- [Convert Image to JPEG](/image-to-jpeg) - Convert images to JPEG format.
+- [Convert Image to SVG](/image-to-svg) - Convert images to SVG format.
+- [Exif data](/exif) - Extract and display EXIF data from images.
 
 ## Templates
 
-* [Interview Template](/interview-template) - Template for conducting interviews.
-* [Strategy Template](/strategy-template) - Template for creating strategies.
-* [Secure Development Policy](/secure-dev-policy)
-* [Service Level Agreement Policy](/Service-level-agreement-policy)
-* [Engineering Principles](/principles)
-* [Dora Assessment](/dora-assessment)
+- [Interview Template](/interview-template) - Template for conducting interviews.
+- [Strategy Template](/strategy-template) - Template for creating strategies.
+- [Secure Development Policy](/secure-dev-policy)
+- [Service Level Agreement Policy](/Service-level-agreement-policy)
+- [Engineering Principles](/principles)
+- [Dora Assessment](/dora-assessment)
 
 ## Ensemblism Social Programming
 
-* [Resources](/ensemblism/resources)
-* [Roles](/ensemblism/roles)
-* [Rules](/ensemblism/rules)
-* [Symptoms](/ensemblism/symptoms)
+- [Resources](/ensemblism/resources)
+- [Roles](/ensemblism/roles)
+- [Rules](/ensemblism/rules)
+- [Symptoms](/ensemblism/symptoms)
 
 ## Role Profile Templates
 
-* [E2](/e2)
-* [E3](/e3)
-* [E4](/e4)
-* [Q3](/q3)
+- [E2](/e2)
+- [E3](/e3)
+- [E4](/e4)
+- [Q3](/q3)
 
 ## RSS/OPML/Feed Tools
 
-* [Get RSS Feed from YouTube Channel](/youtube-rss) - Get RSS feed URL from a YouTube channel URL.
+- [Get RSS Feed from YouTube Channel](/youtube-rss) - Get RSS feed URL from a YouTube channel URL.
 
 Using local machine to run python scripts to parse, these are just outputs of those scripts
 
-* [Blogroll-dates](/blogroll-dates) - Extract and display latest publication dates from blogroll OPML file.
-* [Podcast-dates](/podcast-dates) - Extract and display latest publication dates from podcast OPML file.
-* [Podcast Grid](/podcast-grid) - Podcast artwork as a grid from an OPML file
+- [Blogroll-dates](/blogroll-dates) - Extract and display latest publication dates from blogroll OPML file.
+- [Podcast-dates](/podcast-dates) - Extract and display latest publication dates from podcast OPML file.
+- [Podcast Grid](/podcast-grid) - Podcast artwork as a grid from an OPML file
 
 ## Markdown Publishing Templates
 
-* [Film Template](/templates/film)
-* [Quote Post Template](/templates/quote)
-* [Regular Post Template](/templates/post)
-* [Music Post Template](/templates/music)
-* [Data Template](/templates/data)
-* [WeekNotes Template](/templates/weeknotes)
+- [Film Template](/templates/film)
+- [Quote Post Template](/templates/quote)
+- [Regular Post Template](/templates/post)
+- [Music Post Template](/templates/music)
+- [Data Template](/templates/data)
+- [WeekNotes Template](/templates/weeknotes)
