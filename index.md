@@ -5,6 +5,12 @@ seo: toolkit
 
 ---
 
+## Feeds
+
+- [Dotnet news and updates](https://feeds.thechels.uk/dotnet)
+- [SecOps news and updates](https://feeds.thechels.uk/secops)
+- [Insurance news and updates](https://feeds.thechels.uk/insurance)
+
 ## Tools
 
 * [Activity Plan](/activity-plan) - Hourly activity planner over 4 weeks with effort level tracking
