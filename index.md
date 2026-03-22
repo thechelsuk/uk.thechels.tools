@@ -91,3 +91,27 @@ Using local machine to run python scripts to parse, these are just outputs of th
 - [Music Post Template](/templates/music)
 - [Data Template](/templates/data)
 - [WeekNotes Template](/templates/weeknotes)
+
+## Misc External tools
+
+- [Convert HTML to Markdown](https://www.browserling.com/tools/html-to-markdown) ⇗
+- [Line Graph Maker](https://www.rapidtables.com/tools/line-graph.html) ⇗
+- [Base64 Encode/decode](https://base64.guru/converter/encode/image) ⇗
+- [Regular Expressions 101](https://regex101.com/) ⇗
+- [Moving Average Calculator](https://goodcalculators.com/simple-moving-average-calculator/) ⇗
+- [Coast Fire Calculator](https://tools.walletburst.com/tools/coast-fire-calc/) ⇗
+- [Mp3 Merger](https://mp3chapters.github.io/merge/) ⇗
+- [ISBN Search](https://isbnsearch.org/) ⇗
+- [Premier League Scorigami](https://premierleaguescorigami.com/) ⇗
+- [Chunkbase - Minecraft Seed Map](https://www.chunkbase.com/apps/seed-map) ⇗
+
+### Font Generators
+
+- [Metaflop Font modulator](https://www.metaflop.com/modulator) ⇗
+- [Font Converter](https://www.fontconverter.io/en/) ⇗
+
+### Icon Generators
+
+- [App Icon Kitchen](https://icon.kitchen/i/) ⇗
+- [Chrome Extension Icon Generator](https://alexleybourne.github.io/chrome-extension-icon-generator/) ⇗
+- [Apple App store Launch Icon Generator](https://theapplaunchpad.com/auth) ⇗
