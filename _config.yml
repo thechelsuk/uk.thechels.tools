@@ -44,12 +44,12 @@ include:
 ## Header
 navigation_header:
   - link: "https://thechels.uk/"
-    name: "thechelsuk"
+    name: "thechelsuk ⇗"
   - link: "https://links.thechels.uk/"
-    name: "Links"
+    name: "Links ⇗"
   - link: "https://cod.thechels.uk/"
-    name: "Cheltenham Open Data"
+    name: "Cheltenham Open Data ⇗"
   - link: "https://hiyd.uk/"
-    name: "Hiyd"
+    name: "Hiyd ⇗"
   - link: "https://apps.apple.com/gb/developer/mat-benfield/id1818791310"
-    name: "AppStore"
+    name: "AppStore ⇗"
