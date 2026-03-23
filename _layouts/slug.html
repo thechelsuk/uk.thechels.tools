@@ -1,0 +1,125 @@
+{% include header.html %}
+<h1 class="post-title">{{ page.title }}</h1>
+
+{{ content }}
+
+
+<form id="slugForm">
+    <label for="lengthSlider">Length: <span id="lengthValue">12</span></label>
+    <br>
+    <input type="range" id="lengthSlider" min="1" max="15" value="12" list="lengthMarks">
+    <datalist id="lengthMarks">
+        <option value="1"></option>
+        <option value="2"></option>
+        <option value="3"></option>
+        <option value="4"></option>
+        <option value="5"></option>
+        <option value="6"></option>
+        <option value="7"></option>
+        <option value="8"></option>
+        <option value="9"></option>
+        <option value="10"></option>
+        <option value="11"></option>
+        <option value="12"></option>
+        <option value="13"></option>
+        <option value="14"></option>
+        <option value="15"></option>
+    </datalist>
+    <br>
+    <label>
+        <input type="checkbox" id="startsWithLetter" checked>
+        Start with a letter
+    </label>
+    <br>
+    <button type="submit">Generate</button>
+</form>
+
+<br>
+
+<label for="slugOutput">Slug</label>
+<input type="text" id="slugOutput" readonly placeholder="Generate a slug">
+<button type="button" id="copySlug">Copy</button>
+
+<script>
+    const lengthSlider = document.getElementById('lengthSlider');
+    const lengthValue = document.getElementById('lengthValue');
+    const slugForm = document.getElementById('slugForm');
+    const startsWithLetter = document.getElementById('startsWithLetter');
+    const slugOutput = document.getElementById('slugOutput');
+    const copySlug = document.getElementById('copySlug');
+
+    const sliderToLength = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 32, 64];
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    const alphanumeric = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+    function randomInt(max) {
+        if (window.crypto && window.crypto.getRandomValues) {
+            const values = new Uint32Array(1);
+            window.crypto.getRandomValues(values);
+            return values[0] % max;
+        }
+        return Math.floor(Math.random() * max);
+    }
+
+    function getSelectedLength() {
+        return sliderToLength[Number(lengthSlider.value) - 1];
+    }
+
+    function updateLengthLabel() {
+        lengthValue.textContent = getSelectedLength();
+    }
+
+    function generateSlug(length, forceLetterStart) {
+        if (length <= 0) {
+            return '';
+        }
+
+        let result = '';
+        if (forceLetterStart) {
+            result += letters[randomInt(letters.length)];
+        }
+
+        while (result.length < length) {
+            result += alphanumeric[randomInt(alphanumeric.length)];
+        }
+
+        return result;
+    }
+
+    lengthSlider.addEventListener('input', updateLengthLabel);
+
+    slugForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const slug = generateSlug(getSelectedLength(), startsWithLetter.checked);
+        slugOutput.value = slug;
+        slugOutput.focus();
+        slugOutput.select();
+    });
+
+    slugOutput.addEventListener('click', function () {
+        slugOutput.focus();
+        slugOutput.select();
+    });
+
+    copySlug.addEventListener('click', async function () {
+        if (!slugOutput.value) {
+            return;
+        }
+
+        slugOutput.focus();
+        slugOutput.select();
+
+        try {
+            await navigator.clipboard.writeText(slugOutput.value);
+        } catch (error) {
+            document.execCommand('copy');
+        }
+    });
+
+    updateLengthLabel();
+    slugOutput.value = generateSlug(getSelectedLength(), startsWithLetter.checked);
+</script>
+
+
+
+{% include footer.html %}

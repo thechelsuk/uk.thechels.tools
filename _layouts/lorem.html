@@ -1,0 +1,70 @@
+{% include header.html %}
+
+<h1 class="post-title">{{ page.title }}</h1>
+
+{{ content }}
+
+<form id="loremForm">
+    <label for="paragraphCount">Paragraphs</label>
+    <input type="number" id="paragraphCount" min="1" value="3">
+    <button type="submit">Generate</button>
+</form>
+
+<br>
+
+<label for="loremOutput">Lorem ipsum</label>
+<textarea id="loremOutput" rows="18" readonly placeholder="Generated text will appear here"></textarea>
+<div id="copyStatus" aria-live="polite"></div>
+
+<script>
+    const loremForm = document.getElementById('loremForm');
+    const paragraphCount = document.getElementById('paragraphCount');
+    const loremOutput = document.getElementById('loremOutput');
+    const copyStatus = document.getElementById('copyStatus');
+
+    const paragraphPool = [
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras mattis consectetur purus sit amet fermentum.',
+        'Donec sed odio dui. Maecenas faucibus mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam quis risus eget urna mollis ornare vel eu leo.',
+        'Curabitur blandit tempus porttitor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.'
+    ];
+
+    function generateLorem(paragraphs) {
+        const blocks = [];
+        for (let i = 0; i < paragraphs; i += 1) {
+            blocks.push(paragraphPool[i % paragraphPool.length]);
+        }
+        return blocks.join('\n\n');
+    }
+
+    loremForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const count = Math.max(1, Number(paragraphCount.value) || 1);
+        paragraphCount.value = count;
+        loremOutput.value = generateLorem(count);
+        copyStatus.textContent = '';
+    });
+
+    loremOutput.addEventListener('click', async function () {
+        if (!loremOutput.value) {
+            return;
+        }
+
+        loremOutput.focus();
+        loremOutput.select();
+
+        try {
+            await navigator.clipboard.writeText(loremOutput.value);
+            copyStatus.textContent = 'Copied';
+        } catch (error) {
+            document.execCommand('copy');
+            copyStatus.textContent = 'Copied';
+        }
+    });
+
+    loremOutput.value = generateLorem(Number(paragraphCount.value));
+</script>
+
+
+{% include footer.html %}
