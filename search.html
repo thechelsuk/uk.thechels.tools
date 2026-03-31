@@ -21,7 +21,7 @@
             body {
                 margin: 0;
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-                background: #181818;
+                background: #23272a;
                 color: #f3f3f3;
                 min-height: 100vh;
                 display: flex;
@@ -33,18 +33,37 @@
 
             @media (prefers-color-scheme: light) {
                 body {
-                    background: #f3f3f3;
-                    color: #181818;
+                    background: #f9f9f9;
+                    color: #232323;
                 }
 
                 .search-box {
                     background: #fff;
-                    color: #181818;
+                    color: #232323;
                 }
 
                 .result,
                 .matches {
-                    background: #f9f9f9;
+                    background: #fff;
+                    color: #232323;
+                }
+            }
+
+            @media (prefers-color-scheme: dark) {
+                body {
+                    background: #23272a;
+                    color: #f3f3f3;
+                }
+
+                .search-box {
+                    background: #2c2f33;
+                    color: #f3f3f3;
+                }
+
+                .result,
+                .matches {
+                    background: #23272a;
+                    color: #f3f3f3;
                 }
             }
 
@@ -78,17 +97,17 @@
                 font-size: 1.25rem;
                 padding: 1em 1.2em;
                 border-radius: 1.5em;
-                border: 2px solid #2e7ad3;
+                border: 2px solid #bbb;
                 margin-bottom: 1.2em;
-                background: #232323;
-                color: #f3f3f3;
-                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+                background: #fff;
+                color: #232323;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
                 outline: none;
                 transition: box-shadow 0.2s, border 0.2s;
             }
 
             .search-box:focus {
-                box-shadow: 0 4px 18px rgba(46, 122, 211, 0.13);
+                box-shadow: 0 4px 18px rgba(46, 122, 211, 0.10);
                 border: 2px solid #2e7ad3;
             }
 
@@ -105,23 +124,22 @@
                 font-size: 1.08rem;
                 padding: 0.6em 1.4em;
                 border-radius: 1.2em;
-                border: none;
-                background: linear-gradient(90deg, #2e7ad3 60%, #232323 100%);
-                color: #fff;
+                border: 1.5px solid #bbb;
+                background: #f5f5f5;
+                color: #232323;
                 cursor: pointer;
                 margin: 0.2em 0;
                 transition: background 0.2s, box-shadow 0.2s;
-                box-shadow: 0 1px 4px rgba(46, 122, 211, 0.08);
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
                 display: flex;
                 align-items: center;
                 gap: 0.5em;
-                border: 1.5px solid #2e7ad3;
             }
 
             .actions button:hover,
             .actions label:hover {
-                background: linear-gradient(90deg, #388be0 60%, #232323 100%);
-                box-shadow: 0 2px 8px rgba(46, 122, 211, 0.13);
+                background: #e0e0e0;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             }
 
             .actions input[type="file"] {
@@ -133,11 +151,17 @@
                 margin-bottom: 1em;
                 padding: 0.7em 1em;
                 border-radius: 1em;
-                background: #232323;
+                background: #23272a;
                 min-height: 2.2em;
                 text-align: center;
                 max-width: 420px;
-                box-shadow: 0 1px 4px rgba(46, 122, 211, 0.07);
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+                color: #f3f3f3;
+                display: none;
+            }
+
+            .result.active {
+                display: block;
             }
 
             .matches {
@@ -247,7 +271,7 @@
             </label>
             <button id="clearBtn" type="button">Clear</button>
         </div>
-        <div class="result" id="result"></div>
+        <!-- Removed result box as per user request -->
         <div class="matches" id="matches"></div>
         <div class="footer">
             <span id="filmCount">0 films indexed</span>
@@ -340,9 +364,6 @@
                 document.getElementById('filmCount').textContent = `${films.length} film${films.length === 1 ? '' : 's'} indexed`;
             }
 
-            function showResult(text) {
-                resultDiv.textContent = text;
-            }
 
             // Helper to decode Unicode escape sequences (e.g., \u2013)
             function decodeUnicodeEscapes(str) {
@@ -375,30 +396,42 @@
             function doSearch() {
                 const q = searchBox.value.trim();
                 if (!q) {
-                    showResult('');
                     showMatches([]);
                     return;
                 }
-                // Exact match (case-insensitive)
-                const found = films.find(f => f.Title && f.Title.toLowerCase() === q.toLowerCase());
-                if (found) {
-                    showResult('Yes, already seen');
-                } else {
-                    showResult('No, not seen');
-                }
-                // Fuzzy: sort by Levenshtein distance, then alphabetically
-                const scored = films.map(f => ({
-                    ...f,
-                    _score: levenshtein(q, f.Title || '')
-                }));
-                scored.sort((a, b) => a._score - b._score || (a.Title || '').localeCompare(b.Title || ''));
+                // Improved search: substring matches always rank above fuzzy matches
+                const lowerQ = q.toLowerCase();
+                const scored = films.map(f => {
+                    const title = (f.Title || '');
+                    const lowerTitle = title.toLowerCase();
+                    let substrRank = -1;
+                    if (lowerTitle.includes(lowerQ)) {
+                        // Rank by where the substring appears (earlier is better)
+                        substrRank = lowerTitle.indexOf(lowerQ);
+                    }
+                    return {
+                        ...f,
+                        _substr: substrRank,
+                        _score: levenshtein(q, title)
+                    };
+                });
+                scored.sort((a, b) => {
+                    // Substring matches first, sorted by position, then fuzzy score, then alpha
+                    if (a._substr !== -1 && b._substr !== -1) {
+                        if (a._substr !== b._substr) return a._substr - b._substr;
+                        return (a.Title || '').localeCompare(b.Title || '');
+                    }
+                    if (a._substr !== -1) return -1;
+                    if (b._substr !== -1) return 1;
+                    if (a._score !== b._score) return a._score - b._score;
+                    return (a.Title || '').localeCompare(b.Title || '');
+                });
                 showMatches(scored.slice(0, 10));
             }
 
             searchBox.addEventListener('input', doSearch);
             clearBtn.addEventListener('click', () => {
                 searchBox.value = '';
-                showResult('');
                 showMatches([]);
                 searchBox.focus();
             });
@@ -433,7 +466,6 @@
                     films = [];
                     saveFilms(films);
                     updateFilmCount();
-                    showResult('');
                     showMatches([]);
                     searchBox.value = '';
                 }
