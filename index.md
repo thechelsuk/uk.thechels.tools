@@ -77,8 +77,6 @@ seo: toolkit
 
 ## RSS/OPML/Feed Tools
 
-- [Get RSS Feed from YouTube Channel](/youtube-rss) - Get RSS feed URL from a YouTube channel URL.
-
 Using local machine to run python scripts to parse, these are just outputs of those scripts
 
 - [Blogroll-dates](/blogroll-dates) - Extract and display latest publication dates from blogroll OPML file.
@@ -96,6 +94,7 @@ Using local machine to run python scripts to parse, these are just outputs of th
 
 ## Misc External tools
 
+- [YouTube RSS feed generator](https://tubepilot.ai/tools/youtube-rss-feed-generator/) ⇗
 - [Convert HTML to Markdown](https://www.browserling.com/tools/html-to-markdown) ⇗
 - [Line Graph Maker](https://www.rapidtables.com/tools/line-graph.html) ⇗
 - [Base64 Encode/decode](https://base64.guru/converter/encode/image) ⇗
