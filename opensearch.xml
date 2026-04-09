@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+	<ShortName>thechelsuk Search</ShortName>
+	<Description>A search engine router with Bangs!</Description>
+	<Tags>search wrapper router</Tags>
+	<Contact>search@thechels.uk</Contact>
+	<Url type="text/html" template="https://search.thechels.uk/?q={searchTerms}"/>
+	<Url type="application/opensearchdescription+xml" rel="self" template="https://search.thechels.uk/opensearch.xml"/>
+	<LongName>thechelsuk Search Router</LongName>
+	<Image type="image/ico">https://thechels.uk/favicon.ico</Image>
+	<Developer>Declan Chidlow (Vale)</Developer>
+	<Language>*</Language>
+	<InputEncoding>UTF-8</InputEncoding>
+	<OutputEncoding>UTF-8</OutputEncoding>
+</OpenSearchDescription>

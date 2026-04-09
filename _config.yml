@@ -2,15 +2,16 @@ highlighter: rouge
 permalink: ./:title
 title: "Toolkit"
 description: "// Hopefully helpful"
-author: "Mat"
+author: "thechelsuk"
 url: https://tools.thechels.uk
-copyright: "MB"
+copyright: "thechelsuk"
 encoding: UTF-8
 future: false
-repository: Mat-0/uk.thechels.tools
+theme:
+repository: thechelsuk/uk.thechels.tools
 defaultImagePath: "/images/splashscreens/apple-touch-icon-180x180.png"
 github:
-  repository_url: https://github.com/Mat-0/uk.thechels.tools
+  repository_url: https://github.com/thechelsuk/uk.thechels.tools
   branch: main
 sass:
   style: compressed

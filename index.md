@@ -12,6 +12,10 @@ seo: toolkit
 - [Insurance news and updates](https://feeds.thechels.uk/insurance) - Combined news from top sources into one page and feed.
 - [Cheltenham news and updates](https://cod.thechels.uk/news) - Combined news from local sources into one page and feed.
 
+## Search
+
+- [Search](/search) - Search across multiple search engines and platforms using bangs and shortcodes.
+
 ## Tools
 
 - [Activity Plan](/activity-plan) - Hourly activity planner over 4 weeks with effort level tracking
