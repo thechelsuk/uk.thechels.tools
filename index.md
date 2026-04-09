@@ -15,6 +15,7 @@ seo: toolkit
 ## Search
 
 - [Search](/search) - Search across multiple search engines and platforms using bangs and shortcodes.
+- [YAML Film Search](/film) - Search your yaml film file.
 
 ## Tools
 
