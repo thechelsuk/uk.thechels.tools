@@ -118,6 +118,6 @@ Using local machine to run python scripts to parse, these are just outputs of th
 
 ### Icon Generators
 
-- [App Icon Kitchen](https://icon.kitchen/i/) ⇗
+- [App Icon Kitchen](https://icon.kitchen/) ⇗
 - [Chrome Extension Icon Generator](https://alexleybourne.github.io/chrome-extension-icon-generator/) ⇗
 - [Apple App store Launch Icon Generator](https://theapplaunchpad.com/auth) ⇗
