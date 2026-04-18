@@ -1,0 +1,147 @@
+# Releases are triggered by a keyword prefix in the first line of a commit
+# message pushed to main. Any commit without the prefix is ignored.
+#
+# Trigger format:
+#
+#   release:          → minor bump  (default)
+#   release(minor):   → minor bump
+#   release(patch):   → patch bump
+#   release(major):   → major bump
+#
+# Examples:
+#   release: add dark mode support
+#   release(patch): fix crash on empty feed
+#   release(major): remove v1 API endpoints
+#
+# Versioning:
+#   Semver, no 'v' prefix (e.g. 1.2.3).
+#   Defaults to 1.0.0 if no existing tags are found.
+
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for release trigger in commit message
+        id: check
+        run: |
+          FIRST_LINE=$(echo "${{ github.event.head_commit.message }}" | head -n1)
+          echo "First line: $FIRST_LINE"
+
+          if echo "$FIRST_LINE" | grep -qiE '^release\(major\):'; then
+            BUMP="major"
+            DESCRIPTION=$(echo "$FIRST_LINE" | sed -E 's/^[Rr]elease\(major\):[[:space:]]*//')
+          elif echo "$FIRST_LINE" | grep -qiE '^release\(minor\):'; then
+            BUMP="minor"
+            DESCRIPTION=$(echo "$FIRST_LINE" | sed -E 's/^[Rr]elease\(minor\):[[:space:]]*//')
+          elif echo "$FIRST_LINE" | grep -qiE '^release\(patch\):'; then
+            BUMP="patch"
+            DESCRIPTION=$(echo "$FIRST_LINE" | sed -E 's/^[Rr]elease\(patch\):[[:space:]]*//')
+          elif echo "$FIRST_LINE" | grep -qiE '^release:'; then
+            BUMP="minor"
+            DESCRIPTION=$(echo "$FIRST_LINE" | sed -E 's/^[Rr]elease:[[:space:]]*//')
+          else
+            echo "No release trigger found — skipping."
+            echo "triggered=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "triggered=true" >> "$GITHUB_OUTPUT"
+          echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
+          # Use a delimiter to safely handle special characters in the description
+          echo "description<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$DESCRIPTION" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Determine next version
+        id: version
+        if: steps.check.outputs.triggered == 'true'
+        run: |
+          LATEST=$(git tag --list --sort=-version:refname | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)
+
+          if [ -z "$LATEST" ]; then
+            echo "No existing semver tags — will create 1.0.0."
+            echo "previous=" >> "$GITHUB_OUTPUT"
+            echo "next=1.0.0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          MAJOR=$(echo "$LATEST" | cut -d. -f1)
+          MINOR=$(echo "$LATEST" | cut -d. -f2)
+          PATCH=$(echo "$LATEST" | cut -d. -f3)
+
+          case "${{ steps.check.outputs.bump }}" in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            patch) PATCH=$((PATCH + 1)) ;;
+          esac
+
+          NEXT="${MAJOR}.${MINOR}.${PATCH}"
+          echo "Previous: $LATEST → Next: $NEXT (${{ steps.check.outputs.bump }})"
+          echo "previous=$LATEST" >> "$GITHUB_OUTPUT"
+          echo "next=$NEXT" >> "$GITHUB_OUTPUT"
+
+      - name: Build release notes
+        id: notes
+        if: steps.check.outputs.triggered == 'true'
+        run: |
+          PREV="${{ steps.version.outputs.previous }}"
+          DESCRIPTION="${{ steps.check.outputs.description }}"
+
+          if [ -n "$PREV" ] && git rev-parse "$PREV" >/dev/null 2>&1; then
+            RANGE="${PREV}..HEAD"
+            SINCE="since ${PREV}"
+          else
+            RANGE="HEAD"
+            SINCE="all commits"
+          fi
+
+          LOG=$(git log "$RANGE" --pretty=format:"- %s (%h)" --no-merges)
+
+          {
+            echo "## $DESCRIPTION"
+            echo ""
+            echo "### Changes (${SINCE})"
+            echo ""
+            if [ -n "$LOG" ]; then
+              echo "$LOG"
+            else
+              echo "- No individual commits listed."
+            fi
+          } > /tmp/release_notes.md
+
+          echo "notes_file=/tmp/release_notes.md" >> "$GITHUB_OUTPUT"
+
+      - name: Tag repository
+        if: steps.check.outputs.triggered == 'true'
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          NEXT="${{ steps.version.outputs.next }}"
+          git tag "$NEXT" -m "Release $NEXT"
+          git push origin "$NEXT"
+
+      - name: Create GitHub release
+        if: steps.check.outputs.triggered == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.version.outputs.next }}" \
+            --title "${{ steps.version.outputs.next }}" \
+            --notes-file "${{ steps.notes.outputs.notes_file }}"
