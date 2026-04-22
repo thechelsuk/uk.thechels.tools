@@ -13,6 +13,7 @@ layout: post
 date: YYYY-MM-DD
 tags : [music]
 title: Monthly Mixtape - mmm YYYY
+type: mixtape
 
 ---
 
