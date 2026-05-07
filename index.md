@@ -28,6 +28,7 @@ seo: toolkit
 - [Rolling Average Chart](/rolling-average) - A charting tool to calculate rolling averages
 - [Hex Codes](/hex-codes) - Colors for the web
 - [Fire Calculator](/fire) - Fire Calculator
+- [Fire Calculator II](/fire-two) - Alternative Fire Calculator
 - [Invoice Editor](/invoice) - Create, edit, and print invoices as PDF
 - [Lorem Ipsum Generator](/lorem) - Generate placeholder text for design and development projects.
 - [Random Slug Generator](/slug) - Generate random slugs for URLs, filenames, or identifiers.
