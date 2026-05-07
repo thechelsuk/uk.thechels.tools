@@ -293,6 +293,19 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 11px;
+    background: var(--surface);
+  }
+
+  tbody tr:nth-child(odd) {
+    background: var(--surface2);
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--surface);
+  }
+
+  tbody tr.milestone {
+    background: rgba(200, 169, 110, 0.10) !important;
   }
 
   thead tr {
@@ -365,352 +378,352 @@
   }
 </style>
 
-  <div class="fire-wrapper">
-    <header>
-      <h1>Retirement Planner</h1>
-      <p>Real terms · 6% real equity growth · Inflation-neutral pensions</p>
-    </header>
+<div class="fire-wrapper">
+  <header>
+    <h1>Retirement Planner</h1>
+    <p>Real terms · 6% real equity growth · Inflation-neutral pensions</p>
+  </header>
 
-    <div class="kpi-grid">
-      <div class="kpi">
-        <div class="kpi-label">Earliest Viable Age</div>
-        <div class="kpi-value" id="kpiEarliest">--</div>
-        <div class="kpi-sub" id="kpiEarliestSub"></div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Portfolio at Retirement</div>
-        <div class="kpi-value green" id="kpiPortfolio">--</div>
-        <div class="kpi-sub">DC + SIPP + ISA</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Income at Retirement</div>
-        <div class="kpi-value" id="kpiIncome">--</div>
-        <div class="kpi-sub">drawdown + guaranteed</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Portfolio at 85</div>
-        <div class="kpi-value" id="kpi85">--</div>
-        <div class="kpi-sub">longevity check</div>
-      </div>
-      <div class="kpi kpi-wide">
-        <div class="kpi-label">Pots Run Out</div>
-        <div class="kpi-value" id="kpiRunOut">--</div>
-        <div class="kpi-sub" id="kpiRunOutSub"></div>
-      </div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Earliest Viable Age</div>
+      <div class="kpi-value" id="kpiEarliest">--</div>
+      <div class="kpi-sub" id="kpiEarliestSub"></div>
     </div>
-
-    <div id="warningBanner" class="warning-banner">
-      ⚠ Pots deplete before 100 at this spend. Retire later or reduce spend.
+    <div class="kpi">
+      <div class="kpi-label">Portfolio at Retirement</div>
+      <div class="kpi-value green" id="kpiPortfolio">--</div>
+      <div class="kpi-sub">DC + SIPP + ISA</div>
     </div>
+    <div class="kpi">
+      <div class="kpi-label">Income at Retirement</div>
+      <div class="kpi-value" id="kpiIncome">--</div>
+      <div class="kpi-sub">drawdown + guaranteed</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Portfolio at 85</div>
+      <div class="kpi-value" id="kpi85">--</div>
+      <div class="kpi-sub">longevity check</div>
+    </div>
+    <div class="kpi kpi-wide">
+      <div class="kpi-label">Pots Run Out</div>
+      <div class="kpi-value" id="kpiRunOut">--</div>
+      <div class="kpi-sub" id="kpiRunOutSub"></div>
+    </div>
+  </div>
 
-    <div class="controls-primary">
+  <div id="warningBanner" class="warning-banner">
+    ⚠ Pots deplete before 100 at this spend. Retire later or reduce spend.
+  </div>
+
+  <div class="controls-primary">
+    <div class="field">
+      <label>Retire at age <span class="val" id="retireAgeDisplay">55</span></label>
+      <input type="range" id="retireAge" min="43" max="67" value="48">
+      <div class="range-labels"><span>43</span><span>67</span></div>
+    </div>
+    <div class="field">
+      <label>Annual spend (early) <span class="val" id="spendDisplayEarly">£36,000</span></label>
+      <input type="range" id="targetSpendEarly" min="15000" max="60000" step="500" value="36000">
+      <div class="range-labels"><span>£15k</span><span>£60k</span></div>
+    </div>
+    <div class="field">
+      <label>Spend change age <span class="val" id="spendChangeAgeDisplay">70</span></label>
+      <input type="range" id="spendChangeAge" min="55" max="90" value="70">
+      <div class="range-labels"><span>55</span><span>90</span></div>
+    </div>
+    <div class="field">
+      <label>Annual spend (late) <span class="val" id="spendDisplayLate">£28,000</span></label>
+      <input type="range" id="targetSpendLate" min="10000" max="60000" step="500" value="28000">
+      <div class="range-labels"><span>£10k</span><span>£60k</span></div>
+    </div>
+  </div>
+
+  <div class="section-toggle" onclick="toggleSection('assets', this)">
+    <span>Assets &amp; Contributions</span>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="section-body" id="assets">
+    <div class="two-col">
       <div class="field">
-        <label>Retire at age <span class="val" id="retireAgeDisplay">55</span></label>
-        <input type="range" id="retireAge" min="43" max="67" value="48">
-        <div class="range-labels"><span>43</span><span>67</span></div>
+        <label>DC Pension £</label>
+        <input type="number" id="dcPension" value="41000">
       </div>
       <div class="field">
-        <label>Annual spend (early) <span class="val" id="spendDisplayEarly">£36,000</span></label>
-        <input type="range" id="targetSpendEarly" min="15000" max="60000" step="500" value="36000">
-        <div class="range-labels"><span>£15k</span><span>£60k</span></div>
+        <label>Monthly DC £</label>
+        <input type="number" id="dcContrib" value="500">
       </div>
       <div class="field">
-        <label>Spend change age <span class="val" id="spendChangeAgeDisplay">70</span></label>
-        <input type="range" id="spendChangeAge" min="55" max="90" value="70">
-        <div class="range-labels"><span>55</span><span>90</span></div>
+        <label>SIPP £</label>
+        <input type="number" id="sipp" value="120000">
       </div>
       <div class="field">
-        <label>Annual spend (late) <span class="val" id="spendDisplayLate">£28,000</span></label>
-        <input type="range" id="targetSpendLate" min="10000" max="60000" step="500" value="28000">
-        <div class="range-labels"><span>£10k</span><span>£60k</span></div>
+        <label>S&amp;S ISA £</label>
+        <input type="number" id="isa" value="138000">
       </div>
     </div>
+  </div>
 
-    <div class="section-toggle" onclick="toggleSection('assets', this)">
-      <span>Assets &amp; Contributions</span>
-      <span class="arrow">▼</span>
-    </div>
-    <div class="section-body" id="assets">
-      <div class="two-col">
-        <div class="field">
-          <label>DC Pension £</label>
-          <input type="number" id="dcPension" value="41000">
-        </div>
-        <div class="field">
-          <label>Monthly DC £</label>
-          <input type="number" id="dcContrib" value="500">
-        </div>
-        <div class="field">
-          <label>SIPP £</label>
-          <input type="number" id="sipp" value="120000">
-        </div>
-        <div class="field">
-          <label>S&amp;S ISA £</label>
-          <input type="number" id="isa" value="138000">
-        </div>
+  <div class="section-toggle" onclick="toggleSection('guaranteed', this)">
+    <span>Guaranteed Income &amp; Assumptions</span>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="section-body" id="guaranteed">
+    <div class="two-col">
+      <div class="field">
+        <label>DB p.a. £ (65+)</label>
+        <input type="number" id="dbAmount" value="9400">
+      </div>
+      <div class="field">
+        <label>DB Lump Sum £</label>
+        <input type="number" id="dbLump" value="28000">
+      </div>
+      <div class="field">
+        <label>State Pension £ (68+)</label>
+        <input type="number" id="statePension" value="12500">
+      </div>
+      <div class="field">
+        <label>Sick pay p.a. £</label>
+        <input type="number" id="sickIncome" value="57000">
+      </div>
+      <div class="field full">
+        <label>Real equity growth %</label>
+        <input type="number" id="growthRate" value="6" step="0.5" min="0" max="12">
       </div>
     </div>
+  </div>
 
-    <div class="section-toggle" onclick="toggleSection('guaranteed', this)">
-      <span>Guaranteed Income &amp; Assumptions</span>
-      <span class="arrow">▼</span>
+  <div class="tabs">
+    <button class="tab active" id="tabCharts" onclick="switchTab('charts')">Charts</button>
+    <button class="tab" id="tabTable" onclick="switchTab('table')">Year-by-Year</button>
+  </div>
+
+  <div id="chartsView" class="chart-area">
+    <div class="chart-wrap">
+      <div class="chart-title">Total Portfolio Value · Age 43–100</div>
+      <canvas id="portfolioChart"></canvas>
     </div>
-    <div class="section-body" id="guaranteed">
-      <div class="two-col">
-        <div class="field">
-          <label>DB p.a. £ (65+)</label>
-          <input type="number" id="dbAmount" value="9400">
-        </div>
-        <div class="field">
-          <label>DB Lump Sum £</label>
-          <input type="number" id="dbLump" value="28000">
-        </div>
-        <div class="field">
-          <label>State Pension £ (68+)</label>
-          <input type="number" id="statePension" value="12500">
-        </div>
-        <div class="field">
-          <label>Sick pay p.a. £</label>
-          <input type="number" id="sickIncome" value="57000">
-        </div>
-        <div class="field full">
-          <label>Real equity growth %</label>
-          <input type="number" id="growthRate" value="6" step="0.5" min="0" max="12">
-        </div>
-      </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Retirement Income Breakdown</div>
+      <canvas id="incomeChart"></canvas>
     </div>
+  </div>
 
-    <div class="tabs">
-      <button class="tab active" id="tabCharts" onclick="switchTab('charts')">Charts</button>
-      <button class="tab" id="tabTable" onclick="switchTab('table')">Year-by-Year</button>
+  <div id="tableView" class="table-area" style="display:none;">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Age</th>
+            <th>Portfolio</th>
+            <th>Drawdown</th>
+            <th>DB</th>
+            <th>SP</th>
+            <th>Income</th>
+            <th>+/−</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
     </div>
+  </div>
 
-    <div id="chartsView" class="chart-area">
-      <div class="chart-wrap">
-        <div class="chart-title">Total Portfolio Value · Age 43–100</div>
-        <canvas id="portfolioChart"></canvas>
-      </div>
-      <div class="chart-wrap">
-        <div class="chart-title">Retirement Income Breakdown</div>
-        <canvas id="incomeChart"></canvas>
-      </div>
-    </div>
+  <script>
+    let chartA = null, chartB = null;
 
-    <div id="tableView" class="table-area" style="display:none;">
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Age</th>
-              <th>Portfolio</th>
-              <th>Drawdown</th>
-              <th>DB</th>
-              <th>SP</th>
-              <th>Income</th>
-              <th>+/−</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody"></tbody>
-        </table>
-      </div>
-    </div>
+    const fmt = n => {
+      if (n === null || n === undefined || isNaN(n)) return '--';
+      if (Math.abs(n) >= 1e6) return '£' + (n / 1e6).toFixed(2) + 'm';
+      return '£' + Math.round(n).toLocaleString('en-GB');
+    };
+    const fmtK = v => Math.abs(v) >= 1e6 ? '£' + (v / 1e6).toFixed(1) + 'm' : '£' + (v / 1000).toFixed(0) + 'k';
 
-    <script>
-      let chartA = null, chartB = null;
-
-      const fmt = n => {
-        if (n === null || n === undefined || isNaN(n)) return '--';
-        if (Math.abs(n) >= 1e6) return '£' + (n / 1e6).toFixed(2) + 'm';
-        return '£' + Math.round(n).toLocaleString('en-GB');
+    function getInputs() {
+      return {
+        retireAge: +document.getElementById('retireAge').value,
+        targetSpendEarly: +document.getElementById('targetSpendEarly').value,
+        targetSpendLate: +document.getElementById('targetSpendLate').value,
+        spendChangeAge: +document.getElementById('spendChangeAge').value,
+        dcPension: +document.getElementById('dcPension').value,
+        dcContrib: +document.getElementById('dcContrib').value,
+        sipp: +document.getElementById('sipp').value,
+        isa: +document.getElementById('isa').value,
+        dbAmount: +document.getElementById('dbAmount').value,
+        dbLump: +document.getElementById('dbLump').value,
+        statePension: +document.getElementById('statePension').value,
+        sickIncome: +document.getElementById('sickIncome').value,
+        growthRate: +document.getElementById('growthRate').value / 100,
       };
-      const fmtK = v => Math.abs(v) >= 1e6 ? '£' + (v / 1e6).toFixed(1) + 'm' : '£' + (v / 1000).toFixed(0) + 'k';
+    }
 
-      function getInputs() {
-        return {
-          retireAge: +document.getElementById('retireAge').value,
-          targetSpendEarly: +document.getElementById('targetSpendEarly').value,
-          targetSpendLate: +document.getElementById('targetSpendLate').value,
-          spendChangeAge: +document.getElementById('spendChangeAge').value,
-          dcPension: +document.getElementById('dcPension').value,
-          dcContrib: +document.getElementById('dcContrib').value,
-          sipp: +document.getElementById('sipp').value,
-          isa: +document.getElementById('isa').value,
-          dbAmount: +document.getElementById('dbAmount').value,
-          dbLump: +document.getElementById('dbLump').value,
-          statePension: +document.getElementById('statePension').value,
-          sickIncome: +document.getElementById('sickIncome').value,
-          growthRate: +document.getElementById('growthRate').value / 100,
-        };
-      }
+    function simulate(inp) {
+      const { retireAge, targetSpendEarly, targetSpendLate, spendChangeAge, dcPension, dcContrib, sipp, isa,
+        dbAmount, dbLump, statePension, sickIncome, growthRate } = inp;
+      let dc = dcPension, sipV = sipp, isaV = isa, dbLumpDone = false;
+      const rows = [];
 
-      function simulate(inp) {
-        const { retireAge, targetSpendEarly, targetSpendLate, spendChangeAge, dcPension, dcContrib, sipp, isa,
-          dbAmount, dbLump, statePension, sickIncome, growthRate } = inp;
-        let dc = dcPension, sipV = sipp, isaV = isa, dbLumpDone = false;
-        const rows = [];
+      for (let age = 43; age <= 100; age++) {
+        dc *= (1 + growthRate);
+        sipV *= (1 + growthRate);
+        isaV *= (1 + growthRate);
 
-        for (let age = 43; age <= 100; age++) {
-          dc *= (1 + growthRate);
-          sipV *= (1 + growthRate);
-          isaV *= (1 + growthRate);
+        if (age < 48 && age < retireAge) dc += dcContrib * 12;
+        if (age === 65 && !dbLumpDone) { isaV += dbLump; dbLumpDone = true; }
 
-          if (age < 48 && age < retireAge) dc += dcContrib * 12;
-          if (age === 65 && !dbLumpDone) { isaV += dbLump; dbLumpDone = true; }
+        const db = age >= 65 ? dbAmount : 0;
+        const sp = age >= 68 ? statePension : 0;
+        const guaranteed = db + sp;
+        const isRetired = age >= retireAge;
+        let drawdown = 0, totalIncome = 0, deficit = 0;
 
-          const db = age >= 65 ? dbAmount : 0;
-          const sp = age >= 68 ? statePension : 0;
-          const guaranteed = db + sp;
-          const isRetired = age >= retireAge;
-          let drawdown = 0, totalIncome = 0, deficit = 0;
-
-          // Determine which spend to use
-          let spend = targetSpendEarly;
-          if (isRetired && age > spendChangeAge) {
-            spend = targetSpendLate;
-          }
-
-          if (isRetired) {
-            const needed = Math.max(0, spend - guaranteed);
-            const pot = Math.max(0, dc + sipV + isaV);
-            if (pot > 0 && needed > 0) {
-              drawdown = Math.min(needed, pot);
-              const ratio = drawdown / pot;
-              dc = Math.max(0, dc - dc * ratio);
-              sipV = Math.max(0, sipV - sipV * ratio);
-              isaV = Math.max(0, isaV - isaV * ratio);
-            }
-            totalIncome = guaranteed + drawdown;
-            deficit = totalIncome - spend;
-          } else {
-            totalIncome = age < 48 ? sickIncome : 0;
-          }
-
-          rows.push({
-            age,
-            dc: Math.max(0, dc), sipp: Math.max(0, sipV), isa: Math.max(0, isaV),
-            total: Math.max(0, dc + sipV + isaV),
-            drawdown, db, sp, totalIncome, deficit, isRetired, guaranteed, spend
-          });
-          if (dc < 0) dc = 0;
-          if (sipV < 0) sipV = 0;
-          if (isaV < 0) isaV = 0;
+        // Determine which spend to use
+        let spend = targetSpendEarly;
+        if (isRetired && age > spendChangeAge) {
+          spend = targetSpendLate;
         }
-        return rows;
-      }
 
-      function findEarliest(inp) {
-        for (let age = 43; age <= 67; age++) {
-          const rows = simulate({ ...inp, retireAge: age });
-          if (rows[rows.length - 1].total > 0) return age;
-        }
-        return null;
-      }
-
-      function update() {
-        const inp = getInputs();
-        const rows = simulate(inp);
-        const earliest = findEarliest(inp);
-
-        document.getElementById('retireAgeDisplay').textContent = inp.retireAge;
-        document.getElementById('spendDisplayEarly').textContent = '£' + inp.targetSpendEarly.toLocaleString('en-GB');
-        document.getElementById('spendDisplayLate').textContent = '£' + inp.targetSpendLate.toLocaleString('en-GB');
-        document.getElementById('spendChangeAgeDisplay').textContent = inp.spendChangeAge;
-
-        const retireRow = rows.find(r => r.age === inp.retireAge);
-        const row85 = rows.find(r => r.age === 85);
-        const depleteRow = rows.find(r => r.total <= 0 && r.isRetired);
-
-        document.getElementById('kpiEarliest').textContent = earliest ? 'Age ' + earliest : 'N/A';
-        document.getElementById('kpiEarliestSub').textContent = earliest ? 'survives to 100' : 'reduce spend';
-        document.getElementById('kpiPortfolio').textContent = retireRow ? fmt(retireRow.total) : '--';
-        document.getElementById('kpiIncome').textContent = retireRow ? fmt(retireRow.guaranteed + retireRow.drawdown) : '--';
-
-        const v85 = row85 ? row85.total : 0;
-        const el85 = document.getElementById('kpi85');
-        el85.textContent = fmt(v85);
-        el85.className = 'kpi-value ' + (v85 > 0 ? 'green' : 'red');
-
-        const roEl = document.getElementById('kpiRunOut');
-        const roSub = document.getElementById('kpiRunOutSub');
-        if (depleteRow) {
-          roEl.textContent = 'Age ' + depleteRow.age;
-          roSub.textContent = 'pots reach zero';
-          roEl.className = 'kpi-value red';
-          document.getElementById('warningBanner').style.display = 'block';
+        if (isRetired) {
+          const needed = Math.max(0, spend - guaranteed);
+          const pot = Math.max(0, dc + sipV + isaV);
+          if (pot > 0 && needed > 0) {
+            drawdown = Math.min(needed, pot);
+            const ratio = drawdown / pot;
+            dc = Math.max(0, dc - dc * ratio);
+            sipV = Math.max(0, sipV - sipV * ratio);
+            isaV = Math.max(0, isaV - isaV * ratio);
+          }
+          totalIncome = guaranteed + drawdown;
+          deficit = totalIncome - spend;
         } else {
-          roEl.textContent = '100+';
-          roSub.textContent = 'portfolio survives';
-          roEl.className = 'kpi-value green';
-          document.getElementById('warningBanner').style.display = 'none';
+          totalIncome = age < 48 ? sickIncome : 0;
         }
 
-        const ages = rows.map(r => r.age);
+        rows.push({
+          age,
+          dc: Math.max(0, dc), sipp: Math.max(0, sipV), isa: Math.max(0, isaV),
+          total: Math.max(0, dc + sipV + isaV),
+          drawdown, db, sp, totalIncome, deficit, isRetired, guaranteed, spend
+        });
+        if (dc < 0) dc = 0;
+        if (sipV < 0) sipV = 0;
+        if (isaV < 0) isaV = 0;
+      }
+      return rows;
+    }
 
-        const baseOpts = (stacked) => ({
-          responsive: true,
-          maintainAspectRatio: true,
-          animation: { duration: 200 },
-          plugins: {
-            legend: {
-              labels: { color: '#7a7570', font: { family: 'DM Mono', size: 10 }, boxWidth: 10, padding: 10 }
-            },
-            tooltip: {
-              backgroundColor: '#1e1e1e', borderColor: '#2a2a2a', borderWidth: 1,
-              titleColor: '#c8a96e', bodyColor: '#e8e4dc',
-              titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 11 },
-              callbacks: { label: c => ' ' + c.dataset.label + ': £' + Math.round(c.raw).toLocaleString('en-GB') }
-            }
+    function findEarliest(inp) {
+      for (let age = 43; age <= 67; age++) {
+        const rows = simulate({ ...inp, retireAge: age });
+        if (rows[rows.length - 1].total > 0) return age;
+      }
+      return null;
+    }
+
+    function update() {
+      const inp = getInputs();
+      const rows = simulate(inp);
+      const earliest = findEarliest(inp);
+
+      document.getElementById('retireAgeDisplay').textContent = inp.retireAge;
+      document.getElementById('spendDisplayEarly').textContent = '£' + inp.targetSpendEarly.toLocaleString('en-GB');
+      document.getElementById('spendDisplayLate').textContent = '£' + inp.targetSpendLate.toLocaleString('en-GB');
+      document.getElementById('spendChangeAgeDisplay').textContent = inp.spendChangeAge;
+
+      const retireRow = rows.find(r => r.age === inp.retireAge);
+      const row85 = rows.find(r => r.age === 85);
+      const depleteRow = rows.find(r => r.total <= 0 && r.isRetired);
+
+      document.getElementById('kpiEarliest').textContent = earliest ? 'Age ' + earliest : 'N/A';
+      document.getElementById('kpiEarliestSub').textContent = earliest ? 'survives to 100' : 'reduce spend';
+      document.getElementById('kpiPortfolio').textContent = retireRow ? fmt(retireRow.total) : '--';
+      document.getElementById('kpiIncome').textContent = retireRow ? fmt(retireRow.guaranteed + retireRow.drawdown) : '--';
+
+      const v85 = row85 ? row85.total : 0;
+      const el85 = document.getElementById('kpi85');
+      el85.textContent = fmt(v85);
+      el85.className = 'kpi-value ' + (v85 > 0 ? 'green' : 'red');
+
+      const roEl = document.getElementById('kpiRunOut');
+      const roSub = document.getElementById('kpiRunOutSub');
+      if (depleteRow) {
+        roEl.textContent = 'Age ' + depleteRow.age;
+        roSub.textContent = 'pots reach zero';
+        roEl.className = 'kpi-value red';
+        document.getElementById('warningBanner').style.display = 'block';
+      } else {
+        roEl.textContent = '100+';
+        roSub.textContent = 'portfolio survives';
+        roEl.className = 'kpi-value green';
+        document.getElementById('warningBanner').style.display = 'none';
+      }
+
+      const ages = rows.map(r => r.age);
+
+      const baseOpts = (stacked) => ({
+        responsive: true,
+        maintainAspectRatio: true,
+        animation: { duration: 200 },
+        plugins: {
+          legend: {
+            labels: { color: '#7a7570', font: { family: 'DM Mono', size: 10 }, boxWidth: 10, padding: 10 }
           },
-          scales: {
-            x: { stacked, ticks: { color: '#4a4540', font: { family: 'DM Mono', size: 9 }, maxTicksLimit: 10 }, grid: { color: 'rgba(42,42,42,0.5)' } },
-            y: { stacked, ticks: { color: '#4a4540', font: { family: 'DM Mono', size: 9 }, callback: fmtK }, grid: { color: 'rgba(42,42,42,0.5)' } }
+          tooltip: {
+            backgroundColor: '#1e1e1e', borderColor: '#2a2a2a', borderWidth: 1,
+            titleColor: '#c8a96e', bodyColor: '#e8e4dc',
+            titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 11 },
+            callbacks: { label: c => ' ' + c.dataset.label + ': £' + Math.round(c.raw).toLocaleString('en-GB') }
           }
-        });
+        },
+        scales: {
+          x: { stacked, ticks: { color: '#4a4540', font: { family: 'DM Mono', size: 9 }, maxTicksLimit: 10 }, grid: { color: 'rgba(42,42,42,0.5)' } },
+          y: { stacked, ticks: { color: '#4a4540', font: { family: 'DM Mono', size: 9 }, callback: fmtK }, grid: { color: 'rgba(42,42,42,0.5)' } }
+        }
+      });
 
-        if (chartA) chartA.destroy();
-        chartA = new Chart(document.getElementById('portfolioChart'), {
-          type: 'line',
-          data: {
-            labels: ages,
-            datasets: [
-              { label: 'Total', data: rows.map(r => r.total), borderColor: '#c8a96e', backgroundColor: 'rgba(200,169,110,0.08)', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 2 },
-              { label: 'DC', data: rows.map(r => r.dc), borderColor: '#6ec8a9', tension: 0.3, pointRadius: 0, borderWidth: 1.5 },
-              { label: 'SIPP', data: rows.map(r => r.sipp), borderColor: '#a96ec8', tension: 0.3, pointRadius: 0, borderWidth: 1.5 },
-              { label: 'ISA', data: rows.map(r => r.isa), borderColor: '#6ea9c8', tension: 0.3, pointRadius: 0, borderWidth: 1.5 },
-            ]
-          },
-          options: baseOpts(false)
-        });
+      if (chartA) chartA.destroy();
+      chartA = new Chart(document.getElementById('portfolioChart'), {
+        type: 'line',
+        data: {
+          labels: ages,
+          datasets: [
+            { label: 'Total', data: rows.map(r => r.total), borderColor: '#c8a96e', backgroundColor: 'rgba(200,169,110,0.08)', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 2 },
+            { label: 'DC', data: rows.map(r => r.dc), borderColor: '#6ec8a9', tension: 0.3, pointRadius: 0, borderWidth: 1.5 },
+            { label: 'SIPP', data: rows.map(r => r.sipp), borderColor: '#a96ec8', tension: 0.3, pointRadius: 0, borderWidth: 1.5 },
+            { label: 'ISA', data: rows.map(r => r.isa), borderColor: '#6ea9c8', tension: 0.3, pointRadius: 0, borderWidth: 1.5 },
+          ]
+        },
+        options: baseOpts(false)
+      });
 
-        const rRows = rows.filter(r => r.isRetired);
-        if (chartB) chartB.destroy();
-        chartB = new Chart(document.getElementById('incomeChart'), {
-          type: 'bar',
-          data: {
-            labels: rRows.map(r => r.age),
-            datasets: [
-              { label: 'Drawdown', data: rRows.map(r => r.drawdown), backgroundColor: 'rgba(200,169,110,0.75)', stack: 's' },
-              { label: 'DB Pension', data: rRows.map(r => r.db), backgroundColor: 'rgba(110,200,169,0.75)', stack: 's' },
-              { label: 'State Pension', data: rRows.map(r => r.sp), backgroundColor: 'rgba(110,169,200,0.75)', stack: 's' },
-              {
-                label: 'Target', data: rRows.map(r => (r.age > inp.spendChangeAge ? inp.targetSpendLate : inp.targetSpendEarly)), type: 'line', borderColor: '#e87070',
-                borderWidth: 1.5, borderDash: [4, 3], pointRadius: 0, fill: false, stack: undefined
-              },
-            ]
-          },
-          options: baseOpts(true)
-        });
+      const rRows = rows.filter(r => r.isRetired);
+      if (chartB) chartB.destroy();
+      chartB = new Chart(document.getElementById('incomeChart'), {
+        type: 'bar',
+        data: {
+          labels: rRows.map(r => r.age),
+          datasets: [
+            { label: 'Drawdown', data: rRows.map(r => r.drawdown), backgroundColor: 'rgba(200,169,110,0.75)', stack: 's' },
+            { label: 'DB Pension', data: rRows.map(r => r.db), backgroundColor: 'rgba(110,200,169,0.75)', stack: 's' },
+            { label: 'State Pension', data: rRows.map(r => r.sp), backgroundColor: 'rgba(110,169,200,0.75)', stack: 's' },
+            {
+              label: 'Target', data: rRows.map(r => (r.age > inp.spendChangeAge ? inp.targetSpendLate : inp.targetSpendEarly)), type: 'line', borderColor: '#e87070',
+              borderWidth: 1.5, borderDash: [4, 3], pointRadius: 0, fill: false, stack: undefined
+            },
+          ]
+        },
+        options: baseOpts(true)
+      });
 
-        // Table
-        const tbody = document.getElementById('tableBody');
-        tbody.innerHTML = '';
-        rows.forEach(r => {
-          const isMile = [inp.retireAge, 55, 57, 65, 68, 75, 85, 100].includes(r.age);
-          const tr = document.createElement('tr');
-          if (isMile) tr.classList.add('milestone');
-          const sc = r.deficit >= 0 ? 'positive' : 'negative';
-          const ss = r.deficit >= 0 ? '+' : '';
-          tr.innerHTML = `
+      // Table
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+      rows.forEach(r => {
+        const isMile = [inp.retireAge, 55, 57, 65, 68, 75, 85, 100].includes(r.age);
+        const tr = document.createElement('tr');
+        if (isMile) tr.classList.add('milestone');
+        const sc = r.deficit >= 0 ? 'positive' : 'negative';
+        const ss = r.deficit >= 0 ? '+' : '';
+        tr.innerHTML = `
       <td>${r.age}${isMile ? '★' : ''}</td>
       <td><b>${fmt(r.total)}</b></td>
       <td>${r.drawdown > 0 ? fmt(r.drawdown) : '--'}</td>
@@ -719,24 +732,24 @@
       <td>${fmt(r.totalIncome)}</td>
       <td class="${r.isRetired ? sc : ''}">${r.isRetired ? ss + fmt(r.deficit) : '--'}</td>
     `;
-          tbody.appendChild(tr);
-        });
-      }
+        tbody.appendChild(tr);
+      });
+    }
 
-      function toggleSection(id, el) {
-        document.getElementById(id).classList.toggle('open');
-        el.classList.toggle('open');
-      }
+    function toggleSection(id, el) {
+      document.getElementById(id).classList.toggle('open');
+      el.classList.toggle('open');
+    }
 
-      function switchTab(tab) {
-        document.getElementById('chartsView').style.display = tab === 'charts' ? 'flex' : 'none';
-        document.getElementById('tableView').style.display = tab === 'table' ? 'block' : 'none';
-        document.getElementById('tabCharts').classList.toggle('active', tab === 'charts');
-        document.getElementById('tabTable').classList.toggle('active', tab === 'table');
-      }
+    function switchTab(tab) {
+      document.getElementById('chartsView').style.display = tab === 'charts' ? 'flex' : 'none';
+      document.getElementById('tableView').style.display = tab === 'table' ? 'block' : 'none';
+      document.getElementById('tabCharts').classList.toggle('active', tab === 'charts');
+      document.getElementById('tabTable').classList.toggle('active', tab === 'table');
+    }
 
-      document.querySelectorAll('input').forEach(el => el.addEventListener('input', update));
-      update();
-    </script>
+    document.querySelectorAll('input').forEach(el => el.addEventListener('input', update));
+    update();
+  </script>
 
-    {% include footer.html %}
+  {% include footer.html %}
