@@ -7,6 +7,7 @@ url: https://tools.thechels.uk
 copyright: "thechelsuk"
 encoding: UTF-8
 future: false
+port: 2000
 theme:
 repository: thechelsuk/uk.thechels.tools
 defaultImagePath: "/images/splashscreens/apple-touch-icon-180x180.png"
@@ -15,6 +16,10 @@ github:
   branch: main
 sass:
   style: compressed
+collections:
+  bookmarks:
+    permalink: /links/:title/
+    output: true
 plugins:
   - jekyll-feed
   - jekyll-avatar
