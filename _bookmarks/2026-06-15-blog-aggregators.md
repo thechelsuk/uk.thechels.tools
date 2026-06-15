@@ -7,4 +7,4 @@ type: layout
 layout: post 
 ---
 
-List of blog aggregators
+List of blog aggregators.

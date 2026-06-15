@@ -1,0 +1,55 @@
+---
+# Produces the digest (gather → OpenAI curation → GitHub Release).
+# Optional:
+# OPENAI_API_KEY — enables curated edition (omit for non-curated link-only fallback)
+# OPENAI_MODEL  — defaults to gpt-4o-mini in app if unset/empty
+
+name: x - Newsletter
+
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+concurrency:
+    group: newsletter-${{ github.workflow }}
+    cancel-in-progress: false
+
+jobs:
+    publish-newsletter:
+        runs-on: ubuntu-latest
+        env:
+            FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Run date (UTC)
+              id: meta
+              run: echo "date=$(date -u +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: "22"
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build digest, save artifact, post to Discord (if configured)
+              run: npm start
+              env:
+                  # OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+                  # OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+                  NEWSLETTER_ARTIFACT_PATH: newsletter/digest.md
+
+            - name: Publish GitHub Release (digest markdown)
+              uses: softprops/action-gh-release@v3.0.0
+              with:
+                  tag_name: newsletter-${{ github.run_id }}
+                  name: Newsletter ${{ steps.meta.outputs.date }}
+                  # Release page body = same markdown as Discord and digest.md attachment
+                  body_path: newsletter/digest.md
+                  files: newsletter/digest.md
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

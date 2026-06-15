@@ -1,4 +1,16 @@
 {% include header.html %}
-<h1 class="post-title">{{ page.title }}</h1>
+<h1 class="post-title">Link: {{ page.title }}</h1>
+
+<p class="post-date">{{ page.date | date: "%B %d, %Y" }}</p>
+
+<ul>
+    <li><a href="{{ page.i_url }}">{{page.i_url}}</a></li>
+    <li>{{ page.i_type }}</li>
+    {% if page.tags %}
+        <li>Tags: {{ page.tags | join: ", " }}</li>
+    {% endif %}
+</ul>
+
 {{ content }}
+
 {% include footer.html %}

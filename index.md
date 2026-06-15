@@ -16,6 +16,7 @@ seo: toolkit
 
 - [Search](https://search.thechels.uk) ⇗ - Search across multiple search engines and platforms using bangs and shortcodes.
 - [YAML Film Search](/film) - Search your yaml film file.
+- [Bookmark Collection](/links) - My bookmark collection of things of note, not yet published on the main site.
 
 ## Tools
 
@@ -97,28 +98,3 @@ Using local machine to run python scripts to parse, these are just outputs of th
 - [Music Post Template](/templates/music)
 - [Data Template](/templates/data)
 - [WeekNotes Template](/templates/weeknotes)
-
-## Misc External tools
-
-- [YouTube RSS feed generator](https://tubepilot.ai/tools/youtube-rss-feed-generator/) ⇗
-- [Convert HTML to Markdown](https://www.browserling.com/tools/html-to-markdown) ⇗
-- [Line Graph Maker](https://www.rapidtables.com/tools/line-graph.html) ⇗
-- [Base64 Encode/decode](https://base64.guru/converter/encode/image) ⇗
-- [Regular Expressions 101](https://regex101.com/) ⇗
-- [Moving Average Calculator](https://goodcalculators.com/simple-moving-average-calculator/) ⇗
-- [Coast Fire Calculator](https://tools.walletburst.com/tools/coast-fire-calc/) ⇗
-- [Mp3 Merger](https://mp3chapters.github.io/merge/) ⇗
-- [ISBN Search](https://isbnsearch.org/) ⇗
-- [Premier League Scorigami](https://premierleaguescorigami.com/) ⇗
-- [Chunkbase - Minecraft Seed Map](https://www.chunkbase.com/apps/seed-map) ⇗
-
-### Font Generators
-
-- [Metaflop Font modulator](https://www.metaflop.com/modulator) ⇗
-- [Font Converter](https://www.fontconverter.io/en/) ⇗
-
-### Icon Generators
-
-- [App Icon Kitchen](https://icon.kitchen/) ⇗
-- [Chrome Extension Icon Generator](https://alexleybourne.github.io/chrome-extension-icon-generator/) ⇗
-- [Apple App store Launch Icon Generator](https://theapplaunchpad.com/auth) ⇗
