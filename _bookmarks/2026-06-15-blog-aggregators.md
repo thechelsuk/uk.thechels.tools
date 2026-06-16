@@ -8,3 +8,17 @@ layout: post
 ---
 
 List of blog aggregators.
+
+> List of blog aggregators:
+> blogosphere.app
+> blogroll.org
+> blogsareback.com
+> bubbles.town
+> feedle.world
+> indieblog.page
+> minifeed.net
+> ooh.directory
+> personalsit.es
+> powrss.com
+> scour.ing
+> kagi.com/smallweb
