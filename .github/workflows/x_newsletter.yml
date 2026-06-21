@@ -44,7 +44,7 @@ jobs:
                   NEWSLETTER_ARTIFACT_PATH: newsletter/digest.md
 
             - name: Publish GitHub Release (digest markdown)
-              uses: softprops/action-gh-release@v3.0.0
+              uses: softprops/action-gh-release@v3.0.1
               with:
                   tag_name: newsletter-${{ github.run_id }}
                   name: Newsletter ${{ steps.meta.outputs.date }}
