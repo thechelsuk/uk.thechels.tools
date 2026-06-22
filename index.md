@@ -16,7 +16,6 @@ seo: toolkit
 
 - [Search](https://search.thechels.uk) ⇗ - Search across multiple search engines and platforms using bangs and shortcodes.
 - [YAML Film Search](/film) - Search your yaml film file.
-- [Bookmark Collection](/links) - My bookmark collection of things of note, not yet published on the main site.
 
 ## Tools
 
