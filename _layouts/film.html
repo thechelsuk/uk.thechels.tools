@@ -296,7 +296,9 @@
                     // Accept keys with or without quotes, tolerate extra spaces
                     const m = line.match(/^([A-Za-z0-9_]+):\s*['"]?(.+?)['"]?$/);
                     if (m) {
-                        current[m[1].trim()] = m[2].trim();
+                        const key = m[1].trim();
+                        const capitalised = key.charAt(0).toUpperCase() + key.slice(1);
+                        current[capitalised] = m[2].trim();
                     }
                 }
                 if (current) films.push(current);
