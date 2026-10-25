@@ -1,0 +1,173 @@
+{% include header.html %}
+<h1 class="post-title">{{ page.title }}</h1>
+
+{{ content }}
+
+<form id="cipherForm">
+    <label for="cipherMethod">Cipher</label>
+    <br>
+    <select id="cipherMethod">
+        <option value="caesar">Caesar</option>
+        <option value="atbash">Atbash</option>
+        <option value="vigenere">Vigenère</option>
+        <option value="morse">Morse</option>
+    </select>
+    <br>
+
+    <div id="shiftField">
+        <label for="cipherShift">Shift</label>
+        <br>
+        <input type="number" id="cipherShift" min="1" max="25" value="3">
+    </div>
+
+    <div id="keywordField" hidden>
+        <label for="cipherKeyword">Keyword</label>
+        <br>
+        <input type="text" id="cipherKeyword" placeholder="e.g. LEMON" autocomplete="off">
+    </div>
+
+    <label for="cipherInput">Text</label>
+    <br>
+    <textarea id="cipherInput" rows="6" placeholder="Enter text to encrypt or decrypt"></textarea>
+    <br>
+    <button type="submit" data-mode="encrypt">Encrypt</button>
+    <button type="submit" data-mode="decrypt">Decrypt</button>
+</form>
+
+<br>
+
+<label for="cipherOutput">Result</label>
+<br>
+<textarea id="cipherOutput" rows="6" readonly placeholder="The result will appear here"></textarea>
+<p id="cipherError" role="alert"></p>
+<button type="button" id="copyCipher">Copy</button>
+
+<script>
+    const cipherForm = document.getElementById('cipherForm');
+    const cipherMethod = document.getElementById('cipherMethod');
+    const shiftField = document.getElementById('shiftField');
+    const keywordField = document.getElementById('keywordField');
+    const cipherShift = document.getElementById('cipherShift');
+    const cipherKeyword = document.getElementById('cipherKeyword');
+    const cipherInput = document.getElementById('cipherInput');
+    const cipherOutput = document.getElementById('cipherOutput');
+    const cipherError = document.getElementById('cipherError');
+    const copyCipher = document.getElementById('copyCipher');
+
+    const MORSE = {
+        A: '.-', B: '-...', C: '-.-.', D: '-..', E: '.', F: '..-.', G: '--.', H: '....',
+        I: '..', J: '.---', K: '-.-', L: '.-..', M: '--', N: '-.', O: '---', P: '.--.',
+        Q: '--.-', R: '.-.', S: '...', T: '-', U: '..-', V: '...-', W: '.--', X: '-..-',
+        Y: '-.--', Z: '--..',
+        0: '-----', 1: '.----', 2: '..---', 3: '...--', 4: '....-',
+        5: '.....', 6: '-....', 7: '--...', 8: '---..', 9: '----.'
+    };
+    const FROM_MORSE = Object.fromEntries(Object.entries(MORSE).map(([k, v]) => [v, k]));
+
+    function isLetter(c) {
+        return c >= 'A' && c <= 'Z';
+    }
+
+    // Shifts A-Z only; everything else passes through unchanged.
+    function shift(c, by) {
+        if (!isLetter(c)) return c;
+        const n = ((c.charCodeAt(0) - 65 + by) % 26 + 26) % 26;
+        return String.fromCharCode(n + 65);
+    }
+
+    function caesar(text, by) {
+        return [...text].map(c => shift(c, by)).join('');
+    }
+
+    function atbash(text) {
+        return [...text].map(c => isLetter(c) ? String.fromCharCode(155 - c.charCodeAt(0)) : c).join('');
+    }
+
+    // The key only moves on for letters, so spaces and punctuation don't use it up.
+    function vigenere(text, keyword, direction) {
+        const shifts = [...keyword.toUpperCase()].filter(isLetter).map(c => c.charCodeAt(0) - 65);
+        if (shifts.length === 0) throw new Error('Enter a keyword using the letters A to Z.');
+        let i = 0;
+        return [...text].map(c => {
+            if (!isLetter(c)) return c;
+            return shift(c, direction * shifts[i++ % shifts.length]);
+        }).join('');
+    }
+
+    function toMorse(text) {
+        return text.split(/\s+/).filter(Boolean).map(word =>
+            [...word].map(c => MORSE[c]).filter(Boolean).join(' ')
+        ).filter(Boolean).join(' / ');
+    }
+
+    function fromMorse(text) {
+        const unknown = [];
+        const result = text.trim().split(/\s*\/\s*/).map(word =>
+            word.split(/\s+/).filter(Boolean).map(code => {
+                if (FROM_MORSE[code]) return FROM_MORSE[code];
+                unknown.push(code);
+                return '?';
+            }).join('')
+        ).join(' ');
+        return { result, unknown };
+    }
+
+    function run(mode) {
+        const text = cipherInput.value.toUpperCase();
+        const direction = mode === 'encrypt' ? 1 : -1;
+        cipherError.textContent = '';
+
+        switch (cipherMethod.value) {
+            case 'caesar': {
+                const by = parseInt(cipherShift.value, 10);
+                if (!Number.isInteger(by)) throw new Error('Enter a whole number for the shift.');
+                return caesar(text, direction * by);
+            }
+            case 'atbash':
+                return atbash(text);
+            case 'vigenere':
+                return vigenere(text, cipherKeyword.value, direction);
+            case 'morse': {
+                if (mode === 'encrypt') return toMorse(text);
+                const { result, unknown } = fromMorse(text);
+                if (unknown.length) {
+                    cipherError.textContent = 'Not recognised (shown as ?): ' + [...new Set(unknown)].join(' ');
+                }
+                return result;
+            }
+        }
+    }
+
+    function updateFields() {
+        shiftField.hidden = cipherMethod.value !== 'caesar';
+        keywordField.hidden = cipherMethod.value !== 'vigenere';
+    }
+
+    cipherMethod.addEventListener('change', updateFields);
+
+    cipherForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const mode = event.submitter ? event.submitter.dataset.mode : 'encrypt';
+        try {
+            cipherOutput.value = run(mode);
+        } catch (error) {
+            cipherOutput.value = '';
+            cipherError.textContent = error.message;
+        }
+    });
+
+    copyCipher.addEventListener('click', async function () {
+        if (!cipherOutput.value) return;
+        cipherOutput.focus();
+        cipherOutput.select();
+        try {
+            await navigator.clipboard.writeText(cipherOutput.value);
+        } catch (error) {
+            document.execCommand('copy');
+        }
+    });
+
+    updateFields();
+</script>
+
+{% include footer.html %}

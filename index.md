@@ -48,6 +48,7 @@ description: "A collection and list of hopefully useful web-based tools, calcula
 
 ## Manipulations
 
+- [Cipher Encoder and Decoder](/cipher) - Encrypt and decrypt text with Caesar, Atbash, Vigenère or Morse code.
 - [Escape Entities](/escape-entities) - Convert special characters to HTML entities.
 - [JSON Pretty Printer](/json-pretty-printer) - Format JSON data for readability.
 - [JSON to Yaml Converter](/json-to-yaml) - Convert JSON data to YAML format.
