@@ -2,76 +2,118 @@
 title: UK FIRE Retirement Calculator
 permalink: /fire
 category: finance
-tags: [fire, retirement, pension, finance]
+tags: [fire, retirement, pension, isa, sipp, finance]
 added: 2025-04-30
-summary: Will your savings last from early retirement to 100, alongside a final salary and State Pension?
-description: "UK FIRE calculator. Project your portfolio to retirement, then year by year to 100, with a final salary pension, State Pension, lower spending and inflation."
+summary: Will your Cash, ISA and DC pension last from early retirement to 100, alongside a final salary and State Pension?
+description: "UK FIRE calculator. Draw down Cash, an ISA and a DC pension (SIPP or workplace) in your chosen order to 100, with a pension access age and the State Pension."
 vendor: [chart.js]
 scripts: [app.js]
 how_to:
   - Enter your age, when you'd like to retire, and what you'll spend each year before and after 75.
-  - Add your current investments, monthly contributions, and expected growth and inflation.
+  - Fill in each pot. Leave **Contributions stop at** blank to keep paying in until you retire, and set the age the DC pension can first be drawn.
+  - Put the pots in the order you'd draw them, using the arrows.
   - Tick and fill in any defined benefit (final salary) pension and the State Pension.
-  - Press **Calculate** to see whether the money lasts to 100, and how your income is made up over time.
+  - Press **Calculate** to see whether the money lasts to 100, any gaps before a pension opens, and which pot pays each year.
 about: |
-  FIRE, "financial independence, retire early", is about building enough investments to live on before the usual retirement age. This projects your portfolio year by year: growing with contributions until you retire, then drawing down whatever your pensions don't cover, until you're 100.
+  FIRE, "financial independence, retire early", is about building enough investments to live on before the usual retirement age. This projects three pots year by year: **Cash**, a **Stocks and Shares ISA** and a **DC pension**: your SIPP and any workplace defined contribution pensions added together. Each pot grows at its own rate, with its own monthly contributions that stop at an age you choose.
 
-  Many people spend less in later life, so spending can step down from age 75. A **defined benefit** pension (from a final salary scheme, for example) and the **State Pension** reduce what you need to take from your investments once they start. Tick **today's money** to see every figure adjusted for inflation.
+  Once you retire, whatever your pensions don't cover is drawn from the pots in your chosen order. The DC pension can't be touched before its **from age**: 57 for most people from 2028. If Cash and the ISA run dry first, there's a **gap**: years where spending isn't met, until the pension opens. Every pot keeps growing until it's empty, including the pension before you can touch it.
 
-  The **FIRE number** is the classic rule of thumb: your yearly spending divided by a safe withdrawal rate, such as 4%. The year-by-year projection is the fuller picture. This is a model with steady returns, not financial advice.
+  Many people spend less in later life, so spending can step down from age 75. A **defined benefit** pension (from a final salary scheme, for example) and the **State Pension** reduce what you need to take from your pots once they start. Enter spending and pensions in today's money; they rise with inflation. Tick **today's money** to see every result adjusted for inflation.
+
+  **All figures are gross.** Tax is ignored, including Income Tax on pension withdrawals and the 25% tax-free pension lump sum. This is a model with steady returns, not financial advice.
 faq:
-  - q: What's a safe withdrawal rate?
-    a: The share of your portfolio you could take each year with a good chance of it lasting. 4% comes from US research over 30-year retirements; many people use 3–3.5% for longer UK retirements.
+  - q: Does this include tax?
+    a: No. Every figure is gross, before Income Tax. In practice most pension withdrawals are taxed as income after the first 25%, while ISA and cash withdrawals are tax-free, so you'd need to take more from a pension to spend the same amount.
+  - q: Why draw from Cash and the ISA first?
+    a: The DC pension is locked until its from age, so Cash and the ISA usually bridge the years before then. Change the order to see what difference it makes.
+  - q: Why is there one DC pension, not a SIPP and a workplace pension?
+    a: Defined contribution pensions all follow the same rules and open at the same age, so they're modelled as one pot. Add their values and monthly contributions together.
   - q: Should I use real or nominal growth?
-    a: Enter the expected market return as growth and inflation separately. Ticking today's money then shows everything after inflation.
+    a: Enter each pot's expected return as growth, and inflation separately. Ticking today's money then shows everything after inflation.
   - q: What State Pension should I enter?
     a: Check your forecast at gov.uk/check-state-pension, and use your State Pension age, which is 67 or 68 for most people under 60.
 related: [/fire-two, /the-ISA-retirement-apex-bridge-tool, /uk-runway-calculator-drawdown]
+# Starting values for the form. Pots are drawn down in the order listed.
+# Leave `until` blank to keep contributing until retirement. Only pots
+# with a `from` age (the DC pension) are locked until then.
+defaults:
+  currentAge: 42
+  retirementAge: 50
+  spendingBefore75: 36000
+  spendingAfter75: 24000
+  inflation: 2.5
+  realTerms: true
+  pots:
+    - { key: cash, name: Cash, value: 31200, monthly: 0, growth: 2.5, until: 42}
+    - { key: isa, name: Stocks and Shares ISA, value: 149000, monthly: 0, growth: 6, until: 42 }
+    - { key: dc, name: DC pension, value: 175000, monthly: 0, growth: 6, until: 42, from: 58, note: SIPP and workplace pensions added together. }
+  db: { enabled: true, amount: 9700, from: 68 }
+  state: { enabled: true, amount: 13000, from: 68 }
 ---
+{%- assign d = page.defaults -%}
 <form id="form" novalidate>
   <div class="calc">
     <fieldset>
       <legend>You</legend>
       <div class="row">
-        <div><label for="currentAge">Age now</label><input type="number" id="currentAge" min="18" max="100" value="42"></div>
-        <div><label for="retirementAge">Retire at</label><input type="number" id="retirementAge" min="18" max="100" value="50"></div>
+        <div><label for="currentAge">Age now</label><input type="number" id="currentAge" min="18" max="100" value="{{ d.currentAge }}"></div>
+        <div><label for="retirementAge">Retire at</label><input type="number" id="retirementAge" min="18" max="100" value="{{ d.retirementAge }}"></div>
       </div>
       <div class="row">
-        <div><label for="spendingBefore75">Yearly spending to 75 (£)</label><input type="number" id="spendingBefore75" min="0" value="36000"></div>
-        <div><label for="spendingAfter75">From 75 (£)</label><input type="number" id="spendingAfter75" min="0" value="36000"></div>
+        <div><label for="spendingBefore75">Yearly spending to 75 (£)</label><input type="number" id="spendingBefore75" min="0" value="{{ d.spendingBefore75 }}"></div>
+        <div><label for="spendingAfter75">From 75 (£)</label><input type="number" id="spendingAfter75" min="0" value="{{ d.spendingAfter75 }}"></div>
       </div>
+      <div class="row">
+        <div><label for="inflation">Inflation (%)</label><input type="number" id="inflation" min="0" max="20" step="0.1" value="{{ d.inflation }}"></div>
+      </div>
+      <label class="check"><input type="checkbox" id="realTerms"{% if d.realTerms %} checked{% endif %}> Show everything in today's money</label>
+    </fieldset>
+    {%- for pot in d.pots %}
+    <fieldset class="pot" data-pot="{{ pot.key }}" data-name="{{ pot.name }}">
+      <legend>{{ pot.name }}</legend>
+      <div class="row">
+        <div><label for="{{ pot.key }}Value">Value now (£)</label><input type="number" id="{{ pot.key }}Value" min="0" value="{{ pot.value }}"></div>
+        <div><label for="{{ pot.key }}Monthly">Added monthly (£)</label><input type="number" id="{{ pot.key }}Monthly" min="0" value="{{ pot.monthly }}"></div>
+      </div>
+      <div class="row">
+        <div><label for="{{ pot.key }}Growth">Growth (%)</label><input type="number" id="{{ pot.key }}Growth" min="-10" max="20" step="0.1" value="{{ pot.growth }}"></div>
+        <div><label for="{{ pot.key }}Until">Contributions stop at</label><input type="number" id="{{ pot.key }}Until" min="18" max="100" placeholder="retirement" value="{{ pot.until }}"></div>
+        {%- if pot.from %}
+        <div><label for="{{ pot.key }}From">Can draw from age</label><input type="number" id="{{ pot.key }}From" min="18" max="100" value="{{ pot.from }}"></div>
+        {%- endif %}
+      </div>
+      {%- if pot.note %}<p class="note">{{ pot.note }}</p>{% endif %}
+    </fieldset>
+    {%- endfor %}
+    <fieldset>
+      <legend>Defined benefit and State Pension</legend>
+      <label class="check"><input type="checkbox" id="hasDb"{% if d.db.enabled %} checked{% endif %} data-reveals="dbGroup"> Defined benefit pension</label>
+      <div class="row" id="dbGroup"{% unless d.db.enabled %} hidden{% endunless %}>
+        <div><label for="dbAmount">Yearly (£)</label><input type="number" id="dbAmount" min="0" value="{{ d.db.amount }}"></div>
+        <div><label for="dbAge">From age</label><input type="number" id="dbAge" min="0" max="100" value="{{ d.db.from }}"></div>
+      </div>
+      <label class="check"><input type="checkbox" id="hasSp"{% if d.state.enabled %} checked{% endif %} data-reveals="spGroup"> State Pension</label>
+      <div class="row" id="spGroup"{% unless d.state.enabled %} hidden{% endunless %}>
+        <div><label for="spAmount">Yearly (£)</label><input type="number" id="spAmount" min="0" value="{{ d.state.amount }}"></div>
+        <div><label for="spAge">From age</label><input type="number" id="spAge" min="0" max="100" value="{{ d.state.from }}"></div>
+      </div>
+      <p class="note">Spending and pensions are in today's money. All figures are gross: tax isn't included.</p>
     </fieldset>
     <fieldset>
-      <legend>Investments</legend>
-      <div class="row">
-        <div><label for="assets">Invested now (£)</label><input type="number" id="assets" min="0" value="223000"></div>
-        <div><label for="monthly">Added monthly (£)</label><input type="number" id="monthly" min="0" value="4030"></div>
-      </div>
-      <div class="row">
-        <div><label for="growth">Growth (%)</label><input type="number" id="growth" min="0" max="20" step="0.1" value="6"></div>
-        <div><label for="inflation">Inflation (%)</label><input type="number" id="inflation" min="0" max="20" step="0.1" value="2.5"></div>
-        <div><label for="swr">Withdrawal rate (%)</label><input type="number" id="swr" min="0.5" max="10" step="0.1" value="4"></div>
-      </div>
-      <label class="check"><input type="checkbox" id="realTerms" checked> Show everything in today's money</label>
-    </fieldset>
-    <fieldset>
-      <legend>Pensions</legend>
-      <label class="check"><input type="checkbox" id="hasDb" checked data-reveals="dbGroup"> Defined benefit pension</label>
-      <div class="row" id="dbGroup">
-        <div><label for="dbAmount">Yearly (£)</label><input type="number" id="dbAmount" min="0" value="9200"></div>
-        <div><label for="dbAge">From age</label><input type="number" id="dbAge" min="0" max="100" value="66"></div>
-      </div>
-      <label class="check"><input type="checkbox" id="hasSp" checked data-reveals="spGroup"> State Pension</label>
-      <div class="row" id="spGroup">
-        <div><label for="spAmount">Yearly (£)</label><input type="number" id="spAmount" min="0" value="12000"></div>
-        <div><label for="spAge">From age</label><input type="number" id="spAge" min="0" max="100" value="68"></div>
-      </div>
+      <legend>Withdrawal order</legend>
+      <ol class="fire-order" id="order">
+        {%- for pot in d.pots %}
+        <li data-pot="{{ pot.key }}"><span>{{ pot.name }}</span><button type="button" class="link" data-move="-1" aria-label="Move {{ pot.name }} up">↑</button><button type="button" class="link" data-move="1" aria-label="Move {{ pot.name }} down">↓</button></li>
+        {%- endfor %}
+      </ol>
+      <p class="note">Pots are drawn from the top down. The DC pension is skipped until its from age.</p>
     </fieldset>
   </div>
   <div class="actions"><button type="submit" class="primary">Calculate</button><span class="status" id="status" aria-live="polite"></span></div>
 </form>
 <div class="calc-results" id="results" hidden>
   <div class="cards" id="cards"></div>
-  <div class="chart-box tall"><canvas id="assetChart" aria-label="Portfolio value by age"></canvas></div>
-  <div class="chart-box"><canvas id="incomeChart" aria-label="Where yearly income comes from, every five years"></canvas></div>
+  <div class="chart-box tall"><canvas id="assetChart" aria-label="Value of each pot by age"></canvas></div>
+  <div class="chart-box tall"><canvas id="incomeChart" aria-label="Where each year's income comes from, by pot and pension"></canvas></div>
 </div>

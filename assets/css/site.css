@@ -611,6 +611,11 @@ mark.ws-duplicate { background: color-mix(in srgb, #f08a80 45%, transparent); co
 .f2-section summary { cursor: pointer; padding: 12px 18px; font-weight: 600; font-size: 14px; }
 .f2-section .calc { padding-top: 0; }
 .f2-tabs [aria-selected="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.fire-order { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
+.fire-order li { display: flex; align-items: center; gap: 4px; font-size: 14px; }
+.fire-order li span { flex: 1; }
+.fire-order button { min-width: 32px; min-height: 32px; padding: 0; font-size: 16px; text-decoration: none; }
+.fire-order li:first-child [data-move="-1"], .fire-order li:last-child [data-move="1"] { visibility: hidden; }
 
 /* ---------- Invoice ---------- */
 .inv { display: grid; gap: 18px; }

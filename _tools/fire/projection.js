@@ -1,47 +1,81 @@
-// FIRE projection, ported unchanged from the original calculator:
-// grow the portfolio until retirement, then each year draw what pensions
-// don't cover. Spending can step down from age 75.
+// FIRE projection with separate pots (for example Cash, an ISA and a DC
+// pension). Each year, from today to 100:
+//   1. once retired, take what pensions don't cover from the pots in the
+//      chosen order, skipping any pot whose from age hasn't arrived;
+//      anything still missing is a shortfall for that year
+//   2. add each pot's contributions, until its own stop age
+//   3. grow every pot at its own rate, whether or not it can be drawn yet
+// Spending, pensions and contributions are entered in today's money terms
+// (contributions stay fixed in cash). The model runs in cash terms and
+// divides by inflation when showing today's money. There is no tax: all
+// figures are gross.
 
 const MAX_AGE = 100;
 const REDUCED_SPENDING_AGE = 75;
+const PENNY = 0.005;
 
 export function projectRetirement(i) {
-  const { currentAge, retirementAge, spendingBefore75, spendingAfter75, assets: startAssets, monthlyContributions,
-    growthRate, inflationRate, db, state, realTerms } = i;
-  const realGrowth = (1 + growthRate) / (1 + inflationRate) - 1;
+  const { currentAge, retirementAge, spendingBefore75, spendingAfter75, inflationRate, realTerms, pots, order, db, state } = i;
+  const balance = Object.fromEntries(pots.map((p) => [p.key, p.value]));
+  const byKey = Object.fromEntries(pots.map((p) => [p.key, p]));
+  const drawOrder = [...order.filter((k) => byKey[k]), ...pots.map((p) => p.key).filter((k) => !order.includes(k))];
   const rows = [];
-  let value = startAssets;
-  let exhaustedAge = null;
 
-  for (let age = currentAge; age < retirementAge; age++) {
-    rows.push({ age, value: realTerms ? value / (1 + inflationRate) ** (age - currentAge) : value, phase: "accumulation", state: 0, db: 0, fromPortfolio: 0, spending: 0 });
-    value = value * (1 + growthRate) + monthlyContributions * 12;
-  }
+  for (let age = currentAge; age <= MAX_AGE; age++) {
+    const prices = (1 + inflationRate) ** (age - currentAge);
+    const show = (v) => (realTerms ? v / prices : v);
+    const start = { ...balance };
+    const withdrawals = Object.fromEntries(pots.map((p) => [p.key, 0]));
+    const retired = age >= retirementAge;
+    let spending = 0, dbIncome = 0, spIncome = 0, shortfall = 0;
 
-  for (let age = retirementAge; age <= MAX_AGE; age++) {
-    const dbIncome = db && age >= db.startAge ? db.amount : 0;
-    const spIncome = state && age >= state.startAge ? state.amount : 0;
-    const base = age < REDUCED_SPENDING_AGE ? spendingBefore75 : spendingAfter75;
-    let spending;
-    if (age < REDUCED_SPENDING_AGE) spending = realTerms ? base : base * (1 + inflationRate) ** (age - retirementAge);
-    else spending = realTerms ? base : base * (1 + inflationRate) ** (age - retirementAge);
-    const need = Math.max(0, spending - dbIncome - spIncome);
-    const row = { age, phase: "withdrawal", state: spIncome, db: dbIncome, spending };
-
-    if (exhaustedAge !== null) { rows.push({ ...row, value: null, fromPortfolio: 0, exhausted: true }); continue; }
-    if (value <= need) {
-      exhaustedAge = age;
-      rows.push({ ...row, value: 0, fromPortfolio: value, exhausted: true });
-      value = 0;
-      continue;
+    if (retired) {
+      dbIncome = db && age >= db.startAge ? db.amount * prices : 0;
+      spIncome = state && age >= state.startAge ? state.amount * prices : 0;
+      spending = (age < REDUCED_SPENDING_AGE ? spendingBefore75 : spendingAfter75) * prices;
+      let need = Math.max(0, spending - dbIncome - spIncome);
+      for (const key of drawOrder) {
+        if (need <= 0) break;
+        if (age < (byKey[key].fromAge || 0)) continue;
+        const take = Math.min(need, balance[key]);
+        withdrawals[key] = take;
+        balance[key] -= take;
+        need -= take;
+      }
+      shortfall = need > PENNY ? need : 0;
     }
-    rows.push({ ...row, value: realTerms ? value / (1 + inflationRate) ** (age - currentAge) : value, fromPortfolio: need });
-    value = Math.max(0, (value - need) * (1 + (realTerms ? realGrowth : growthRate)));
+
+    for (const p of pots) {
+      const until = p.until ?? retirementAge;
+      if (age < until) balance[p.key] += p.monthly * 12;
+      balance[p.key] = balance[p.key] < PENNY ? 0 : balance[p.key] * (1 + p.growth);
+    }
+
+    const shown = (obj) => Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, show(v)]));
+    const fromPortfolio = Object.values(withdrawals).reduce((a, b) => a + b, 0);
+    rows.push({
+      age, phase: retired ? "withdrawal" : "accumulation",
+      balances: shown(start), total: show(Object.values(start).reduce((a, b) => a + b, 0)),
+      withdrawals: shown(withdrawals), fromPortfolio: show(fromPortfolio), shortfall: show(shortfall),
+      spending: show(spending), db: show(dbIncome), state: show(spIncome),
+    });
   }
 
-  const atRetirement = rows.find((r) => r.age === retirementAge - 1)?.value || 0;
-  return { rows, exhaustedAge, at100: rows.find((r) => r.age === MAX_AGE)?.value || 0, atRetirement, reducedSpendingAge: REDUCED_SPENDING_AGE };
-}
+  // Runs of consecutive years where spending couldn't be met.
+  const gaps = [];
+  for (const r of rows) {
+    if (r.shortfall <= 0) continue;
+    const last = gaps.at(-1);
+    if (last && last.to === r.age - 1) { last.to = r.age; last.total += r.shortfall; }
+    else gaps.push({ from: r.age, to: r.age, total: r.shortfall });
+  }
+  const final = gaps.at(-1);
 
-/** Classic FIRE number: yearly spending divided by the safe withdrawal rate. */
-export const fireNumber = (spending, withdrawalRate) => (withdrawalRate > 0 ? spending / withdrawalRate : Infinity);
+  return {
+    rows, gaps,
+    runsOutAge: final && final.to === MAX_AGE ? final.from : null,
+    atRetirement: rows.find((r) => r.age === retirementAge)?.total || 0,
+    at100: rows.find((r) => r.age === MAX_AGE)?.total || 0,
+    reducedSpendingAge: REDUCED_SPENDING_AGE,
+  };
+}
