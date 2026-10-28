@@ -20,6 +20,7 @@ export const MANIFEST = {
   "imagetracerjs": { files: ["imagetracer_v1.2.6.js"], purpose: "Tracing bitmaps into SVG" },
   "js-yaml": { files: ["dist/browser/js-yaml.umd.min.js", "dist/js-yaml.mjs"], purpose: "Reading and writing YAML" },
   "jsqr": { files: ["dist/jsQR.js"], purpose: "Decoding QR codes" },
+  "qrcode-generator": { files: ["dist/qrcode.js"], purpose: "Making QR codes" },
   "sql-formatter": { files: ["dist/sql-formatter.min.js"], purpose: "Formatting SQL" },
 };
 

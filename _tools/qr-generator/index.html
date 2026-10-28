@@ -1,0 +1,61 @@
+---
+title: QR Code Generator
+permalink: /qr-generator
+category: images
+tags: [qr, images, design]
+added: 2026-10-28
+summary: Make a QR code with a small-caps label set into it, architectural drawing style, and check it scans.
+description: "Free QR code generator. Make a QR code for a link or text, with an optional small-caps label in the centre or a title strip below, checked to scan, and download it as SVG or PNG."
+vendor: [qrcode-generator, jsqr]
+scripts: [app.js]
+how_to:
+  - Enter the web address or text the code should hold.
+  - Set the label, and choose whether it sits in the centre of the code or in a strip below it.
+  - Wait for **Scans OK**, then download the code as an SVG for print or a PNG for screens.
+about: |
+  The label is set the way names are lettered on architectural drawings: lower-case text in small capitals, widely spaced, in a quiet grey, on a plate edged with a hairline rule. Below the code, it sits under a thin dimension-style line with end ticks instead.
+
+  A label in the centre covers some of the code, so it uses QR's highest error correction, which can rebuild up to about 30% of the pattern. Every code is read back with the [jsQR](/sbom#jsqr) scanner before you download it. If the label would stop it scanning, a larger code is used automatically until it reads cleanly. Codes are made with [qrcode-generator](/sbom#qrcode-generator).
+
+  The **SVG** is sharp at any size, which is best for print and signage, and carries its font with it. The **PNG** is for screens and documents. Everything happens in your browser.
+faq:
+  - q: Will a code with a label in the middle still scan?
+    a: Yes. It's checked with a scanner before you download it, and made larger if needed. Test it with your own phone before printing a lot of copies, especially if you change the colours.
+  - q: What colours work best?
+    a: Dark modules on a light background, with strong contrast. Light-on-dark codes and pale colours fail on many phone cameras.
+  - q: How big should I print it?
+    a: At least 2 cm across for a phone held close, and about a tenth of the scanning distance, so 30 cm across to scan from 3 metres.
+related: [/qr, /image-to-svg]
+config:
+  default_text: "https://thechels.uk"
+  default_label: "thechels.uk"
+  label_colour: "#6e7378"
+---
+<div class="calc">
+  <fieldset>
+    <legend>Code</legend>
+    <div><label for="text">Link or text</label><textarea id="text" rows="3" spellcheck="false"></textarea></div>
+    <div class="row">
+      <div><label for="ecc">Error correction</label>
+        <select id="ecc"><option value="M">Medium (15%)</option><option value="Q">Quartile (25%)</option><option value="H">High (30%)</option><option value="L">Low (7%)</option></select></div>
+      <div><label for="dark">Colour</label><input type="color" id="dark" value="#14181c"></div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Label</legend>
+    <div><label for="label">Text</label><input type="text" id="label" maxlength="40" spellcheck="false"></div>
+    <div class="row">
+      <div><label for="placement">Position</label>
+        <select id="placement"><option value="centre">In the centre</option><option value="below">Below the code</option><option value="none">No label</option></select></div>
+      <div><label for="labelColour">Label colour</label><input type="color" id="labelColour"></div>
+    </div>
+    <p class="note" id="eccNote" hidden>A centre label always uses high error correction.</p>
+  </fieldset>
+</div>
+<div class="img-preview qrg-preview"><div id="preview" role="img" aria-label="QR code preview"></div></div>
+<div class="actions">
+  <button type="button" class="primary" id="svg">Download SVG</button>
+  <span class="field"><button type="button" id="png">Download PNG</button>
+    <select id="pngSize" aria-label="PNG size"><option value="512">512 px</option><option value="1024" selected>1024 px</option><option value="2048">2048 px</option></select></span>
+  <span class="status" id="status" aria-live="polite"></span>
+</div>
