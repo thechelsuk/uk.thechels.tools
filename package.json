@@ -11,7 +11,7 @@
     "serve": "npm run vendor && bundle exec jekyll serve --livereload --livereload-port 35731"
   },
   "dependencies": {
-    "chart.js": "4.5.1",
+    "chart.js": "4.6.1",
     "chartjs-plugin-annotation": "3.1.0",
     "exif-js": "2.3.0",
     "imagetracerjs": "1.2.6",
