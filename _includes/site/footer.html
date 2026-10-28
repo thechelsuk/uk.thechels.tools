@@ -3,7 +3,10 @@
     <span>© {{ site.time | date: "%Y" }} thechelsuk</span>
     <a href="https://thechels.uk">thechels.uk</a>
     <a href="https://links.thechels.uk">Links</a>
-    <a href="https://github.com/{{ site.repository }}">Source</a>
+    <a href="https://github.com/{{ site.repository }}">GitHub</a>
+    {%- if site.build_revision %}
+    <a href="https://github.com/{{ site.repository }}/commit/{{ site.build_revision }}" class="build" title="The commit this site was built from">Build {{ site.build_revision | slice: 0, 8 }}</a>
+    {%- endif %}
     <span class="sp"></span>
     <a href="/sitemap.xml">Sitemap</a>
     <a href="/llms.txt">llms.txt</a>

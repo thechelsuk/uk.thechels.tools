@@ -14,6 +14,9 @@ jobs:
         steps:
             - name: Checkout Code
               uses: actions/checkout@v7
+              with:
+                  # super-linter compares the PR with main, so it needs full history
+                  fetch-depth: 0
             - name: Linter
               uses: github/super-linter/slim@v7
               env:

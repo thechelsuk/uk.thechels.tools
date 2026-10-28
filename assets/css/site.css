@@ -623,3 +623,4 @@ mark.ws-duplicate { background: color-mix(in srgb, #f08a80 45%, transparent); co
 
 /* Dates and other short values that mustn't break across lines. */
 .nowrap { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.site-footer .build { font-family: var(--font-mono); font-size: 12px; }
