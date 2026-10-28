@@ -5,23 +5,20 @@ layout: base
 <div class="wrap">
   <div class="intro">
     <div>{{ content }}</div>
-    <aside>
-      Made by thechelsuk.
-      <a href="https://thechels.uk">More on thechels.uk →</a>
-      <a href="#apps">Apps →</a>
-    </aside>
   </div>
 
   <div id="tools">
-  {%- assign n = 0 -%}
-  {%- for c in site.data.categories -%}
+    {%- assign n = 0 -%}
+    {%- for c in site.data.categories -%}
     {%- if c.home == false %}{% continue %}{% endif -%}
     {%- assign items = entries | where: "category", c.id -%}
     {%- if items.size > 0 -%}
     {%- assign n = n | plus: 1 -%}
     {%- capture num %}{{ n | prepend: "0" | slice: -2, 2 }}{% endcapture %}
     <section class="index-group" id="{{ c.id }}" aria-labelledby="h-{{ c.id }}">
-      <div class="index-head"><b>{{ num }}</b><h2 id="h-{{ c.id }}">{{ c.title }}</h2><span>{{ items.size }}</span></div>
+      <div class="index-head"><b>{{ num }}</b>
+        <h2 id="h-{{ c.id }}">{{ c.title }}</h2><span>{{ items.size }}</span>
+      </div>
       <ul class="index-list">
         {%- if c.groups %}
         {%- for g in c.groups %}
@@ -46,7 +43,7 @@ layout: base
       </ul>
     </section>
     {%- endif -%}
-  {%- endfor -%}
+    {%- endfor -%}
   </div>
 
   {%- for g in site.data.elsewhere -%}
@@ -54,7 +51,9 @@ layout: base
   {%- capture num %}{{ n | prepend: "0" | slice: -2, 2 }}{% endcapture %}
   {%- assign gid = g.title | slugify %}
   <section class="index-group" id="{{ gid }}" aria-labelledby="h-{{ gid }}">
-    <div class="index-head"><b>{{ num }}</b><h2 id="h-{{ gid }}">{{ g.title }}</h2><span>{{ g.links.size }}</span></div>
+    <div class="index-head"><b>{{ num }}</b>
+      <h2 id="h-{{ gid }}">{{ g.title }}</h2><span>{{ g.links.size }}</span>
+    </div>
     <ul class="index-list">
       {%- for l in g.links %}
       <li class="index-row">
