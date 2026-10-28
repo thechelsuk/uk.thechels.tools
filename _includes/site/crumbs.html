@@ -1,0 +1,28 @@
+{%- comment -%}
+  Builds the breadcrumb trail for the current page as two matching lists,
+  `crumb_names` and `crumb_urls` (relative). Used by the visible breadcrumb
+  and the BreadcrumbList in jsonld.html, so the two always agree.
+  Trail: Toolkit > category > group (templates only) > this page.
+{%- endcomment -%}
+{%- include site/entries.html -%}
+{%- assign crumb_sep = "~~" -%}
+{%- capture crumb_names %}Toolkit{% endcapture -%}
+{%- capture crumb_urls %}/{% endcapture -%}
+{%- if entry_cat -%}
+  {%- if entry_cat.page %}{% assign cat_url = entry_cat.page %}{% else %}{% assign cat_url = "/#" | append: entry_cat.id %}{% endif -%}
+  {%- assign crumb_names = crumb_names | append: crumb_sep | append: entry_cat.title -%}
+  {%- assign crumb_urls = crumb_urls | append: crumb_sep | append: cat_url -%}
+  {%- if page.group and entry_cat.groups -%}
+    {%- assign grp = entry_cat.groups | where: "id", page.group | first -%}
+    {%- if grp -%}
+      {%- assign crumb_names = crumb_names | append: crumb_sep | append: grp.title -%}
+      {%- assign crumb_urls = crumb_urls | append: crumb_sep | append: cat_url | append: "#" | append: grp.id -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+{%- unless page.url == "/" -%}
+  {%- assign crumb_names = crumb_names | append: crumb_sep | append: page.title -%}
+  {%- assign crumb_urls = crumb_urls | append: crumb_sep | append: page.url -%}
+{%- endunless -%}
+{%- assign crumb_names = crumb_names | split: crumb_sep -%}
+{%- assign crumb_urls = crumb_urls | split: crumb_sep -%}

@@ -1,0 +1,15 @@
+{%- comment -%} Visible breadcrumb under the header band. Not shown on the home page. {%- endcomment -%}
+{%- include site/crumbs.html -%}
+{%- if crumb_names.size > 1 %}
+<nav class="crumbs wrap" aria-label="Breadcrumb">
+  <ol>
+    {%- for name in crumb_names %}
+    {%- if forloop.last %}
+    <li aria-current="page">{{ name | escape }}</li>
+    {%- else %}
+    <li><a href="{{ crumb_urls[forloop.index0] }}">{{ name | escape }}</a></li>
+    {%- endif %}
+    {%- endfor %}
+  </ol>
+</nav>
+{%- endif %}
