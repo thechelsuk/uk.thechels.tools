@@ -32,17 +32,16 @@ This is the Jekyll layout I use for them. Copy it into your site, then replace `
 
 
 <ul>
- <li>{{ site.data.itemtype | size }}</b> item count.</li>
+  <li><b>{{ site.data.itemtype | size }}</b> item count.</li>
 </ul>
 
- assign sorted = site.data.itemtype | sort: 'title' %}
+{% assign sorted = site.data.itemtype | sort: 'title' %}
 <ul>
-    {% for item in sorted %}
-    <li>{{item.title}}</li>
-    {% endfor %}
+  {% for item in sorted %}
+  <li>{{ item.title }}</li>
+  {% endfor %}
 </ul>
 
-{% endfor %}
 {% include footer.html %}
 ```
 
