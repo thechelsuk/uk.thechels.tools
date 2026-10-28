@@ -171,13 +171,14 @@ pre { background: var(--field); border: 1px solid var(--line); padding: 14px 16p
 .site-nav a:not(.logo) { color: var(--band-2); text-decoration: none; }
 .site-nav a:not(.logo):hover, .site-nav a[aria-current="page"] { color: #fff; }
 
-.theme { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: rgb(255 255 255 / 0.14); }
+.theme { display: inline-flex; gap: 1px; padding: 2px; border-radius: 999px; background: rgb(255 255 255 / 0.14); }
 .theme button {
-  appearance: none; border: 0; background: none; cursor: pointer;
-  font: 500 11.5px/1 var(--font-body); color: #d6e6f5;
-  padding: 5px 10px; border-radius: 999px; min-height: 0;
+  appearance: none; border: 0; background: none; cursor: pointer; color: #d6e6f5;
+  display: grid; place-items: center; width: 26px; height: 26px; min-height: 0; padding: 0; border-radius: 999px;
 }
-.theme button[aria-pressed="true"] { background: #fff; color: #0b2a45; font-weight: 600; }
+.theme button:hover { color: #fff; background: rgb(255 255 255 / 0.12); }
+.theme button[aria-pressed="true"] { background: #fff; color: #0b2a45; }
+.theme svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
 .band-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-bottom: 8px; min-width: 0; }
 .eyebrow { font: 12.5px/1.4 var(--font-mono); color: var(--band-2); margin: 0 0 8px; }
@@ -191,8 +192,8 @@ pre { background: var(--field); border: 1px solid var(--line); padding: 14px 16p
 
 @media (max-width: 640px) {
   :root { --band-h: 250px; --nav-h: 56px; }
-  .site-nav { gap: 14px; }
-  .site-nav .links { display: none; }
+  .site-nav { gap: 12px; }
+  .site-nav .links { gap: 12px; }
   .band::after { font-size: 420px; top: -40px; right: -90px; }
   .band .summary { font-size: 15px; }
 }
@@ -334,7 +335,15 @@ pre { background: var(--field); border: 1px solid var(--line); padding: 14px 16p
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
 th { font-size: 12px; font-weight: 600; color: var(--muted); }
-.table-wrap { overflow-x: auto; position: relative; }
+/* Every table sits in a .table-wrap (site.js adds one where the markup hasn't).
+   On narrow screens the table keeps a readable width and scrolls sideways
+   inside it, rather than squeezing columns down to a letter per line. */
+.table-wrap { overflow-x: auto; position: relative; margin: 16px 0; -webkit-overflow-scrolling: touch; }
+.table-wrap > table { width: 100%; margin: 0; }
+.table-wrap > table:has(tr > :nth-child(3)) { min-width: 32rem; }
+.table-wrap > table:has(tr > :nth-child(4)) { min-width: 42rem; }
+.table-wrap > table:has(tr > :nth-child(6)) { min-width: 52rem; }
+.table-wrap td, .table-wrap th { overflow-wrap: normal; word-break: normal; hyphens: manual; }
 
 /* ---------- Footer ---------- */
 .site-footer { margin-top: 56px; border-top: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 85%, transparent); }
@@ -615,9 +624,6 @@ mark.ws-duplicate { background: color-mix(in srgb, #f08a80 45%, transparent); co
 .doc .index-group:first-of-type { margin-top: 20px; }
 
 /* ---------- Small screens: nothing pushes the page sideways ---------- */
-.prose table { width: 100%; table-layout: auto; }
-.prose td:not(.nowrap), .prose th:not(.nowrap) { overflow-wrap: break-word; hyphens: auto; }
-@media (max-width: 640px) { .prose td:not(.nowrap), .prose th:not(.nowrap) { overflow-wrap: anywhere; } }
 .inv > *, .calc > *, .panes > *, .win { min-width: 0; }
 .inv-meta .row { grid-template-columns: 6.5em minmax(0, 11em); }
 
