@@ -20,7 +20,8 @@ for (const slug of tools) {
     }
     assert.ok(categories.has(fm.category), `${slug}: unknown category ${fm.category}`);
     assert.ok(fm.summary.length <= 140, `${slug}: summary over 140 characters`);
-    assert.ok(fm.description.length <= 200, `${slug}: description over 200 characters`);
+    assert.ok(fm.description.length <= 160, `${slug}: description over 160 characters`);
+    assert.ok(!fm.seo_title || fm.seo_title.length <= 60, `${slug}: seo_title over 60 characters`);
     assert.ok(Array.isArray(fm.tags) && fm.tags.every((t) => /^[a-z0-9-]+$/.test(t)), `${slug}: tags must be lower-case words`);
     for (const v of fm.vendor || []) assert.ok(MANIFEST[v], `${slug}: vendor ${v} not in scripts/vendor.mjs`);
     for (const s of fm.scripts || []) assert.ok(existsSync(new URL(`_tools/${slug}/${s}`, root)), `${slug}: script ${s} missing`);

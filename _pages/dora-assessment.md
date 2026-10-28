@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Dora Assessment 24 key capabilities checklist
+seo_title: "DORA Assessment: 24 Capabilities Checklist · Toolkit"
 permalink: /dora-assessment
 description: "A checklist for the 24 key accelerate outcomes"
 category: templates

@@ -33,7 +33,15 @@ export function readPackage(name, base = root) {
 export function repoUrl(pkg) {
   const r = typeof pkg.repository === "string" ? pkg.repository : pkg.repository?.url;
   if (!r) return null;
-  return r.replace(/^git\+/, "").replace(/\.git$/, "").replace(/^git:\/\//, "https://").replace(/^github:/, "https://github.com/");
+  // npm shorthand: "owner/repo" means GitHub; "gitlab:" and "bitbucket:" name other hosts
+  if (/^[\w.-]+\/[\w.-]+$/.test(r)) return `https://github.com/${r}`;
+  return r
+    .replace(/^git\+/, "")
+    .replace(/\.git$/, "")
+    .replace(/^git:\/\//, "https://")
+    .replace(/^github:/, "https://github.com/")
+    .replace(/^gitlab:/, "https://gitlab.com/")
+    .replace(/^bitbucket:/, "https://bitbucket.org/");
 }
 
 export function vendor({ base = root, out = join(root, "assets", "vendor") } = {}) {

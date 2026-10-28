@@ -32,5 +32,10 @@ test("vendor copies each file into a versioned folder with its licence", () => {
 test("repoUrl normalises npm repository formats", () => {
   assert.equal(repoUrl({ repository: { url: "git+https://github.com/a/b.git" } }), "https://github.com/a/b");
   assert.equal(repoUrl({ repository: "github:a/b" }), "https://github.com/a/b");
+  // npm shorthand: bare "owner/repo" means GitHub
+  assert.equal(repoUrl({ repository: "nodeca/js-yaml" }), "https://github.com/nodeca/js-yaml");
+  assert.equal(repoUrl({ repository: { url: "a/b" } }), "https://github.com/a/b");
+  assert.equal(repoUrl({ repository: "gitlab:a/b" }), "https://gitlab.com/a/b");
+  assert.equal(repoUrl({ repository: "bitbucket:a/b" }), "https://bitbucket.org/a/b");
   assert.equal(repoUrl({}), null);
 });
