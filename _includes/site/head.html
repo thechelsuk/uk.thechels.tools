@@ -1,0 +1,41 @@
+{%- assign page_desc = page.description | default: page.summary | default: site.description | strip_html | strip | escape -%}
+{%- assign page_url = page.url | absolute_url | replace: "/index.html", "/" -%}
+{%- if page.url == "/" -%}{%- assign full_title = "Toolkit by thechelsuk: browser tools, templates and notes" -%}
+{%- elsif page.seo_title -%}{%- assign full_title = page.seo_title -%}
+{%- else -%}{%- assign full_title = page.title | append: " · Toolkit by thechelsuk" -%}{%- endif -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ full_title }}</title>
+<meta name="description" content="{{ page_desc }}">
+<link rel="canonical" href="{{ page_url }}">
+<meta name="robots" content="{% if page.noindex %}noindex{% else %}index, follow, max-image-preview:large, max-snippet:-1{% endif %}">
+<meta name="author" content="{{ site.author }}">
+
+<meta property="og:locale" content="en_GB">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolkit by thechelsuk">
+<meta property="og:title" content="{{ full_title }}">
+<meta property="og:description" content="{{ page_desc }}">
+<meta property="og:url" content="{{ page_url }}">
+<meta property="og:image" content="{{ site.owner.avatar }}">
+<meta name="twitter:card" content="summary">
+<meta name="fediverse:creator" content="@thechels.uk">
+{%- for link in site.owner.sameAs %}
+<link rel="me" href="{{ link }}">
+{%- endfor %}
+
+<meta name="theme-color" content="#005ca3">
+<meta name="color-scheme" content="light dark">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="/favicon.ico" sizes="16x16">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/splashscreens/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/splashscreens/apple-icon-180x180.png">
+<link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<meta name="msvalidate.01" content="0792E4237BC516A9033CB784F6F629E1">
+
+<link rel="preload" href="/fonts/thechelsuk-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css?v={{ site.time | date: "%s" }}">
+<script src="/assets/js/theme.js?v={{ site.time | date: "%s" }}"></script>
+<script src="https://analytics.ahrefs.com/analytics.js" data-key="i9FSFAekQuon/3aaoIMCZg" async></script>
+{% include site/jsonld.html %}

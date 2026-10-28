@@ -1,0 +1,39 @@
+---
+title: Rolling Average Chart
+permalink: /rolling-average
+category: planning
+tags: [charts, averages, data]
+added: 2025-03-14
+summary: Chart a series of numbers with its rolling average and overall average.
+description: "Free rolling average calculator. Paste a series of numbers, choose a window size, and chart the moving average against the overall average."
+vendor: [chart.js]
+scripts: [app.js]
+how_to:
+  - Paste your numbers, separated by commas, spaces or new lines.
+  - Choose how many values each rolling average should cover.
+  - The chart and table update as you type.
+about: |
+  A rolling (or moving) average smooths out noise so the trend is easier to see. Each point is the average of the last few values, so a 3-point rolling average at week 10 is the mean of weeks 8, 9 and 10. The line starts once there are enough values to fill the first window.
+
+  It's handy for sprint throughput, cycle times, weekly sales or anything else that bounces around. A wider window gives a smoother line that reacts more slowly to change. The dashed line shows the overall average for comparison.
+
+  Your figures stay in your browser.
+faq:
+  - q: What window size should I use?
+    a: Start with 3 to 5 for weekly or sprint data. Use a wider window if the line is still jumpy, or a narrower one if it hides real changes.
+related: [/monte-carlo]
+config:
+  sample: "5, 7, 4, 8, 6, 9, 7, 10, 8, 11, 9, 12"
+---
+<div class="toolbar">
+  <span class="field mc-wide"><label for="values">Values</label><input type="text" id="values" placeholder="5, 7, 4, 8, 6, 9"></span>
+  <span class="field"><label for="window">Window</label><input type="number" class="narrow" id="window" min="1" value="3"></span>
+  <button type="button" class="link push" id="sample">Load sample</button>
+</div>
+<div class="stat-row" id="stats" hidden>
+  <div class="stat"><b id="s-count">–</b><span>values</span></div>
+  <div class="stat"><b id="s-mean">–</b><span>overall average</span></div>
+  <div class="stat"><b id="s-last">–</b><span>latest rolling average</span></div>
+</div>
+<div class="chart-box"><canvas id="chart" aria-label="Values, rolling average and overall average"></canvas></div>
+<div class="actions"><span class="status" id="status" aria-live="polite">Enter some numbers to chart.</span></div>

@@ -1,9 +1,11 @@
 ---
-layout: page
-title: Rules
+layout: doc
+title: "Ensemble Programming Rules"
 permalink: /ensemblism/rules
 seo: Rules for group programming
-
+category: templates
+summary: "Ensemble programming: ground rules for a session."
+group: ensemble
 ---
 
 ## 1. Take breaks

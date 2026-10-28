@@ -1,11 +1,12 @@
 ---
-
-layout: index
+layout: doc
 title: Secure Development Policy Template
 seo: Secure Development Policy Template
 permalink: /secure-dev-policy
 description: "A software engineering team leader secure development policy starter for 10 template"
-category: work
+category: templates
+summary: "A secure development policy to adapt for your team."
+group: policies
 ---
 
 > Should be a word doc held by IT in central source available to all engineering function.

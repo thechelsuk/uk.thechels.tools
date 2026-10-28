@@ -1,0 +1,52 @@
+---
+title: Cipher Encoder and Decoder
+permalink: /cipher
+category: text
+tags: [ciphers, puzzles, text]
+added: 2026-10-25
+summary: Encode and decode text with Caesar, Atbash, Vigenère or Morse code.
+description: "Free cipher tool. Encrypt and decrypt messages with the Caesar shift, Atbash, Vigenère keyword cipher or Morse code, in your browser."
+scripts: [app.js]
+how_to:
+  - Choose a cipher. Caesar needs a shift; Vigenère needs a keyword.
+  - Type your message and press **Encode** or **Decode**.
+  - For Morse, letters are separated by spaces and words by `/`.
+about: |
+  These are the classic ciphers from puzzle books, escape rooms and school projects:
+
+  - **Caesar** moves every letter along the alphabet by a fixed number. Julius Caesar is said to have used a shift of 3.
+  - **Atbash** swaps A with Z, B with Y and so on. Encoding and decoding are the same step.
+  - **Vigenère** uses a keyword to shift each letter by a different amount, which hides letter patterns far better than Caesar. Only letters use up the keyword, so spaces and punctuation don't change the result.
+  - **Morse** turns letters and digits into dots and dashes.
+
+  Results come back in capitals, since the ciphers work on the 26 letters. None of these are secure by modern standards; use them for fun, not secrets.
+faq:
+  - q: How do I crack a Caesar cipher?
+    a: Try decoding with every shift from 1 to 25. Only one will produce readable words.
+  - q: Why do some characters come back as "?" in Morse?
+    a: They're codes the decoder doesn't recognise, usually a typo. They're listed under the result.
+related: [/string-sorter, /escape-entities]
+---
+<form id="form">
+  <div class="toolbar">
+    <span class="field"><label for="method">Cipher</label>
+      <select id="method"><option value="caesar">Caesar</option><option value="atbash">Atbash</option><option value="vigenere">Vigenère</option><option value="morse">Morse</option></select></span>
+    <span class="field" id="shift-field"><label for="shift">Shift</label><input type="number" class="narrow" id="shift" min="1" max="25" value="3"></span>
+    <span class="field" id="keyword-field" hidden><label for="keyword">Keyword</label><input type="text" id="keyword" placeholder="LEMON" autocomplete="off"></span>
+  </div>
+  <div class="panes">
+    <div class="pane">
+      <div class="pane-head"><label for="input">Message</label></div>
+      <textarea id="input" placeholder="Type a message"></textarea>
+    </div>
+    <div class="pane">
+      <div class="pane-head"><label for="output">Result</label><span class="status" id="status" aria-live="polite"></span></div>
+      <textarea id="output" spellcheck="false" readonly></textarea>
+    </div>
+  </div>
+  <div class="actions">
+    <button type="submit" class="primary" data-mode="encrypt">Encode</button>
+    <button type="submit" data-mode="decrypt">Decode</button>
+    <button type="button" id="copy">Copy result</button>
+  </div>
+</form>

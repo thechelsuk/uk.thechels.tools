@@ -1,9 +1,11 @@
 ---
-layout: page
-title: Resources
+layout: doc
+title: "Ensemble Programming Resources"
 permalink: /ensemblism/resources
 seo: Resources for group programming
-
+category: templates
+summary: "Ensemble programming: further reading."
+group: ensemble
 ---
 
 

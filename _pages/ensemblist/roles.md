@@ -1,9 +1,11 @@
 ---
-layout: page
-title: Roles
+layout: doc
+title: "Ensemble Programming Roles"
 permalink: /ensemblism/roles
 seo: roles for group programming
-
+category: templates
+summary: "Ensemble programming: the roles people take."
+group: ensemble
 ---
 
 ### Role 1: Navigator:

@@ -1,0 +1,40 @@
+---
+title: String Sorter
+permalink: /string-sorter
+category: text
+tags: [text, sorting]
+added: 2025-03-13
+summary: Reverse text, reverse the order of words, or sort the characters A–Z.
+description: "Free online text reverser and string sorter. Reverse characters or word order, or sort letters alphabetically, with emoji kept intact, in your browser."
+scripts: [app.js]
+how_to:
+  - Type or paste text into **Input**.
+  - Pick what to do with it. The result updates as you type.
+  - Copy the result.
+about: |
+  Three small text transformations in one place: flip the characters, flip the order of the words while keeping the spacing, or sort every character alphabetically. Sorting the letters of two words is a quick way to check whether they're anagrams.
+
+  Characters are handled the way you see them rather than byte by byte, so emoji, flags and accented letters stay in one piece instead of turning into broken symbols.
+faq:
+  - q: Why do some online reversers break emoji?
+    a: Many emoji are made of several code points joined together. Reversing the code points splits them apart. This tool reverses whole visible characters instead.
+related: [/list-sorter, /slug]
+---
+<div class="toolbar">
+  <span class="field"><label for="mode">Do</label>
+    <select id="mode"><option value="chars">Reverse characters</option><option value="words">Reverse word order</option><option value="sort">Sort characters A–Z</option></select></span>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="input">Input</label></div>
+    <textarea id="input" placeholder="Type some text"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><label for="output">Result</label><span class="status" id="status" aria-live="polite"></span></div>
+    <textarea id="output" readonly></textarea>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy result</button>
+  <button type="button" class="link" id="clear">Clear</button>
+</div>

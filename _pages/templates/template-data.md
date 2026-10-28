@@ -1,9 +1,11 @@
 ---
-
-layout: page
-title: Template - Data
+layout: doc
+title: "Data Post Template"
 seo: Data
 permalink: /templates/data
+category: templates
+summary: "Markdown front matter for a data post."
+group: posts
 ---
 
 {% raw %}

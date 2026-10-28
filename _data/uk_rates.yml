@@ -1,0 +1,40 @@
+# UK tax rates and thresholds used by the finance calculators.
+# England, Wales and Northern Ireland (Scottish income tax bands aren't covered).
+# Update these once a year when the new tax year's figures are published;
+# every calculator reads them from here.
+tax_year: "2026/27"
+tax_year_start: "2026-04-06"
+
+income_tax:
+  personal_allowance: 12570
+  basic_rate_limit: 50270       # gross income taxed at 20% up to here
+  higher_rate_limit: 125140     # gross income taxed at 40% up to here; 45% above
+  basic_rate: 0.20
+  higher_rate: 0.40
+  additional_rate: 0.45
+
+national_insurance:
+  primary_threshold: 12570      # employee, annual
+  upper_earnings_limit: 50270   # employee, annual
+  main_rate: 0.08
+  upper_rate: 0.02
+  employer_rate: 0.15
+  employer_threshold: 5000      # secondary threshold, annual
+
+redundancy:
+  weekly_pay_cap: 751           # statutory redundancy pay
+  max_service_years: 20
+  min_service_years: 2
+  tax_free_limit: 30000         # termination payments (ITEPA s.401)
+  max_notice_weeks: 12
+
+student_loans:
+  plan1: { name: "Plan 1", threshold: 26900, rate: 0.09 }
+  plan2: { name: "Plan 2", threshold: 29385, rate: 0.09 }
+  plan4: { name: "Plan 4", threshold: 33795, rate: 0.09 }
+  plan5: { name: "Plan 5", threshold: 25000, rate: 0.09 }
+  postgrad: { name: "Postgraduate Loan", threshold: 21000, rate: 0.06 }
+
+savings:
+  isa_allowance: 20000
+  premium_bonds_limit: 50000

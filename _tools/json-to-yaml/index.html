@@ -1,0 +1,53 @@
+---
+title: JSON to YAML Converter
+permalink: /json-to-yaml
+category: formatters
+tags: [json, yaml, formatter, developer]
+added: 2025-03-12
+summary: Convert JSON to YAML in block, flow or quoted style, or YAML back to JSON.
+description: "Free JSON to YAML converter. Turn JSON into block, flow or fully quoted YAML, or convert YAML back to JSON, in your browser."
+vendor: [js-yaml]
+scripts: [app.js]
+how_to:
+  - Choose a direction and, for YAML output, a style.
+  - Paste your data into **Input**. The result updates as you type.
+  - Copy or download the result.
+about: |
+  JSON and YAML describe the same kinds of data, but YAML is easier to read and edit by hand, which is why it's used for config files in tools like GitHub Actions, Docker Compose and Kubernetes. This converts between them using the open source [js-yaml](/sbom#js-yaml) library.
+
+  - **Block** is the everyday YAML style: one key per line, nested with indentation.
+  - **Flow** keeps the top level as blocks but writes nested objects and lists on one line, like JSON. It's compact for short values.
+  - **Quoted** puts every string in double quotes, so nothing can be misread.
+
+  Watch for strings like `y`, `no`, `on` or `off`. Older YAML readers treat those as true or false, so js-yaml quotes them automatically. It's known as the "Norway problem", after the country code `NO`.
+faq:
+  - q: Are comments kept when converting YAML to JSON?
+    a: No. JSON has no comments, so they're dropped.
+  - q: Why does my YAML have quotes I didn't expect?
+    a: Values that YAML could read as a number, date or true/false are quoted so they stay strings.
+related: [/json-pretty-printer, /yaml-explorer]
+config:
+  sample: "{\"models\":[{\"provider\":\"gemini\",\"model_id\":\"gemini-1.5-flash\",\"tiers\":[{\"max_tokens\":128000,\"input_cost\":7,\"output_cost\":30}]}],\"country\":\"NO\"}"
+---
+<div class="toolbar">
+  <span class="field"><label for="direction">Convert</label>
+    <select id="direction"><option value="json-yaml">JSON to YAML</option><option value="yaml-json">YAML to JSON</option></select></span>
+  <span class="field" id="style-field"><label for="style">Style</label>
+    <select id="style"><option value="block">Block</option><option value="flow">Flow</option><option value="quoted">Quoted</option></select></span>
+  <button type="button" class="link push" id="sample">Load sample</button>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="input" id="in-label">JSON</label></div>
+    <textarea id="input" spellcheck="false" autocomplete="off"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><label for="output" id="out-label">YAML</label><span class="status" id="status" aria-live="polite"></span></div>
+    <textarea id="output" spellcheck="false" readonly></textarea>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy result</button>
+  <button type="button" id="download">Download</button>
+  <button type="button" class="link" id="clear">Clear</button>
+</div>

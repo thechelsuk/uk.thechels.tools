@@ -1,0 +1,103 @@
+---
+layout: doc
+title: SBOM
+permalink: /sbom
+summary: The software bill of materials. Every library, gem, action and service this site uses.
+description: "Software bill of materials for Toolkit by thechelsuk: every npm library served to browsers, Ruby gem used to build the site, GitHub Action used in CI, and outside service, with versions and licences."
+sitemap: false
+---
+{%- assign sbom = site.data.sbom -%}
+{%- assign shipped = sbom.npm | where: "direct", true -%}
+{%- assign transitive = sbom.npm | where: "direct", false -%}
+<p>This lists everything the site is built from and everything it talks to. Versions are pinned and <a href="https://github.com/{{ site.repository }}/network/updates">Dependabot</a> opens a pull request when one changes. The same list in machine-readable <a href="https://cyclonedx.org">CycloneDX</a> format is at <a href="/sbom.json">sbom.json</a>.</p>
+
+<p class="sbom-counts">
+  <span><b>{{ sbom.npm.size }}</b> npm packages</span>
+  <span><b>{{ sbom.gems.size }}</b> Ruby gems</span>
+  <span><b>{{ sbom.actions.size }}</b> GitHub Actions</span>
+  <span><b>{{ site.data.services.size }}</b> outside services</span>
+</p>
+
+<h2 id="browser">Served to your browser</h2>
+<p>JavaScript libraries installed from npm, copied onto this site when it's built and served from here. Tools never load scripts from a CDN.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Library</th><th>Version</th><th>Licence</th><th>Used for</th><th>Used by</th></tr></thead>
+  <tbody>
+  {%- for c in shipped %}
+  {%- assign v = site.data.vendor[c.name] %}
+  {%- assign name = c.name %}
+  {%- assign users = site.tools | where_exp: "t", "t.vendor contains name" %}
+  <tr id="{{ c.name | slugify }}">
+    <td><a href="{{ v.homepage | default: v.repository }}">{{ c.name }}</a></td>
+    <td><code>{{ c.version }}</code></td>
+    <td>{% if v.licence_file %}<a href="{{ v.licence_file }}">{{ c.licence }}</a>{% else %}{{ c.licence }}{% endif %}</td>
+    <td>{{ v.purpose }}</td>
+    <td>{% for t in users %}<a href="{{ t.url }}">{{ t.title }}</a>{% unless forloop.last %}, {% endunless %}{% else %}–{% endfor %}</td>
+  </tr>
+  {%- endfor %}
+  </tbody>
+</table>
+</div>
+{%- if transitive.size > 0 %}
+<p class="sbom-note">Those libraries depend on {{ transitive.size }} more packages, bundled into their files:
+{% for c in transitive %}<code>{{ c.name }} {{ c.version }}</code> ({{ c.licence }}){% unless forloop.last %}, {% endunless %}{% endfor %}.</p>
+{%- endif %}
+
+<h2 id="services">Outside services</h2>
+<p>The only other hosts a page here talks to. Tools that use one say so in their title bar.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Service</th><th>Host</th><th>What for</th><th>Used by</th></tr></thead>
+  <tbody>
+  {%- for s in site.data.services %}
+  <tr>
+    <td><a href="{{ s.url }}">{{ s.name }}</a></td>
+    <td><code>{{ s.host }}</code></td>
+    <td>{{ s.what }}</td>
+    <td>{% for u in s.used_by %}{% assign t = site.tools | where_exp: "t", "t.url contains u" | first %}{% if t %}<a href="{{ t.url }}">{{ t.title }}</a>{% else %}{{ u }}{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</td>
+  </tr>
+  {%- endfor %}
+  </tbody>
+</table>
+</div>
+
+<h2 id="build">Used to build the site</h2>
+<p>Ruby gems for <a href="https://jekyllrb.com">Jekyll</a>, which turns this site's source into HTML. They run during the build and never reach your browser.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Gem</th><th>Version</th><th>Licence</th><th>What it is</th></tr></thead>
+  <tbody>
+  {%- for g in sbom.gems %}
+  <tr>
+    <td>{% if g.homepage %}<a href="{{ g.homepage }}">{{ g.name }}</a>{% else %}{{ g.name }}{% endif %}</td>
+    <td><code>{{ g.version }}</code></td>
+    <td>{{ g.licence | default: "–" }}</td>
+    <td>{{ g.summary }}</td>
+  </tr>
+  {%- endfor %}
+  </tbody>
+</table>
+</div>
+
+<h2 id="ci">Used in CI</h2>
+<p>GitHub Actions that build, test, scan and deploy the site.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Action</th><th>Version</th><th>Workflows</th></tr></thead>
+  <tbody>
+  {%- for a in sbom.actions %}
+  <tr>
+    <td><a href="https://github.com/{{ a.name | split: '/' | slice: 0, 2 | join: '/' }}">{{ a.name }}</a></td>
+    <td><code>{{ a.version }}</code></td>
+    <td>{{ a.workflows | join: ", " }}</td>
+  </tr>
+  {%- endfor %}
+  </tbody>
+</table>
+</div>
+
+<h2 id="assets">Fonts and images</h2>
+<p>The thechelsuk typeface and every image are hosted on this site.</p>
+
+<p class="sbom-note">Generated {{ sbom.generated | date: "%-d %B %Y at %H:%M" }} UTC.</p>

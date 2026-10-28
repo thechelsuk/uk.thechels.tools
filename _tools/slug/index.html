@@ -1,0 +1,40 @@
+---
+title: Random Slug Generator
+permalink: /slug
+category: text
+tags: [random, developer, text]
+added: 2026-03-23
+summary: Make random, URL-safe slugs for links, filenames and IDs.
+description: "Free random slug generator. Create lowercase letter-and-number slugs from 1 to 64 characters for URLs, filenames or IDs, using your browser's secure random source."
+scripts: [app.js]
+how_to:
+  - Drag the slider to pick a length.
+  - Leave **Start with a letter** ticked if the slug will be used as an ID or variable name.
+  - Press **Generate**, then **Copy**.
+about: |
+  Slugs here use only lowercase letters and digits, so they're safe in URLs, filenames, CSS class names and most database keys without any escaping. The slider jumps from 12 to 24, 32 and 64 characters for when you need something closer to a token.
+
+  Characters are picked with the browser's cryptographic random number generator rather than `Math.random`, so slugs aren't predictable. Starting with a letter matters for HTML IDs and many programming languages, which don't allow names to begin with a digit.
+faq:
+  - q: How likely is a clash?
+    a: A 12-character slug has 36 possible characters in most positions, giving trillions of combinations. For a few thousand slugs a clash is vanishingly unlikely; use 24 or more if you're generating millions.
+  - q: Are these safe to use as passwords?
+    a: They're random, but use a password manager for passwords; it can include symbols and remember them for you.
+related: [/string-sorter, /lorem]
+---
+<div class="win-body slug-body">
+  <form id="form" class="slug-form">
+    <div>
+      <label for="length">Length: <span id="length-value">12</span></label>
+      <input type="range" id="length" min="1" max="15" value="12">
+    </div>
+    <label class="check"><input type="checkbox" id="letter" checked> Start with a letter</label>
+    <button type="submit" class="primary">Generate</button>
+  </form>
+  <div class="slug-out">
+    <label for="output" class="sr-only">Slug</label>
+    <input type="text" id="output" readonly spellcheck="false">
+    <button type="button" id="copy">Copy</button>
+    <span class="status" id="status" aria-live="polite"></span>
+  </div>
+</div>

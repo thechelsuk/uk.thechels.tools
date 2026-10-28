@@ -1,0 +1,22 @@
+{%- comment -%}
+  Builds `entries`: every tool and page that appears on the home page,
+  i.e. anything with a `category` that isn't marked `index: false`.
+  `home_entries` is the same without categories marked `home: false`.
+  Also sets `entry_cat`, `entry_cat_n` and `entry_n` for the current page,
+  used for the "01 Formatters / 01.2" numbering.
+{%- endcomment -%}
+{%- assign hidden = site.data.categories | where: "home", false | map: "id" -%}
+{%- assign entries = site.tools | concat: site.pages | where_exp: "p", "p.category != nil" | where_exp: "p", "p.index != false" | sort: "title" -%}
+{%- assign home_entries = entries -%}
+{%- for h in hidden %}{% assign home_entries = home_entries | where_exp: "e", "e.category != h" %}{% endfor -%}
+{%- assign entry_cat = nil -%}{%- assign entry_cat_n = nil -%}{%- assign entry_n = nil -%}
+{%- assign home_n = 0 -%}
+{%- for c in site.data.categories -%}
+  {%- if c.home != false %}{% assign home_n = home_n | plus: 1 %}{% endif -%}
+  {%- if c.id == page.category -%}
+    {%- assign entry_cat = c -%}
+    {%- if c.home != false %}{% assign entry_cat_n = home_n %}{% else %}{% assign entry_cat_n = nil %}{% endif -%}
+    {%- assign in_cat = entries | where: "category", c.id -%}
+    {%- for e in in_cat -%}{%- if e.url == page.url -%}{%- assign entry_n = forloop.index -%}{%- endif -%}{%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}

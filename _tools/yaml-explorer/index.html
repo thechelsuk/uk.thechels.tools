@@ -1,0 +1,42 @@
+---
+title: YAML Explorer
+permalink: /yaml-explorer
+category: formatters
+tags: [yaml, developer]
+added: 2025-03-12
+summary: Browse a large YAML file as a collapsible tree, from pasted text or a URL.
+description: "Free YAML viewer. Paste YAML or load it from a URL to explore it as a collapsible tree with colour-coded values, and share a link to the same view."
+vendor: [js-yaml]
+scripts: [app.js]
+services: [a URL you enter]
+how_to:
+  - Paste YAML into **YAML**, or enter the address of a YAML file and press **Load**.
+  - Click any object or list in **Tree** to open it, or use **Expand all**.
+  - The page address keeps the URL and what's open, so you can bookmark or share the view.
+about: |
+  Long YAML files, like CI pipelines, Kubernetes manifests or OpenAPI specs, are hard to follow once they're more than a screen deep. The tree view shows the structure at a glance: each object says how many keys it has, each list how many items, and values are coloured by type.
+
+  If you load a file from a URL, your browser fetches it directly from that address; this site never sees it. The file's server has to allow cross-site requests, which raw files on GitHub and most public hosts do. Pasted YAML stays in your browser.
+faq:
+  - q: Why won't my URL load?
+    a: The server hosting the file has to allow requests from other sites (CORS). If it doesn't, download the file and paste it in instead.
+  - q: Does it support multiple documents in one file?
+    a: It reads the first document. Split the file at the `---` lines to explore the others.
+related: [/json-to-yaml, /json-pretty-printer]
+---
+<div class="toolbar">
+  <span class="field yaml-url"><label for="url">URL</label><input type="url" id="url" placeholder="https://example.com/file.yaml"></span>
+  <button type="button" id="load">Load</button>
+  <button type="button" class="link push" id="expand">Expand all</button>
+  <button type="button" class="link" id="collapse">Collapse all</button>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="input">YAML</label></div>
+    <textarea id="input" spellcheck="false" autocomplete="off" placeholder="key: value"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><span>Tree</span><span class="status" id="status" aria-live="polite"></span></div>
+    <div class="out yaml-tree" id="tree"></div>
+  </div>
+</div>

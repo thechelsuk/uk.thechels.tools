@@ -1,0 +1,47 @@
+---
+title: Monte Carlo Delivery Forecast
+permalink: /monte-carlo
+category: planning
+tags: [agile, forecasting, delivery, charts]
+added: 2025-03-13
+summary: Forecast how many sprints a backlog will take, from your team's past throughput.
+description: "Free Monte Carlo forecasting tool for agile teams. Enter past sprint throughput and remaining items to see the chance of finishing within each number of sprints."
+vendor: [chart.js, chartjs-plugin-annotation]
+scripts: [app.js]
+how_to:
+  - Enter how many items the team finished in each recent sprint, such as `6, 4, 7, 5, 8, 3`.
+  - Enter how many items are left in the backlog or release.
+  - Press **Forecast**. Read the chart as "the chance of being done within this many sprints".
+about: |
+  Estimates are guesses; past throughput is data. A Monte Carlo forecast replays your team's real sprints in random order thousands of times and counts how many sprints each replay needs to finish the work. The spread of those results is an honest range, not a single date.
+
+  The summary shows the number of sprints that's enough in **50%, 80%, 90% and 95%** of runs. Commit to the 80% or 90% figure, not the 50% one: half of all outcomes take longer than the median.
+
+  Use at least six to ten recent sprints, and leave out sprints that were unusual, like one over Christmas. The simulation runs 10,000 times in your browser.
+faq:
+  - q: Should I count stories or story points?
+    a: Either, as long as throughput and remaining work use the same unit. Counting items is simpler and usually forecasts just as well.
+  - q: Why does the forecast change slightly each time?
+    a: Each run is random. With 10,000 runs the percentiles rarely move by more than one sprint.
+related: [/rolling-average, /refinement]
+config:
+  iterations: 10000
+  sample_throughput: "6, 4, 7, 5, 8, 3, 6, 5"
+  sample_remaining: 40
+---
+<form id="form">
+  <div class="toolbar">
+    <span class="field mc-wide"><label for="throughput">Past throughput</label><input type="text" id="throughput" placeholder="6, 4, 7, 5, 8, 3" inputmode="numeric"></span>
+    <span class="field"><label for="remaining">Items left</label><input type="number" id="remaining" min="1" placeholder="40"></span>
+    <button type="submit" class="primary">Forecast</button>
+    <button type="button" class="link push" id="sample">Load sample</button>
+  </div>
+  <div class="stat-row" id="stats" hidden>
+    <div class="stat"><b id="p50">–</b><span>50% chance</span></div>
+    <div class="stat"><b id="p80">–</b><span>80% chance</span></div>
+    <div class="stat"><b id="p90">–</b><span>90% chance</span></div>
+    <div class="stat"><b id="p95">–</b><span>95% chance</span></div>
+  </div>
+  <div class="chart-box"><canvas id="chart" aria-label="Chance of finishing within each number of sprints"></canvas></div>
+  <div class="actions"><span class="status" id="status" aria-live="polite">Enter throughput and items left, then forecast.</span></div>
+</form>

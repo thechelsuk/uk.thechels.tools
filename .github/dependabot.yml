@@ -13,3 +13,18 @@ updates:
       - thechelsuk
     schedule:
       interval: "daily"
+  - package-ecosystem: "npm"
+    directory: "/"
+    assignees:
+      - thechelsuk
+    schedule:
+      interval: "weekly"
+    groups:
+      chart-js:
+        patterns: ["chart.js", "chartjs-*"]
+  - package-ecosystem: "bundler"
+    directory: "/"
+    assignees:
+      - thechelsuk
+    schedule:
+      interval: "weekly"

@@ -1,0 +1,28 @@
+---
+layout: doc
+title: Templates
+permalink: /templates
+summary: Role profiles, policies, ensemble programming guides and post templates to copy and adapt.
+description: "Free engineering templates from thechelsuk: software engineer and manager role profiles, secure development and SLA policies, ensemble programming guides and Markdown post templates."
+---
+{%- include site/entries.html -%}
+{%- assign cat = site.data.categories | where: "id", "templates" | first -%}
+{%- assign items = entries | where: "category", "templates" -%}
+<p>Documents I've written or adapted for engineering teams and for this site's own blog posts. Copy them, change them, and make them yours.</p>
+{%- for g in cat.groups %}
+{%- assign in_group = items | where: "group", g.id | sort: "title" %}
+{%- capture num %}{{ forloop.index | prepend: "0" | slice: -2, 2 }}{% endcapture %}
+<section class="index-group" id="{{ g.id }}" aria-labelledby="h-{{ g.id }}">
+  <div class="index-head"><b>{{ num }}</b><h2 id="h-{{ g.id }}">{{ g.title }}</h2><span>{{ in_group.size }}</span></div>
+  <ul class="index-list">
+    {%- for e in in_group %}
+    <li class="index-row">
+      <span class="n">{{ num }}.{{ forloop.index }}</span>
+      <a href="{{ e.url }}">{{ e.title }}</a>
+      <p>{{ e.summary | default: e.description | escape }}</p>
+      <span class="go" aria-hidden="true">→</span>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endfor %}

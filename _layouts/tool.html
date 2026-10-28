@@ -1,0 +1,94 @@
+---
+layout: base
+---
+{%- comment -%}
+  A tool lives in _tools/<slug>/. Its index.html holds the front matter and
+  the markup that goes inside the window; scripts sit next to it.
+
+  Front matter:
+    title, permalink, category, summary (one line), description (meta)
+    vendor:   [package names from package.json]   -> loaded as classic scripts
+    scripts:  [files in this folder]              -> loaded as ES modules
+    services: [outside services it calls]         -> shown in the title bar
+    how_to:   [steps]            about: markdown   faq: [{q, a}]
+    related:  [permalinks]          -> otherwise tools sharing a tag are shown
+    tags:     [keywords]            -> JSON-LD keywords and related tools
+    group:    sub-group within the category (e.g. a set of templates)
+    added:    date first published  -> JSON-LD dateCreated
+    uk_rates: true                  -> embeds _data/uk_rates.yml; read with `ukRates()`
+    seo_title: overrides the <title> when the page title is short
+    config:   any settings the script needs (defaults, samples, word lists).
+              Read in JS with `config()` from /assets/js/toolkit.js.
+{%- endcomment -%}
+{%- assign slug = page.path | split: "/" | slice: 1 | first -%}
+<div class="wrap tool">
+  <section class="win t-{{ slug }}" aria-label="{{ page.title }}">
+    <div class="win-bar">
+      <span class="win-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="win-title">{{ page.title }}<small>— {% if page.services %}uses {{ page.services | join: ", " }}{% else %}runs in your browser{% endif %}</small></span>
+      <span class="end"><button type="button" class="link" data-copy-link>Copy link</button></span>
+    </div>
+    {{ content }}
+  </section>
+
+  <article class="prose">
+    {%- if page.how_to %}
+    <h2>How to use it</h2>
+    <ol>
+      {%- for step in page.how_to %}
+      <li>{{ step | markdownify | remove: "<p>" | remove: "</p>" | strip }}</li>
+      {%- endfor %}
+    </ol>
+    {%- endif %}
+
+    {%- if page.about %}
+    <h2>About</h2>
+    {{ page.about | markdownify }}
+    {%- endif %}
+
+    {%- if page.faq %}
+    <h2>Questions</h2>
+    {%- for f in page.faq %}
+    <details class="faq"><summary>{{ f.q }}</summary>{{ f.a | markdownify }}</details>
+    {%- endfor %}
+    {%- endif %}
+  </article>
+
+  {%- comment -%} Related: the `related` list if given, otherwise tools sharing a tag. {%- endcomment -%}
+  {%- assign rel = "" | split: "" -%}
+  {%- if page.related -%}
+    {%- for r in page.related -%}
+      {%- assign t = site.tools | where: "permalink", r | first -%}
+      {%- unless t %}{% assign t = site.pages | where: "permalink", r | first %}{% endunless -%}
+      {%- if t %}{% assign rel = rel | push: t %}{% endif -%}
+    {%- endfor -%}
+  {%- elsif page.tags -%}
+    {%- for t in site.tools -%}
+      {%- if t.url != page.url and rel.size < 4 -%}
+        {%- for tag in page.tags -%}{%- if t.tags contains tag %}{% assign rel = rel | push: t %}{% break %}{% endif -%}{%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif %}
+  <p class="related">
+    {%- if page.last_modified_at %}Updated {{ page.last_modified_at | date: "%-d %B %Y" }}{% endif -%}
+    {%- if page.vendor %} · Uses {% for v in page.vendor %}{% assign lib = site.data.vendor[v] %}<a href="/sbom#{{ v | slugify }}">{{ v }} {{ lib.version }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif -%}
+    {%- if page.tags %} · Tags: {{ page.tags | join: ", " }}{% endif -%}
+    {%- if rel.size > 0 %}<br>Related:
+      {%- for t in rel %} <a href="{{ t.url }}">{{ t.title }}</a>{% endfor %}
+    {%- endif %}
+  </p>
+</div>
+
+{%- if page.uk_rates %}
+<script type="application/json" id="uk-rates">{{ site.data.uk_rates | jsonify }}</script>
+{%- endif %}
+{%- if page.config %}
+<script type="application/json" id="tool-config">{{ page.config | jsonify | replace: "</", "<\/" }}</script>
+{%- endif %}
+{%- for v in page.vendor %}
+{%- assign lib = site.data.vendor[v] %}
+<script src="{{ lib.files | first }}"></script>
+{%- endfor %}
+{%- for s in page.scripts %}
+<script type="module" src="/tools/{{ slug }}/{{ s }}"></script>
+{%- endfor %}

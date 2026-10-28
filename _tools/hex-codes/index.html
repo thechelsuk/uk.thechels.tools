@@ -1,0 +1,55 @@
+---
+title: Hex Colour Codes
+permalink: /hex-codes
+category: text
+tags: [colour, design, accessibility]
+added: 2025-03-26
+summary: Preview a hex colour, see its RGB and HSL values and contrast, and keep a palette.
+description: "Free hex colour tool. Preview any hex code, convert it to RGB and HSL, check WCAG contrast against black and white text, and save colours to a palette."
+scripts: [app.js]
+how_to:
+  - Type a hex code such as `005ca3` or `#fa0`, or use the colour picker.
+  - Read off the RGB and HSL values and the contrast with white and black text.
+  - Press **Save to palette** to keep a colour. Click a saved colour to load it again.
+about: |
+  Hex codes describe a colour as three pairs of hexadecimal digits for red, green and blue. This shows the colour large enough to judge, converts it to the `rgb()` and `hsl()` forms CSS also accepts, and works out its contrast ratio with white and black text.
+
+  The contrast figures use the WCAG 2 formula. Normal text needs at least **4.5:1** to pass level AA, and large text needs **3:1**. The preview uses whichever of black or white reads better.
+
+  Your palette is saved in this browser's local storage, so it's still there next time but isn't shared with anyone.
+faq:
+  - q: What's a three-digit hex code?
+    a: A shorthand where each digit is doubled, so `#fa0` is the same as `#ffaa00`.
+  - q: Where is my palette stored?
+    a: Only in this browser. Clearing site data or using another device starts a fresh palette.
+related: [/slug, /image-to-svg]
+---
+<div class="win-body hex-body">
+  <div class="hex-swatch" id="swatch"><span id="swatch-text">Aa</span></div>
+  <div class="hex-info">
+    <div class="hex-input">
+      <label for="hex">Hex code</label>
+      <input type="text" id="hex" value="005CA3" maxlength="7" spellcheck="false" autocomplete="off">
+      <input type="color" id="picker" value="#005ca3" aria-label="Pick a colour">
+    </div>
+    <table class="hex-values">
+      <tbody>
+        <tr><th scope="row">Hex</th><td id="v-hex"></td></tr>
+        <tr><th scope="row">RGB</th><td id="v-rgb"></td></tr>
+        <tr><th scope="row">HSL</th><td id="v-hsl"></td></tr>
+        <tr><th scope="row">On white</th><td id="v-white"></td></tr>
+        <tr><th scope="row">On black</th><td id="v-black"></td></tr>
+      </tbody>
+    </table>
+    <span class="status" id="status" aria-live="polite"></span>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="save">Save to palette</button>
+  <button type="button" id="copy">Copy hex</button>
+  <button type="button" class="link" id="clear-palette">Clear palette</button>
+</div>
+<div class="win-body hex-palette-wrap">
+  <p class="hex-palette-title">Palette</p>
+  <ul class="hex-palette" id="palette"></ul>
+</div>

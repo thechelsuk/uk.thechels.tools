@@ -1,0 +1,41 @@
+---
+title: Extract URLs
+permalink: /extract-urls
+category: text
+tags: [links, text]
+added: 2025-03-12
+summary: Pull every link out of copied web content or plain text, one per line.
+description: "Free URL extractor. Paste content from a web page, email or document and get every link as a list, with duplicates removed, in your browser."
+scripts: [app.js]
+how_to:
+  - Copy part of a web page, an email or a document, and paste it into **Input**.
+  - Links behind text, like a "read more" link, are picked up as well as URLs written out in full.
+  - Tick **Remove duplicates** if you only want each link once, then copy the list.
+about: |
+  When you paste from a web page, your clipboard carries the page's links as well as its words. This reads those links, plus any `http` or `https` address written in the text itself, and lists them one per line.
+
+  It's useful for gathering the sources in an article, checking where the links in an email really go, or turning a bookmarks page into a plain list. The pasted content is read as data and never run, and nothing leaves your browser.
+faq:
+  - q: Why are some links missing?
+    a: Only `http` and `https` links are listed. Email (`mailto:`) and in-page (`#section`) links are skipped.
+  - q: Can I paste plain text?
+    a: Yes. Any web address written out in the text is found too.
+related: [/list-sorter, /escape-entities]
+---
+<div class="toolbar">
+  <label class="check"><input type="checkbox" id="unique" checked> Remove duplicates</label>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="input">Input</label><span>paste here</span></div>
+    <textarea id="input" placeholder="Paste from a web page, email or document"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><label for="output">Links</label><span class="status" id="status" aria-live="polite"></span></div>
+    <textarea id="output" spellcheck="false" readonly></textarea>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy links</button>
+  <button type="button" class="link" id="clear">Clear</button>
+</div>

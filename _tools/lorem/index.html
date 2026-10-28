@@ -1,0 +1,33 @@
+---
+title: Lorem Ipsum Generator
+permalink: /lorem
+category: text
+tags: [placeholder, design, text]
+added: 2026-03-23
+summary: Placeholder text by the paragraph, ready to paste into a design.
+description: "Free lorem ipsum generator. Create any number of paragraphs of classic placeholder text to copy into designs, mock-ups and templates."
+scripts: [app.js]
+how_to:
+  - Choose how many paragraphs you need.
+  - Copy the text into your design or template.
+about: |
+  Lorem ipsum is scrambled Latin that designers use as filler so a layout can be judged on its shape rather than its words. It's based on a passage from Cicero, but altered enough that nobody tries to read it.
+
+  Paragraphs come from a fixed set and repeat in order, so the same count always gives the same text, which keeps screenshots and visual tests stable.
+faq:
+  - q: Why not use real text?
+    a: Real words pull people into reading and editing the copy. Placeholder text keeps attention on the layout until the real content is ready.
+related: [/slug, /string-sorter]
+---
+<div class="toolbar">
+  <span class="field"><label for="count">Paragraphs</label><input type="number" class="narrow" id="count" min="1" max="50" value="3"></span>
+</div>
+<div class="panes one">
+  <div class="pane">
+    <div class="pane-head"><label for="output">Text</label><span class="status" id="status" aria-live="polite"></span></div>
+    <textarea id="output" readonly></textarea>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy text</button>
+</div>

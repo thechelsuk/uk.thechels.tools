@@ -1,0 +1,48 @@
+---
+title: Paste Rich Text to HTML
+permalink: /paste-rich-text
+category: text
+tags: [html, text, developer]
+added: 2025-03-12
+summary: Paste formatted text from a web page or document and get its HTML.
+description: "Free rich text to HTML converter. Paste formatted text from a web page, Word or Google Docs to see and copy its HTML, optionally with styles and classes removed."
+scripts: [app.js]
+how_to:
+  - Copy formatted text from a web page, Word, Google Docs or an email.
+  - Click in the **Paste here** box and paste with Ctrl+V or ⌘V.
+  - Tick **Remove styles and classes** for cleaner markup, then copy the HTML.
+about: |
+  When you copy formatted text, your clipboard holds an HTML version alongside the plain text. This shows that HTML so you can reuse the headings, lists, links and bold text in a CMS, an email template or Markdown converter.
+
+  Word processors add a lot of noise: inline styles, class names, and Office-specific tags and comments. **Remove styles and classes** strips those and keeps the structure.
+
+  The preview is shown in a sandboxed frame where scripts can't run, so pasting something unexpected is harmless. Nothing is uploaded.
+faq:
+  - q: Why is the HTML so long?
+    a: Pasting from Word or a web page carries every inline style with it. Turn on **Remove styles and classes** to cut it down.
+  - q: Why is nothing captured?
+    a: Some apps only put plain text on the clipboard. Try copying from a browser or a different app.
+related: [/escape-entities, /extract-urls]
+---
+<div class="toolbar">
+  <label class="check"><input type="checkbox" id="clean" checked> Remove styles and classes</label>
+  <span class="status push" id="status" aria-live="polite"></span>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="paste">Paste here</label><span>Ctrl+V or ⌘V</span></div>
+    <textarea id="paste" placeholder="Click here and paste formatted text"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><label for="html">HTML</label></div>
+    <textarea id="html" spellcheck="false" readonly></textarea>
+  </div>
+</div>
+<div class="pane rich-preview">
+  <div class="pane-head"><span>Preview</span><span>scripts disabled</span></div>
+  <iframe id="preview" sandbox="" title="Preview of the pasted content"></iframe>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy HTML</button>
+  <button type="button" class="link" id="clear">Clear</button>
+</div>

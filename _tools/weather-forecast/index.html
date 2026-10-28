@@ -1,0 +1,43 @@
+---
+title: Weather by Postcode
+permalink: /weather-forecast
+category: planning
+tags: [weather, uk, postcode]
+added: 2025-05-16
+summary: Current weather for any UK postcode, using your own OpenWeatherMap key.
+description: "Check the current weather for a UK postcode: temperature, feels-like, humidity and wind, using postcodes.io and your own free OpenWeatherMap API key."
+scripts: [app.js]
+services: [postcodes.io, OpenWeatherMap]
+how_to:
+  - Get a free API key from [OpenWeatherMap](https://home.openweathermap.org/api_keys) if you don't have one.
+  - Enter a UK postcode and your key, then press **Get weather**.
+  - Tick **Remember key** to keep it on this device for next time.
+about: |
+  This turns a UK postcode into a location with [postcodes.io](https://postcodes.io), a free open data service, then asks [OpenWeatherMap](https://openweathermap.org) for the current conditions there.
+
+  Both requests go straight from your browser to those services; this site never sees your postcode or key. Your API key is only stored on this device if you tick **Remember key**, and you can untick it to forget it.
+faq:
+  - q: Why do I need my own API key?
+    a: OpenWeatherMap requires a key for every request. A free account allows far more requests than one person needs.
+  - q: My new key doesn't work.
+    a: New OpenWeatherMap keys can take a couple of hours to activate.
+related: [/activity-plan, /pomodoro]
+---
+<form id="form">
+  <div class="toolbar">
+    <span class="field"><label for="postcode">Postcode</label><input type="text" id="postcode" placeholder="GL50 1AA" autocomplete="postal-code" required></span>
+    <span class="field gh-url"><label for="key">API key</label><input type="password" id="key" autocomplete="off" required></span>
+    <label class="check"><input type="checkbox" id="remember"> Remember key</label>
+    <button type="submit" class="primary" id="go">Get weather</button>
+  </div>
+</form>
+<div id="result" hidden>
+  <div class="win-body wx-head"><h2 id="place"></h2><p id="summary"></p></div>
+  <div class="stat-row">
+    <div class="stat"><b id="temp"></b><span>Temperature</span></div>
+    <div class="stat"><b id="feels"></b><span>Feels like</span></div>
+    <div class="stat"><b id="humidity"></b><span>Humidity</span></div>
+    <div class="stat"><b id="wind"></b><span>Wind</span></div>
+  </div>
+</div>
+<div class="actions"><span class="status" id="status" aria-live="polite"></span></div>

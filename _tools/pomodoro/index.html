@@ -1,0 +1,54 @@
+---
+title: Pomodoro Timer
+permalink: /pomodoro
+category: planning
+tags: [focus, timer, productivity]
+added: 2025-03-12
+summary: A focus timer with a goal for each session and a log of what you got done.
+description: "Free Pomodoro timer. Set a goal, focus for 25 minutes or your own length, pause and resume, and keep a log of your sessions in your browser."
+scripts: [app.js]
+how_to:
+  - Write what you want to get done in this session.
+  - Pick a length and press **Start**, or press the space bar. Press again to pause.
+  - When the timer ends, the session is added to your log. Take a short break, then go again.
+about: |
+  The Pomodoro Technique, created by Francesco Cirillo, breaks work into focused blocks, traditionally 25 minutes, with short breaks between them. Writing a goal for each block keeps it concrete, and the log shows what the time actually went on.
+
+  The timer counts down in the page and in the browser tab title, so you can see it from other tabs. Pauses are recorded with each session. Your log is saved in this browser only, and you can copy it as JSON to keep elsewhere.
+faq:
+  - q: Does the timer keep going if I switch tabs?
+    a: Yes. It works from the clock time rather than counting ticks, so it stays accurate in a background tab.
+  - q: Where is my log kept?
+    a: In this browser's local storage. Clearing site data removes it, so copy the JSON if you want to keep it.
+related: [/activity-plan, /teaming]
+config:
+  minutes: [5, 10, 15, 20, 25, 30, 45, 60]
+  default: 25
+---
+<div class="win-body pomo-body">
+  <div class="pomo-goal">
+    <label for="goal">Goal for this session</label>
+    <input type="text" id="goal" placeholder="What will you get done?" autocomplete="off">
+  </div>
+  <div class="pomo-clock" id="clock" role="timer" aria-live="off">25:00</div>
+  <div class="pomo-controls">
+    <span class="field"><label for="length" class="sr-only">Length</label><select id="length"></select></span>
+    <button type="button" class="primary" id="start">Start</button>
+    <button type="button" id="end">Finish now</button>
+    <button type="button" class="link" id="reset">Reset</button>
+  </div>
+  <span class="status" id="status" aria-live="polite"></span>
+</div>
+<div class="win-body pomo-log-wrap">
+  <div class="pomo-log-head"><h2>Log</h2><span id="summary"></span></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Goal</th><th>Started</th><th>Length</th><th>Pauses</th><th><span class="sr-only">Delete</span></th></tr></thead>
+      <tbody id="log"></tbody>
+    </table>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" id="copy">Copy log as JSON</button>
+  <button type="button" class="link" id="clear">Clear log</button>
+</div>

@@ -1,0 +1,41 @@
+---
+title: QR Code Scanner
+permalink: /qr
+category: images
+tags: [qr, camera, images]
+added: 2025-03-12
+summary: Read a QR code from a photo, a screenshot or your camera, and see what's in it before you open it.
+description: "Free QR code reader. Decode QR codes from an image, a pasted screenshot or your camera, and check the link or text inside before opening it. Runs in your browser."
+vendor: [jsqr]
+scripts: [app.js]
+how_to:
+  - Drop an image containing a QR code, click to choose one, or paste a screenshot.
+  - Or press **Use camera** and hold the code up to it.
+  - Read what the code contains. Links are only opened if you click them.
+about: |
+  QR codes on posters, parking meters and emails can point anywhere, and scam codes stuck over real ones are common. Reading a code here shows you exactly what's inside first: the full web address, Wi-Fi network name, email address or text.
+
+  Only `http` and `https` addresses become links, and they open in a new tab only when you click. Anything else, including scripts hidden in a code, is shown as plain text and never run.
+
+  Decoding uses the open source [jsQR](/sbom#jsqr) library by Cosmo Wolfe. Images and the camera feed are processed in your browser and never uploaded.
+faq:
+  - q: Why can't it find my QR code?
+    a: Try a sharper or closer image with the whole code in view, including the white border round it.
+  - q: Does it keep the camera on?
+    a: Only while you're scanning. It stops as soon as a code is found or you press Stop.
+related: [/exif, /extract-urls]
+---
+<div class="win-body qr-body">
+  <input type="file" id="file" accept="image/*" hidden>
+  <div class="dropzone" id="drop" role="button" tabindex="0"><strong>Drop an image here, click to choose, or paste</strong><small>Or scan with your camera</small></div>
+  <div class="qr-camera" id="camera" hidden><video id="video" playsinline muted></video></div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="cam">Use camera</button>
+  <span class="status" id="status" aria-live="polite"></span>
+</div>
+<div class="win-body qr-result" id="result" hidden>
+  <p class="qr-kind" id="kind"></p>
+  <p class="qr-text" id="text"></p>
+  <div class="actions-inline"><button type="button" id="copy">Copy contents</button></div>
+</div>

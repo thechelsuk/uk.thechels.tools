@@ -1,40 +1,36 @@
 ---
-layout: empty
+layout: none
 permalink: /llms.txt
 ---
-# {{ site.title }} by thechelsuk
+# Toolkit by thechelsuk
 
-> Free web tools, calculators, converters and templates at {{ "/" | absolute_url }}. Most tools run entirely in your browser, with nothing uploaded to a server.
+> A digital garden of small browser tools, templates and notes at {{ "/" | absolute_url }}, made by thechelsuk for their own work and shared for anyone to use. Tools run in the browser; nothing typed into them is uploaded unless the tool says it uses an outside service.
 
 Key facts:
 
 - Free to use, no account or sign-up
-- Made in the UK by thechelsuk ({{ site.organization.url }})
+- Made in the UK by thechelsuk ({{ site.owner.url }})
 - UK-specific calculators cover redundancy pay, FIRE retirement, ISA bridging and drawdown runway
-- Some tools are marked "run locally" and are meant to be downloaded and run on your own machine
-
-{%- assign groups = "finance:Financial calculators,text:Text tools,manipulation:Converters and formatters,image:Image tools,utility:Utilities,planning:Planning,data:Data,local:Run locally,work:Engineering management templates,workplace:Workplace" | split: "," %}
-{%- for g in groups %}
-{%- assign parts = g | split: ":" %}
-{%- assign items = site.html_pages | where: "category", parts[0] | sort: "title" %}
+- Every library, gem, action and outside service is listed in the SBOM at {{ "/sbom" | absolute_url }}
+{%- include site/entries.html -%}
+{%- for c in site.data.categories %}
+{%- assign items = entries | where: "category", c.id %}
 {%- if items.size > 0 %}
 
-## {{ parts[1] }}
-{% for p in items %}{% if p.sitemap != false %}
-- [{{ p.title }}]({{ p.url | absolute_url }}){% assign d = p.description | default: p.seo %}{% if d %}: {{ d | strip }}{% endif %}{% endif %}{% endfor %}
+## {{ c.title }}
+{% for p in items %}
+- [{{ p.title }}]({{ p.url | absolute_url }}){% assign d = p.summary | default: p.description %}{% if d %}: {{ d | strip }}{% endif %}{% endfor %}
 {%- endif %}
 {%- endfor %}
+{%- for g in site.data.elsewhere %}
 
-{%- assign other = site.html_pages | where_exp: "p", "p.category == nil" | where_exp: "p", "p.url != '/'" | where_exp: "p", "p.title != nil" | sort: "title" %}
-{%- if other.size > 0 %}
-
-## More tools, guides and templates
-{% for p in other %}{% if p.sitemap != false %}
-- [{{ p.title }}]({{ p.url | absolute_url }}){% assign d = p.description | default: p.seo %}{% if d %}: {{ d | strip }}{% endif %}{% endif %}{% endfor %}
-{%- endif %}
+## {{ g.title }}
+{% for l in g.links %}
+- [{{ l.name }}]({{ l.url }}): {{ l.summary }}{% endfor %}
+{%- endfor %}
 
 ## Optional
 
 - [Full sitemap]({{ "/sitemap.xml" | absolute_url }}): every page on the site
-- [Source on GitHub](https://github.com/thechelsuk/uk.thechels.tools): how the tools are built
-- [More from thechelsuk](https://thechels.uk/projects): apps and other projects
+- [SBOM]({{ "/sbom" | absolute_url }}): every library, gem and action, with versions and licences
+- [Source on GitHub](https://github.com/{{ site.repository }}): how the tools are built

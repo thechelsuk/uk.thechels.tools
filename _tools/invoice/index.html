@@ -1,0 +1,75 @@
+---
+title: Invoice Editor
+permalink: /invoice/
+category: finance
+tags: [invoice, freelance, printable, finance]
+added: 2025-06-20
+summary: Fill in a simple invoice with your logo, line items and tax, then print it or save it as a PDF.
+description: "Free invoice editor. Add your logo, addresses, line items, VAT or tax and payment terms, then print or save as PDF. Your draft is kept in your browser."
+scripts: [app.js]
+how_to:
+  - Add your logo, invoice number and date, and who it's from and to.
+  - Add a line for each item or day, with quantity and unit price. Totals update as you type.
+  - Set the tax rate if you charge VAT, and add payment terms and bank details.
+  - Press **Print** and choose **Save as PDF** to send it.
+about: |
+  A quick way to produce a clean invoice without an accounting package or a template to fiddle with. Everything is editable in place, totals are worked out to the penny, and printing hides all the buttons so only the invoice appears on the page.
+
+  Your draft, including the logo, is saved in this browser as you type, so you can close the page and pick up where you left off. Nothing is uploaded. Use **New invoice** to start again from a blank form.
+
+  If you're VAT registered, check HMRC's rules on what a VAT invoice must include, such as your VAT number.
+faq:
+  - q: How do I save it as a PDF?
+    a: Press Print, then choose Save as PDF (or Microsoft Print to PDF on Windows) as the printer.
+  - q: Is my invoice stored anywhere?
+    a: Only in this browser's local storage, so it's there next time on this device. Clearing site data removes it.
+related: [/uk-redundancy-pay-calculator]
+config:
+  storage_key: invoiceDraft
+  sample_items:
+    - { desc: "Day one", qty: 1, price: 250 }
+    - { desc: "Day two", qty: 1, price: 250 }
+    - { desc: "Day three", qty: 1, price: 250 }
+---
+<form id="invoice" class="win-body inv" autocomplete="off">
+  <div class="inv-head">
+    <div class="inv-logo">
+      <img id="logo" alt="Logo" hidden>
+      <label class="btn no-print" for="logoFile">Add logo</label>
+      <input type="file" id="logoFile" accept="image/*" hidden>
+      <button type="button" class="link no-print" id="removeLogo" hidden>Remove logo</button>
+    </div>
+    <div class="inv-meta">
+      <h2 class="inv-title">Invoice</h2>
+      <div class="row"><label for="number">Invoice no.</label><input type="text" id="number" name="number" value="INV-001"></div>
+      <div class="row"><label for="date">Date</label><input type="date" id="date" name="date"></div>
+      <div class="row"><label for="due">Due</label><input type="date" id="due" name="due"></div>
+    </div>
+  </div>
+  <div class="inv-parties">
+    <div><label for="from">From</label><textarea id="from" name="from" rows="4">Your name or company
+Address line 1
+Address line 2</textarea></div>
+    <div><label for="to">Bill to</label><textarea id="to" name="to" rows="4">Client name
+Address line 1
+Address line 2</textarea></div>
+  </div>
+  <div class="table-wrap">
+    <table class="money inv-items">
+      <thead><tr><th>Description</th><th>Qty</th><th>Unit price (£)</th><th>Amount</th><th class="no-print"><span class="sr-only">Remove</span></th></tr></thead>
+      <tbody id="items"></tbody>
+      <tfoot>
+        <tr><td colspan="3">Subtotal</td><td id="subtotal"></td><td class="no-print"></td></tr>
+        <tr><td colspan="3">Tax <input type="number" id="taxRate" name="taxRate" value="0" min="0" step="0.5" class="inv-tax" aria-label="Tax rate (%)">%</td><td id="tax"></td><td class="no-print"></td></tr>
+        <tr class="total"><td colspan="3">Total</td><td id="total"></td><td class="no-print"></td></tr>
+      </tfoot>
+    </table>
+  </div>
+  <button type="button" class="no-print" id="addItem">Add line</button>
+  <div><label for="terms">Terms and payment details</label><textarea id="terms" name="terms" rows="3" placeholder="Payment due within 30 days. Bank: …, sort code …, account …"></textarea></div>
+</form>
+<div class="actions no-print">
+  <button type="button" class="primary" id="print">Print or save as PDF</button>
+  <button type="button" class="link" id="reset">New invoice</button>
+  <span class="status" id="status" aria-live="polite"></span>
+</div>

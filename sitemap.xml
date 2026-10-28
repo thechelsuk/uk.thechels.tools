@@ -1,5 +1,5 @@
 ---
-layout: empty
+layout: none
 permalink: /sitemap.xml
 ---
 <?xml version="1.0" encoding="UTF-8"?>
@@ -8,8 +8,9 @@ permalink: /sitemap.xml
     <loc>{{ "/" | absolute_url }}</loc>
     <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
   </url>
-  {%- for page in site.html_pages %}
-  {%- if page.url != "/" and page.sitemap != false %}
+  {%- assign docs = site.tools | concat: site.html_pages %}
+  {%- for page in docs %}
+  {%- if page.url != "/" and page.sitemap != false and page.noindex != true %}
   <url>
     <loc>{{ page.url | absolute_url }}</loc>
     {%- assign modified = page.last_modified_at | default: page.date %}

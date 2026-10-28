@@ -1,0 +1,22 @@
+{
+  "name": "uk.thechels.tools",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Toolkit by thechelsuk: build helpers for the Jekyll site",
+  "type": "module",
+  "scripts": {
+    "vendor": "node scripts/vendor.mjs",
+    "test": "node --test",
+    "build": "npm run vendor && bundle exec jekyll build",
+    "serve": "npm run vendor && bundle exec jekyll serve --livereload --livereload-port 35731"
+  },
+  "dependencies": {
+    "chart.js": "4.5.1",
+    "chartjs-plugin-annotation": "3.1.0",
+    "exif-js": "2.3.0",
+    "imagetracerjs": "1.2.6",
+    "js-yaml": "4.1.0",
+    "jsqr": "1.4.0",
+    "sql-formatter": "12.2.3"
+  }
+}

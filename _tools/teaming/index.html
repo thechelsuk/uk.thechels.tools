@@ -1,0 +1,47 @@
+---
+title: Ensemble Programming Roles
+permalink: /teaming
+category: planning
+tags: [ensemble, mob-programming, facilitation, agile]
+added: 2025-03-28
+summary: Assign and rotate ensemble programming roles, with prompts for what each role does.
+description: "Free ensemble and mob programming role helper. Assign people to driver, navigator and supporting roles, rotate them on a timer, and see prompts for each role."
+scripts: [app.js]
+how_to:
+  - Type each person's name next to a role. You don't need to fill every role.
+  - Work for a short, fixed time; five to ten minutes is common.
+  - Press **Rotate** to move everyone one role along, so each person drives and navigates in turn.
+about: |
+  In ensemble (or mob) programming the whole team works on one thing, at one computer, at the same time. The **Driver** types, the **Navigator** decides what to type, and everyone else has a supporting role that keeps the session healthy, from spotting code smells to watching for fatigue.
+
+  Each role has prompts: small, concrete things to try. They're especially useful when a team is new to working this way and people aren't sure how to contribute when they're not at the keyboard. Rotating often keeps everyone engaged and spreads knowledge.
+
+  Names stay in this page only and aren't saved anywhere. See also the [ensemble programming](/templates#ensemble) rules, roles and symptoms.
+faq:
+  - q: How often should we rotate?
+    a: Every five to ten minutes. Short turns keep energy up and stop one person dominating.
+  - q: What if we have fewer people than roles?
+    a: Leave the extra roles empty. Driver and Navigator matter most; the rest can be shared.
+related: [/refinement, /pomodoro]
+config:
+  roles:
+    - name: The Driver
+      prompts: [Ask a clarifying question about what to type, Type something you disagree with, Use a keyboard shortcut, Learn something new about the tooling, Ignore a direct instruction from someone who isn't the navigator, Cross your arms and look sad when you don't have anything to type]
+    - name: The Navigator
+      prompts: [Ask for ideas, "Filter the group's ideas and tell the driver exactly what to type", Tell the driver only your high-level intent and let them do the details, "Write a failing test, make it pass, refactor"]
+    - name: The Nose
+      prompts: [Point out repeated code, Point out a long line of code, Point out a complex conditional, Propose a way to remove a code smell, Identify a missing test case]
+    - name: The Researcher
+      prompts: [Find and share relevant documentation, Find and share relevant information from a blog, Find and share relevant information from a coding forum, Find and share a keyboard shortcut for the tool]
+    - name: The Robot
+      prompts: [Point out a repeated task in a tool, Point out a repeated part of the team process, Point out possible boilerplate code, Propose automating a repeated task, Propose pipeline improvements]
+    - name: The Archivist
+      prompts: ["Draw up a plan on a visible chart, whiteboard or task list", Sketch an idea as it takes shape, Say what the current task is and make it visible to the group, Encourage and update the README]
+    - name: The Cop
+      prompts: [Make sure the tests are run and green, Point out when the team breaks a process or working agreement, Capture design decisions and other technical details, Watch for fatigue or disinterest and bring people back into the group, Call out when people aren't being heard or allowed to finish, Encourage naming conventions]
+---
+<div class="win-body"><ul class="roles" id="roles"></ul></div>
+<div class="actions">
+  <button type="button" class="primary" id="rotate">Rotate</button>
+  <button type="button" class="link" id="clear">Clear names</button>
+</div>

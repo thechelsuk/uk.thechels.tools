@@ -1,0 +1,57 @@
+---
+title: Exif Viewer
+permalink: /exif
+category: images
+tags: [images, metadata, privacy]
+added: 2025-03-12
+summary: See the hidden metadata in a photo, including where it was taken, and save a copy without it.
+description: "View Exif metadata in JPEG photos, including camera settings and GPS location, then download a copy with the metadata removed. Runs in your browser; photos aren't uploaded."
+vendor: [exif-js]
+scripts: [app.js]
+how_to:
+  - Drop a JPEG photo onto the box, or click it to choose one.
+  - Check the **Location** line to see if the photo records where it was taken.
+  - Look through the table for the camera, settings and dates the file holds.
+  - Press **Download without metadata** to save a clean copy.
+about: |
+  Most phones and cameras write Exif metadata into every photo: the make and model, lens and exposure settings, the date and time, and often the exact GPS position. Sharing the original file shares all of that, which is easy to forget when you post a photo of your house or your child's school.
+
+  This reads the metadata with the open source [exif-js](/sbom#exif-js) library and lists it in plain English. The clean copy is made by redrawing the image in your browser and saving it as a new JPEG, which leaves every metadata field behind. Redrawing re-compresses the image, so the copy is very slightly lower quality than the original.
+
+  The photo never leaves your device: it's read and redrawn locally, and nothing is uploaded.
+faq:
+  - q: Why does it say there's no metadata?
+    a: Many apps strip Exif when you share a photo, and screenshots rarely have any. This tool also only reads JPEGs; HEIC and PNG files aren't supported.
+  - q: Does the clean copy keep the right orientation?
+    a: Yes. The browser applies the photo's rotation before redrawing it, so the copy looks the same as the original without needing an orientation tag.
+  - q: Is the map link sent anywhere?
+    a: Only if you click it. It opens OpenStreetMap at the photo's position in a new tab.
+related: [/image-to-jpeg, /image-resize-quality]
+---
+<div class="win-body">
+  <input type="file" id="file" accept="image/jpeg" hidden>
+  <div class="dropzone" id="drop" role="button" tabindex="0" aria-describedby="drop-hint">
+    <strong>Drop a JPEG here, or click to choose one</strong>
+    <small id="drop-hint">The photo stays on your device</small>
+  </div>
+</div>
+<div id="result" hidden>
+  <div class="panes">
+    <div class="pane">
+      <div class="pane-head"><span id="file-name">Photo</span><span id="file-size"></span></div>
+      <div class="exif-preview"><img id="preview" alt="The photo you chose"></div>
+    </div>
+    <div class="pane">
+      <div class="pane-head"><span>Metadata</span><span class="status" id="status" aria-live="polite"></span></div>
+      <div class="exif-tags">
+        <p class="exif-gps" id="gps"></p>
+        <table><thead><tr><th scope="col">Tag</th><th scope="col">Value</th></tr></thead><tbody id="tags"></tbody></table>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <button type="button" class="primary" id="strip">Download without metadata</button>
+    <button type="button" id="copy">Copy as JSON</button>
+    <button type="button" class="link" id="again">Choose another photo</button>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+---
+title: UK Drawdown Runway Calculator
+permalink: /uk-runway-calculator-drawdown
+category: finance
+tags: [uk-tax, savings, isa, drawdown, finance]
+added: 2026-08-29
+uk_rates: true
+summary: How long a lump sum, redundancy payment or settlement lasts when you draw it down monthly.
+description: "Work out how long savings, Premium Bonds, a Cash ISA and a Stocks and Shares ISA will last while you spend from them each month, with interest and tax, month by month."
+vendor: [chart.js]
+scripts: [app.js]
+how_to:
+  - Split your money across the four pots. Leave any you don't use at £0.
+  - Enter each pot's interest or growth rate, and your tax rate on savings interest.
+  - Enter what you'll spend each month and press **Calculate runway**.
+  - Read how many months it lasts, then check the chart and the month-by-month table.
+about: |
+  After redundancy, a settlement or an inheritance, the question is often simply "how long will this last?". This spends a fixed amount each month and works out how long your money keeps going while the rest of it earns interest.
+
+  Money is drawn in the most tax-efficient order: the **taxable savings account** first, then **Premium Bonds**, then the **Cash ISA**, and the **Stocks and Shares ISA** last, so the wrapper with the highest growth and no tax is kept longest. Interest on the savings pot is taxed at the marginal rate you choose; the others are tax-free.
+
+  Everything is in today's money, with no allowance for inflation. Premium Bond "interest" is your chosen average prize rate, assuming average luck, and the Stocks and Shares ISA uses one steady return, which real markets never deliver. Treat it as a guide, not a forecast or financial advice.
+faq:
+  - q: Why are savings spent first?
+    a: Interest on savings can be taxed, but ISA and Premium Bond returns aren't. Spending the taxable money first keeps more of your money growing tax-free.
+  - q: What if my investments grow faster than I spend?
+    a: The calculator stops after 100 years and tells you the money would last indefinitely at those rates.
+related: [/uk-redundancy-pay-calculator, /fire]
+---
+<form id="form" novalidate>
+  <div class="calc">
+    <fieldset>
+      <legend>1. Savings account</legend>
+      <p class="note">Taxable. Spent first.</p>
+      <div class="row">
+        <div><label for="savings-amt">Amount (£)</label><input type="number" id="savings-amt" min="0" step="100" value="8000"></div>
+        <div><label for="savings-rate">Interest (%)</label><input type="number" id="savings-rate" min="0" max="20" step="0.1" value="2.5"></div>
+      </div>
+      <div><label for="savings-tax">Tax on interest</label><select id="savings-tax"><option value="0">0% (within your allowance)</option><option value="20">20% basic rate</option><option value="40">40% higher rate</option><option value="45">45% additional rate</option></select></div>
+    </fieldset>
+    <fieldset>
+      <legend>2. Premium Bonds</legend>
+      <p class="note">Tax-free, up to <span data-rate="savings.premium_bonds_limit"></span>. Spent second.</p>
+      <div class="row">
+        <div><label for="bonds-amt">Amount (£)</label><input type="number" id="bonds-amt" min="0" step="100" value="40000"></div>
+        <div><label for="bonds-rate">Prize rate (%)</label><input type="number" id="bonds-rate" min="0" max="10" step="0.1" value="4"></div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>3. Cash ISA</legend>
+      <p class="note">Tax-free. You can add up to <span data-rate="savings.isa_allowance"></span> a year. Spent third.</p>
+      <div class="row">
+        <div><label for="isa-amt">Amount (£)</label><input type="number" id="isa-amt" min="0" step="100" value="31000"></div>
+        <div><label for="isa-rate">Interest (%)</label><input type="number" id="isa-rate" min="0" max="20" step="0.1" value="2.5"></div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>4. Stocks and Shares ISA</legend>
+      <p class="note">Tax-free. Spent last.</p>
+      <div class="row">
+        <div><label for="ssisa-amt">Amount (£)</label><input type="number" id="ssisa-amt" min="0" step="100" value="147000"></div>
+        <div><label for="ssisa-rate">Yearly return (%)</label><input type="number" id="ssisa-rate" min="0" max="20" step="0.1" value="5"></div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="toolbar">
+    <span class="field"><label for="monthly">Monthly spending (£)</label><input type="number" id="monthly" min="0" step="50" value="2500"></span>
+    <button type="submit" class="primary">Calculate runway</button>
+    <span class="status" id="status" aria-live="polite"></span>
+  </div>
+</form>
+<div class="calc-results" id="results" hidden>
+  <div class="stat-row">
+    <div class="stat"><b id="s-runway"></b><span>runway</span></div>
+    <div class="stat"><b id="s-start"></b><span>starting total</span></div>
+    <div class="stat"><b id="s-interest"></b><span>interest earned, after tax</span></div>
+    <div class="stat"><b id="s-tax"></b><span>tax on savings interest</span></div>
+  </div>
+  <div class="chart-box"><canvas id="chart" aria-label="Balance of each pot over time"></canvas></div>
+  <div class="calc-section">
+    <h3>Month by month</h3>
+    <div class="table-wrap tall"><table class="money"><thead><tr><th>Month</th><th>Spent</th><th>Savings</th><th>Premium Bonds</th><th>Cash ISA</th><th>S&amp;S ISA</th><th>Total</th></tr></thead><tbody id="table"></tbody></table></div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+---
+title: GitHub Issue to Markdown
+permalink: /github-issue
+category: planning
+tags: [github, markdown, developer]
+added: 2025-03-12
+summary: Turn a GitHub issue or pull request and all its comments into one Markdown document.
+description: "Free GitHub issue exporter. Paste an issue or pull request URL to get the title, description and every comment as clean Markdown, ready to copy or download."
+scripts: [app.js]
+services: [GitHub API]
+how_to:
+  - Paste the URL of a GitHub issue or pull request.
+  - For private repositories, or if you hit the rate limit, add a personal access token.
+  - Press **Fetch**, then copy or download the Markdown.
+about: |
+  Long issue threads are hard to read, share or feed into notes. This fetches an issue or pull request from the GitHub API and lays out the title, details, description and every comment as one tidy Markdown file, with each comment headed by its author and time.
+
+  Public repositories work without signing in, but GitHub allows only 60 requests an hour that way. A [personal access token](https://github.com/settings/tokens) with read access raises that limit and lets you export private issues. The token is sent only to `api.github.com`, and it's only remembered on this device if you tick **Remember token**.
+faq:
+  - q: Why do I get "rate limit exceeded"?
+    a: GitHub limits requests without a token to 60 an hour per network. Add a token to continue.
+  - q: Are pull request review comments included?
+    a: The conversation comments are. Comments on specific lines of code in a review aren't.
+related: [/json-pretty-printer, /extract-urls]
+---
+<form id="form">
+  <div class="toolbar">
+    <span class="field gh-url"><label for="url">Issue URL</label><input type="url" id="url" placeholder="github.com/owner/repo/issues/1" required></span>
+    <button type="submit" class="primary" id="fetch">Fetch</button>
+  </div>
+  <div class="toolbar">
+    <span class="field gh-url"><label for="token">Token</label><input type="password" id="token" placeholder="Optional personal access token" autocomplete="off"></span>
+    <label class="check"><input type="checkbox" id="remember"> Remember token on this device</label>
+  </div>
+</form>
+<div class="panes one">
+  <div class="pane">
+    <div class="pane-head"><label for="output">Markdown</label><span class="status" id="status" aria-live="polite"></span></div>
+    <textarea id="output" spellcheck="false" readonly></textarea>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy Markdown</button>
+  <button type="button" id="download">Download .md</button>
+</div>

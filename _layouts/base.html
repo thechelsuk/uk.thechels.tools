@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+{% include site/head.html %}
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{% include site/band.html %}
+<main id="main">
+{{ content }}
+</main>
+{% include site/footer.html %}
+<script type="module" src="/assets/js/site.js?v={{ site.time | date: "%s" }}"></script>
+</body>
+</html>

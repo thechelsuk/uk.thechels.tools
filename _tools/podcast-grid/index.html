@@ -1,0 +1,35 @@
+---
+title: Podcast Artwork Grid
+permalink: /podcast-grid
+category: local
+tags: [podcasts, opml, images]
+added: 2025-04-19
+summary: Turn the podcasts in an OPML export into a grid of their cover art, and save it as an image.
+description: "Make a grid of podcast cover art from an OPML file exported from your podcast app, then download it as a PNG to share what you listen to."
+scripts: [app.js]
+services: [podcast feeds, AllOrigins]
+how_to:
+  - Export your subscriptions as OPML from your podcast app (Overcast, Pocket Casts, Castro and most others can).
+  - Choose the file and press **Make grid**. Each feed is fetched to find its artwork.
+  - Download the finished grid as a PNG.
+about: |
+  An OPML file is a list of feed addresses. To find each podcast's cover art, your browser downloads its feed and reads the image from it, then loads the artwork from wherever the podcast hosts it.
+
+  Many podcast hosts block browsers from reading feeds directly. When that happens the feed is fetched through [AllOrigins](https://allorigins.win), a public proxy, which means it sees that feed's address. Untick **Use a proxy if needed** to keep every request direct, at the cost of some missing artwork.
+
+  Your OPML file itself is read in the browser and never uploaded.
+faq:
+  - q: Why is some artwork missing?
+    a: The feed couldn't be fetched, or it doesn't include an image. Turning on the proxy usually finds more.
+  - q: Why can't I download the grid?
+    a: Some podcast hosts don't allow their images to be copied into a new picture. The grid still shows on screen; take a screenshot instead.
+related: [/podcast-dates, /blogroll-dates/]
+---
+<div class="toolbar">
+  <span class="field"><label for="file">OPML file</label><input type="file" id="file" accept=".opml,.xml,text/xml"></span>
+  <label class="check"><input type="checkbox" id="proxy" checked> Use a proxy if needed</label>
+  <button type="button" class="primary" id="go">Make grid</button>
+  <span class="status push" id="status" aria-live="polite"></span>
+</div>
+<div class="win-body"><ul class="pod-grid" id="grid"></ul></div>
+<div class="actions"><button type="button" id="download" disabled>Download as PNG</button></div>

@@ -1,10 +1,11 @@
 ---
-
-layout: index
+layout: doc
 title: Q3 Role Profile
 permalink: /q3
 description: "A software engineering team role profile template for a Senior QA Engineer"
-category: work
+category: templates
+summary: "Role profile template for a senior QA engineer."
+group: roles
 ---
 
 ## Sphere of influence

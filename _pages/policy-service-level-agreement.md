@@ -1,11 +1,12 @@
 ---
-
-layout: index
+layout: doc
 title: SLA Policy Template
 seo: SLA Policy Template
 permalink: /Service-level-agreement-policy
 description: "A software engineering team leader's service level agreement policy template"
-category: work
+category: templates
+summary: "A service level agreement policy to adapt for your team."
+group: policies
 ---
 
 > SLA Policy review every 6 months - last _[date]_

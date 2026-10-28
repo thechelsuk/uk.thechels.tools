@@ -1,0 +1,37 @@
+# Outside services the site talks to. Listed on the third-party code page.
+# `used_by` holds tool slugs (or "all pages").
+- name: Ahrefs Web Analytics
+  url: https://ahrefs.com/web-analytics
+  host: analytics.ahrefs.com
+  what: Counts page views. Doesn't use cookies or see anything typed into a tool.
+  used_by: [all pages]
+- name: postcodes.io
+  url: https://postcodes.io
+  host: api.postcodes.io
+  what: Turns a UK postcode into a latitude and longitude.
+  used_by: [weather-forecast]
+- name: OpenWeatherMap
+  url: https://openweathermap.org/api
+  host: api.openweathermap.org
+  what: Weather data, using an API key you supply.
+  used_by: [weather-forecast]
+- name: GitHub API
+  url: https://docs.github.com/en/rest
+  host: api.github.com
+  what: Reads public issues and comments.
+  used_by: [github-issue]
+- name: AllOrigins
+  url: https://allorigins.win
+  host: api.allorigins.win
+  what: Fetches podcast feeds that block direct browser requests, if you allow it. It sees the feed address.
+  used_by: [podcast-grid]
+- name: A URL you enter
+  url: /yaml-explorer
+  host: any
+  what: YAML Explorer fetches a file from an address you type in, directly from your browser.
+  used_by: [yaml-explorer]
+- name: Podcast feeds and artwork
+  url: /podcast-grid
+  host: each podcast's own host
+  what: Podcast Grid fetches the feeds in your OPML file and their cover images.
+  used_by: [podcast-grid]

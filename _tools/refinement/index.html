@@ -1,0 +1,78 @@
+---
+title: Refinement Question Generator
+permalink: /refinement
+category: planning
+tags: [agile, refinement, facilitation]
+added: 2025-05-30
+summary: Random thought-provoking questions to sharpen backlog refinement sessions.
+description: "Free backlog refinement question generator for agile and Scrum teams. A standing checklist plus three random questions to challenge each story."
+scripts: [app.js]
+how_to:
+  - Work through the **Always ask** questions for every item you refine.
+  - Press **New questions** for three random prompts to dig deeper.
+  - Draw again for the next story, so the conversation doesn't get stale.
+about: |
+  Refinement is where a team turns a vague idea into work it understands well enough to start. It goes wrong when the same people ask the same questions every week, or when nobody asks the awkward ones.
+
+  The **Always ask** list covers the checks worth making for every item: whether it should be done at all, who needs it, data and security, architecture, performance and infrastructure. The random questions add variety: risks, assumptions, measures of success, dependencies and alternatives.
+
+  Use it on a shared screen in the session, or let a different person draw the questions each time.
+faq:
+  - q: How many questions should we use per story?
+    a: The standing list plus three random ones is plenty for most items. Skip any that clearly don't apply.
+related: [/teaming, /monte-carlo]
+config:
+  count: 3
+  always:
+    - "Should we even be contemplating this work? Is there a quicker, cheaper or safer solution?"
+    - "What are the actual user needs?"
+    - "Are we exposing new data for the first time, and have we considered data protection and security?"
+    - "Are we using a new pattern or technology that needs an architectural decision record?"
+    - "What is the simplest way we could deliver value earlier?"
+    - "What are the performance implications of this work?"
+    - "How will this work affect the infrastructure, for example scaling?"
+  questions:
+    - "How could we deliver the value while doing the least amount of work?"
+    - "What assumptions are we making that we should test?"
+    - "What could go wrong if we implement this as described?"
+    - "What could go wrong if we don't implement this as described?"
+    - "Is there any missing information or ambiguity?"
+    - "What are the risks of not doing this work?"
+    - "What are the risks of doing this work?"
+    - "How will we measure success?"
+    - "What is the minimum viable product for this work?"
+    - "What are the acceptance criteria?"
+    - "How will we know when this is done?"
+    - "Who are the stakeholders?"
+    - "What are the non-functional requirements?"
+    - "How does this align with our strategic goals?"
+    - "What are the potential impacts on users?"
+    - "What is the timeline for this work?"
+    - "What resources do we need?"
+    - "Who needs to be involved or informed?"
+    - "Are there dependencies or blockers?"
+    - "What are the edge cases?"
+    - "How will we test this?"
+    - "Is this the right time to work on this?"
+    - "What are the alternatives to this approach?"
+    - "How will this affect our current systems?"
+    - "What is the long-term vision for this feature?"
+    - "How will we handle user feedback?"
+    - "What are the compliance requirements?"
+    - "How will this work affect our technical debt?"
+    - "What are the potential costs of this work?"
+    - "How will we communicate progress to stakeholders?"
+---
+<div class="win-body refine-body">
+  <section>
+    <h2 class="refine-h">Always ask</h2>
+    <ol class="refine-list" id="always"></ol>
+  </section>
+  <section>
+    <h2 class="refine-h">And…</h2>
+    <ol class="refine-list refine-random" id="random" aria-live="polite"></ol>
+  </section>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="draw">New questions</button>
+</div>

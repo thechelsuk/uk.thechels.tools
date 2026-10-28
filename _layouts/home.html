@@ -1,0 +1,70 @@
+---
+layout: base
+---
+{%- include site/entries.html -%}
+<div class="wrap">
+  <div class="intro">
+    <div>{{ content }}</div>
+    <aside>
+      Made by thechelsuk.
+      <a href="https://thechels.uk">More on thechels.uk →</a>
+      <a href="#apps">Apps →</a>
+    </aside>
+  </div>
+
+  <div id="tools">
+  {%- assign n = 0 -%}
+  {%- for c in site.data.categories -%}
+    {%- if c.home == false %}{% continue %}{% endif -%}
+    {%- assign items = entries | where: "category", c.id -%}
+    {%- if items.size > 0 -%}
+    {%- assign n = n | plus: 1 -%}
+    {%- capture num %}{{ n | prepend: "0" | slice: -2, 2 }}{% endcapture %}
+    <section class="index-group" id="{{ c.id }}" aria-labelledby="h-{{ c.id }}">
+      <div class="index-head"><b>{{ num }}</b><h2 id="h-{{ c.id }}">{{ c.title }}</h2><span>{{ items.size }}</span></div>
+      <ul class="index-list">
+        {%- if c.groups %}
+        {%- for g in c.groups %}
+        {%- assign in_group = items | where: "group", g.id %}
+        <li class="index-row">
+          <span class="n">{{ num }}.{{ forloop.index }}</span>
+          <a href="{{ c.page }}#{{ g.id }}">{{ g.title }}</a>
+          <p>{{ g.summary | escape }} <span class="index-count">{{ in_group.size }}</span></p>
+          <span class="go" aria-hidden="true">→</span>
+        </li>
+        {%- endfor %}
+        {%- else %}
+        {%- for e in items %}
+        <li class="index-row">
+          <span class="n">{{ num }}.{{ forloop.index }}</span>
+          <a href="{{ e.url | replace: '/index.html', '/' }}">{{ e.title }}</a>
+          <p>{{ e.summary | default: e.description | escape }}</p>
+          <span class="go" aria-hidden="true">→</span>
+        </li>
+        {%- endfor %}
+        {%- endif %}
+      </ul>
+    </section>
+    {%- endif -%}
+  {%- endfor -%}
+  </div>
+
+  {%- for g in site.data.elsewhere -%}
+  {%- assign n = n | plus: 1 -%}
+  {%- capture num %}{{ n | prepend: "0" | slice: -2, 2 }}{% endcapture %}
+  {%- assign gid = g.title | slugify %}
+  <section class="index-group" id="{{ gid }}" aria-labelledby="h-{{ gid }}">
+    <div class="index-head"><b>{{ num }}</b><h2 id="h-{{ gid }}">{{ g.title }}</h2><span>{{ g.links.size }}</span></div>
+    <ul class="index-list">
+      {%- for l in g.links %}
+      <li class="index-row">
+        <span class="n">{{ num }}.{{ forloop.index }}</span>
+        <a href="{{ l.url }}">{{ l.name }}</a>
+        <p>{{ l.summary | escape }}</p>
+        <span class="go" aria-hidden="true">↗</span>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endfor %}
+</div>

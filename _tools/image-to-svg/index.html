@@ -1,0 +1,45 @@
+---
+title: Convert Image to SVG
+permalink: /image-to-svg
+category: images
+tags: [images, svg, vector, design]
+added: 2025-03-12
+summary: Trace a JPEG or PNG into a scalable SVG, with a choice of detail levels.
+description: "Free image to SVG converter. Trace JPG or PNG images into scalable vector graphics with imagetracerjs, choose a style preset, preview and download the SVG in your browser."
+vendor: [imagetracerjs]
+scripts: [app.js]
+how_to:
+  - Drop a JPG or PNG on the box, or click to choose one.
+  - Pick a **Style**. Posterised and smoothed styles give smaller, cleaner files; detailed keeps more of the original.
+  - Download the SVG, or copy its code.
+about: |
+  Bitmap images are made of pixels and go blurry when enlarged. An SVG describes shapes instead, so it stays sharp at any size. Tracing turns areas of similar colour into shapes, which works best for logos, icons, drawings and other images with flat colours.
+
+  Tracing is done by the open source [imagetracerjs](/sbom#imagetracerjs) library by András Jankovics, running in your browser. Photographs trace into thousands of shapes and very large files, so start small, or use a posterised style to limit the colours.
+
+  Your image isn't uploaded anywhere.
+faq:
+  - q: Why is my SVG so big?
+    a: Every patch of colour becomes a shape. Try a posterised or smoothed style, or a simpler image.
+  - q: Can I edit the result?
+    a: Yes. Open the downloaded file in any vector editor, such as Inkscape, Figma or Illustrator.
+related: [/image-to-jpeg, /hex-codes]
+config:
+  presets: [default, posterized1, posterized2, posterized3, curvy, sharp, detailed, smoothed, grayscale, artistic1, artistic2]
+---
+<div class="win-body">
+  <input type="file" id="file" accept="image/jpeg,image/png" hidden>
+  <div class="dropzone" id="drop" role="button" tabindex="0"><strong>Drop a JPG or PNG here, or click to choose</strong><small>It stays on your device</small></div>
+</div>
+<div id="result" hidden>
+  <div class="toolbar">
+    <span class="field"><label for="preset">Style</label><select id="preset"></select></span>
+    <span class="status push" id="status" aria-live="polite"></span>
+  </div>
+  <div class="img-preview checker"><img id="preview" alt="SVG preview"></div>
+  <div class="actions">
+    <button type="button" class="primary" id="download">Download SVG</button>
+    <button type="button" id="copy">Copy SVG code</button>
+    <button type="button" class="link" id="again">Choose another image</button>
+  </div>
+</div>

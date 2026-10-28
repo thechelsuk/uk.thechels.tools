@@ -36,24 +36,36 @@ organization:
 encoding: UTF-8
 timezone: Europe/London
 future: false
-port: 2000
+port: 4002
 theme:
 repository: thechelsuk/uk.thechels.tools
 defaultImagePath: "/images/splashscreens/apple-touch-icon-180x180.png"
 github:
   repository_url: https://github.com/thechelsuk/uk.thechels.tools
   branch: main
-sass:
-  style: compressed
 collections:
   bookmarks:
     permalink: /links/:title/
     output: true
+  tools:
+    output: true
+    permalink: /tools/:path
+defaults:
+  - scope:
+      path: ""
+      type: tools
+    values:
+      layout: tool
 plugins:
   - jekyll-feed
-  - jekyll-avatar
-  - jekyll-github-metadata
+  - jekyll-last-modified-at
 exclude:
+  - package.json
+  - package-lock.json
+  - scripts/
+  - test/
+  - .ruby-version
+  - .bundle/
   - CNAME
   - README.md
   - LICENSE.md
@@ -74,19 +86,3 @@ exclude:
 include:
   - ".well-known"
   - "_pages"
-
-# Site Navigation
-## Header
-navigation_header:
-  - link: "https://thechels.uk/"
-    name: "thechelsuk ⇗"
-  - link: "https://links.thechels.uk/"
-    name: "Links ⇗"
-  - link: "https://cheltenham-od.uk/"
-    name: "Cheltenham Open Data ⇗"
-  - link: "https://nuchronic.uk/"
-    name: "Nuchronic Webring ⇗"
-  - link: "https://hiyd.uk/"
-    name: "Hiyd ⇗"
-  - link: "https://apps.apple.com/gb/developer/mat-benfield/id1818791310"
-    name: "AppStore ⇗"

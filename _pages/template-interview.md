@@ -1,9 +1,11 @@
 ---
-layout: page
+layout: doc
 title: Interview Template
 permalink: /interview-template
 description: "A software engineering team leader interview questions template"
-category: work
+category: templates
+summary: "Template for conducting interviews."
+group: engineering
 ---
 
 ## Introduction

@@ -1,0 +1,54 @@
+---
+title: JSON Pretty Printer
+permalink: /json-pretty-printer
+category: formatters
+tags: [json, formatter, developer]
+added: 2025-03-12
+summary: Format messy or minified JSON, check it's valid, or minify it again.
+description: "Free online JSON pretty printer and validator. Format, minify or sort JSON keys in your browser; nothing you paste is uploaded."
+scripts: [app.js]
+how_to:
+  - Paste JSON into **Input**, or press **Load sample**.
+  - Pick an indent and choose pretty or minified output. The result updates as you type.
+  - If the JSON won't parse, the error shows above the result.
+  - Copy the result, or download it as a `.json` file.
+about: |
+  API responses and config files often arrive as one long line, which is hard to read and harder to diff. This re-indents them with two spaces, four spaces or tabs, or strips the whitespace out again before you paste JSON into a URL or an environment variable.
+
+  Input is parsed with the browser's own `JSON.parse`, so if it formats here it's valid JSON. Sorting keys alphabetically makes two versions of the same object much easier to compare.
+
+  Nothing you paste is uploaded or saved. Once the page has loaded it works offline too.
+faq:
+  - q: Why won't my JSON parse?
+    a: Usually a trailing comma, single quotes or a comment. JavaScript allows all three; JSON allows none of them.
+  - q: Is there a size limit?
+    a: Only your device's memory. Files of a few megabytes format almost instantly.
+  - q: Can it convert JSON to YAML?
+    a: Use [JSON to YAML](/json-to-yaml) for that.
+related: [/json-to-yaml, /yaml-explorer, /sql-pretty-printer]
+config:
+  sample: "{\"tool\":\"json-pretty-printer\",\"tags\":[\"format\",\"validate\"],\"local\":true,\"limits\":{\"size\":null},\"updated\":\"2026-10-28\"}"
+---
+<div class="toolbar">
+  <span class="field"><label for="indent">Indent</label>
+    <select id="indent"><option value="2">2 spaces</option><option value="4">4 spaces</option><option value="tab">Tabs</option></select></span>
+  <span class="field"><label for="mode">Output</label>
+    <select id="mode"><option value="pretty">Pretty</option><option value="min">Minified</option></select></span>
+  <label class="check"><input type="checkbox" id="sort"> Sort keys A–Z</label>
+  <button type="button" class="link push" id="sample">Load sample</button>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="input">Input</label><span id="count">0 chars</span></div>
+    <textarea id="input" spellcheck="false" autocomplete="off" placeholder='{"paste": "your JSON here"}'></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><label for="output">Result</label><span class="status" id="status" aria-live="polite"></span></div>
+    <textarea id="output" spellcheck="false" readonly></textarea>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy result</button>
+  <button type="button" id="download">Download .json</button>
+  <button type="button" class="link" id="clear">Clear</button>
+</div>

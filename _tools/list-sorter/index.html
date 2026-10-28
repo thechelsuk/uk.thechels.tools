@@ -1,0 +1,44 @@
+---
+title: List Sorter
+permalink: /list-sorter
+category: text
+tags: [lists, sorting, text]
+added: 2025-03-12
+summary: Sort a list A–Z or Z–A, reverse it, and remove duplicates.
+description: "Free online list sorter. Sort lines alphabetically or in reverse, with natural number ordering, duplicate removal and whitespace trimming, in your browser."
+scripts: [app.js]
+how_to:
+  - Paste your list into **Input**, one item per line.
+  - Choose an order, and tick **Remove duplicates** or **Trim spaces** if you need them.
+  - Copy the sorted list.
+about: |
+  Sorting is case-insensitive and understands numbers, so `item 2` comes before `item 10` rather than after it, the way a person would expect. Blank lines are dropped.
+
+  **Reverse** keeps your original order and just flips it, which is handy for turning a newest-first list into oldest-first. Nothing you paste leaves your browser.
+faq:
+  - q: Why does "item 10" come after "item 9"?
+    a: The sorter compares numbers inside text by value, not character by character. A plain character sort would put "item 10" before "item 2".
+  - q: Does it keep my original capitalisation?
+    a: Yes. Case is ignored for ordering only.
+related: [/string-sorter, /extract-urls]
+---
+<div class="toolbar">
+  <span class="field"><label for="order">Order</label>
+    <select id="order"><option value="asc">A–Z</option><option value="desc">Z–A</option><option value="reverse">Reverse current order</option></select></span>
+  <label class="check"><input type="checkbox" id="unique"> Remove duplicates</label>
+  <label class="check"><input type="checkbox" id="trim" checked> Trim spaces</label>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="input">Input</label><span id="in-count">0 items</span></div>
+    <textarea id="input" spellcheck="false" placeholder="One item per line"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><label for="output">Sorted</label><span class="status" id="status" aria-live="polite"></span></div>
+    <textarea id="output" spellcheck="false" readonly></textarea>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy result</button>
+  <button type="button" class="link" id="clear">Clear</button>
+</div>

@@ -1,0 +1,61 @@
+# External links listed after the tools on the home page.
+- title: Feeds and search
+  links:
+    - name: SecOps news
+      url: https://secops.thechels.uk/
+      summary: Security operations news, as one page and feed.
+
+    - name: Cheltenham news
+      url: https://cheltenham-od.uk/cheltenham-news
+      summary: Local news from Cheltenham sources, as one page and feed.
+    - name: Search
+      url: https://search.thechels.uk
+      summary: Search many engines and sites using bangs and shortcodes.
+
+- title: Apps
+  links:
+    - name: EngMan
+      url: https://engman.thechels.uk
+      summary: Coaching card decks for engineering managers.
+    - name: Hiyd
+      url: https://hiyd.uk
+      summary: Draft Markdown posts and publish them to a Jekyll site on GitHub.
+    - name: Lansdown Foundry
+      url: https://lansdownfoundry.thechels.uk
+      summary: Draw and export your own fonts.
+    - name: Mltply
+      url: https://mltply.thechels.uk
+      summary: A free maths app with printable workbooks.
+    - name: Opiuml
+      url: https://opiuml.thechels.uk
+      summary: A podcast player.
+    - name: ShortKeys
+      url: https://shortkeys.thechels.uk
+      summary: Stop typing the same thing twice.
+    - name: Tomoz
+      url: https://tomoz.thechels.uk
+      summary: See tomorrow's schedule at a glance.
+    - name: Unsettled
+      url: https://unsettled.thechels.uk
+      summary: An impossible escape game.
+
+- title: Elsewhere
+  links:
+    - name: thechels.uk
+      url: https://thechels.uk
+      summary: Writing and everything else.
+    - name: Links
+      url: https://links.thechels.uk
+      summary: All my links, socials and resources.
+    - name: Cheltenham Open Data
+      url: https://cheltenham-od.uk
+      summary: Local data for Cheltenham and Gloucestershire.
+    - name: NetNewsWire themes
+      url: https://themes-nnw.thechels.uk
+      summary: Themes for the NetNewsWire feed reader.
+    - name: BOINC team
+      url: https://boinc.thechels.uk
+      summary: Donate spare computing power to medical research.
+    - name: Nuchronic
+      url: https://nuchronic.uk
+      summary: A Hacker News-style feed for the chronically ill indie web.

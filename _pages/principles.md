@@ -1,11 +1,12 @@
 ---
-
-layout: index
+layout: doc
 title: Principles
 seo: Principles
 permalink: /principles
 description: "A software engineering team leader principles primer"
-category: work
+category: templates
+summary: "Engineering principles for a software team."
+group: engineering
 ---
 
 

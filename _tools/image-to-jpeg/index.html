@@ -1,0 +1,44 @@
+---
+title: Convert Image to JPEG
+permalink: /image-to-jpeg
+category: images
+tags: [images, jpeg, compression]
+added: 2025-03-12
+summary: Turn a PNG, WebP or other image into a JPEG at the size and quality you choose.
+description: "Free image to JPEG converter. Convert PNG, WebP, GIF or HEIC images to JPEG, choose the width and quality, see the file size, and download, all in your browser."
+scripts: [app.js]
+how_to:
+  - Drop an image on the box, click to choose one, or paste one from the clipboard.
+  - Set the **Width** (leave it blank to keep the original size) and drag **Quality**.
+  - Check the preview and file size, then **Download** the JPEG or copy it as a data URI.
+about: |
+  JPEG is the most widely accepted photo format, and usually much smaller than PNG for photographs. This redraws your image and saves it as a JPEG, so you can see exactly how quality and size trade off before you download.
+
+  Quality around **75–85** is a good balance for photos on the web. Below about 50, blocky artefacts start to show. JPEG has no transparency, so transparent areas are filled with the **Background** colour.
+
+  The **data URI** is the whole image as text, for embedding small images directly in HTML or CSS. Everything happens in your browser and nothing is uploaded.
+faq:
+  - q: Will converting a JPEG again make it worse?
+    a: Yes, a little each time. Keep your original and convert from that.
+  - q: Which formats can I convert from?
+    a: Anything your browser can open, usually PNG, WebP, GIF, BMP, AVIF and, in Safari, HEIC.
+related: [/image-resize-quality, /exif]
+---
+<div class="win-body">
+  <input type="file" id="file" accept="image/*" hidden>
+  <div class="dropzone" id="drop" role="button" tabindex="0"><strong>Drop an image here, click to choose, or paste</strong><small>It stays on your device</small></div>
+</div>
+<div id="result" hidden>
+  <div class="toolbar">
+    <span class="field"><label for="width">Width</label><input type="number" id="width" min="1" placeholder="original"></span>
+    <span class="field"><label for="quality">Quality <b id="quality-value">80</b></label><input type="range" id="quality" min="1" max="100" value="80"></span>
+    <span class="field" id="bg-field" hidden><label for="background">Background</label><input type="color" id="background" value="#ffffff"></span>
+    <span class="status push" id="status" aria-live="polite"></span>
+  </div>
+  <div class="img-preview"><img id="preview" alt="JPEG preview"></div>
+  <div class="actions">
+    <button type="button" class="primary" id="download">Download JPEG</button>
+    <button type="button" id="copy">Copy data URI</button>
+    <button type="button" class="link" id="again">Choose another image</button>
+  </div>
+</div>

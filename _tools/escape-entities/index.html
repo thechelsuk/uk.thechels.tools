@@ -1,0 +1,50 @@
+---
+title: Escape HTML Entities
+permalink: /escape-entities
+category: formatters
+tags: [html, developer, text]
+added: 2025-03-12
+summary: Turn <, >, &, " and ' into HTML entities so text shows as code, or turn them back.
+description: "Free HTML entity escaper. Convert <, >, &, quotes and apostrophes to HTML entities, or unescape them, as you type in your browser."
+scripts: [app.js]
+how_to:
+  - Choose **Escape** or **Unescape**.
+  - Paste text into **Input**. The result updates as you type.
+  - Copy the result.
+about: |
+  To show HTML or XML as text on a web page, in a blog post or in documentation, the characters that start tags and entities have to be written as entities, or the browser treats them as markup. Escaping changes five characters:
+
+  | Character | Becomes |
+  |---|---|
+  | `&` | `&amp;amp;` |
+  | `<` | `&amp;lt;` |
+  | `>` | `&amp;gt;` |
+  | `"` | `&amp;quot;` |
+  | `'` | `&amp;#39;` |
+
+  **Unescape** does the reverse, one level at a time, so `&amp;amp;lt;` becomes `&amp;lt;`. Everything happens in your browser.
+faq:
+  - q: Why only five characters?
+    a: They're the only ones with special meaning in HTML text and attributes. Other characters, like accented letters or emoji, display fine in a UTF-8 page.
+  - q: Is this enough to make user input safe?
+    a: Escaping these characters is what stops text being read as HTML, but if you're building a site, use your framework's own escaping rather than copying text through a tool.
+related: [/json-pretty-printer, /extract-urls]
+---
+<div class="toolbar">
+  <span class="field"><label for="mode">Mode</label>
+    <select id="mode"><option value="escape">Escape</option><option value="unescape">Unescape</option></select></span>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="input">Input</label></div>
+    <textarea id="input" spellcheck="false" placeholder="<p>Tom &amp; Jerry</p>"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><label for="output">Result</label><span class="status" id="status" aria-live="polite"></span></div>
+    <textarea id="output" spellcheck="false" readonly></textarea>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy result</button>
+  <button type="button" class="link" id="clear">Clear</button>
+</div>

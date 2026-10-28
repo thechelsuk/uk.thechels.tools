@@ -3,13 +3,10 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
-Gemfile.lock
-Gemfile
 .vscode/settings.json
 .pytest_cache
 _python/__pycache__
 _drafts/
-Gemfile.lock
 _data/castro_podcasts.opml
 _data/podcasts.yml
 _python/config.py
@@ -23,3 +20,11 @@ images/splashscreens/.DS_Store
 images/.DS_Store
 images/.DS_Store
 images/.DS_Store
+
+# build output from `npm run vendor`
+node_modules/
+assets/vendor/
+_data/vendor.json
+_data/sbom.json
+sbom.json
+.bundle/

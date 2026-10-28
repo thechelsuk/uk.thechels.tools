@@ -1,0 +1,98 @@
+---
+title: FIRE Planner with Pension Pots
+permalink: /fire-two
+category: finance
+tags: [fire, retirement, pension, sipp, isa, finance]
+added: 2026-05-07
+summary: Drag a slider to see the earliest age your pension, SIPP and ISA pots last to 100.
+description: "UK early retirement planner. Combine a workplace pension, SIPP, ISA, final salary pension and State Pension, and see instantly the earliest age your pots last to 100."
+vendor: [chart.js]
+scripts: [app.js]
+how_to:
+  - Drag **Retire at** and the spending sliders. Everything updates as you go.
+  - Open **Pots and contributions** and **Pensions and income** to enter your own figures and ages.
+  - Watch **Earliest viable age** and **Pots run out**, then switch to **Year by year** for the detail.
+about: |
+  This is a quicker, more visual companion to the [FIRE calculator](/fire). It works in **real terms**: one growth rate after inflation, with pensions that keep pace with inflation, so every figure is in today's money.
+
+  Your **workplace pension**, **SIPP** and **ISA** grow together, and once you retire they're drawn down in proportion to cover whatever your guaranteed income doesn't. A **defined benefit** pension and its tax-free lump sum (added to the ISA) start at the age you choose, and so does the **State Pension**. Spending can change at a later age, since many people spend less as they get older.
+
+  **Earliest viable age** is the first retirement age at which the pots still have money in them at 100. Other income before retirement, such as a salary or sick pay, is shown in the table but isn't saved. It's a model with a steady return, not financial advice.
+faq:
+  - q: Why are all the pots drawn down together?
+    a: It keeps the model simple. In practice you might use the ISA first, before you can take your pension at 57 or 58. The [ISA Bridge calculator](/the-ISA-retirement-apex-bridge-tool) looks at exactly that.
+  - q: What growth rate should I use?
+    a: A real rate, after inflation. 4–5% is a common long-run assumption for a global equity portfolio; use less if you hold bonds or cash.
+related: [/fire, /the-ISA-retirement-apex-bridge-tool]
+---
+<div class="stat-row f2-kpis">
+  <div class="stat"><b id="kEarliest">–</b><span id="kEarliestSub">earliest viable age</span></div>
+  <div class="stat"><b id="kPortfolio">–</b><span>pots at retirement</span></div>
+  <div class="stat"><b id="kIncome">–</b><span>income at retirement</span></div>
+  <div class="stat"><b id="k85">–</b><span>pots at 85</span></div>
+  <div class="stat"><b id="kRunOut">–</b><span id="kRunOutSub">pots run out</span></div>
+</div>
+<div class="f2-warning" id="warning" hidden>The pots run out before 100 at this spending. Retire later or spend less.</div>
+<div class="calc f2-sliders">
+  <div><label for="retireAge">Retire at <b id="vRetire"></b></label><input type="range" id="retireAge" min="43" max="67" value="48"></div>
+  <div><label for="spendEarly">Spending <b id="vEarly"></b></label><input type="range" id="spendEarly" min="15000" max="60000" step="500" value="36000"></div>
+  <div><label for="spendChangeAge">Spending changes after <b id="vChange"></b></label><input type="range" id="spendChangeAge" min="55" max="90" value="70"></div>
+  <div><label for="spendLate">Later spending <b id="vLate"></b></label><input type="range" id="spendLate" min="10000" max="60000" step="500" value="28000"></div>
+</div>
+<details class="f2-section">
+  <summary>Pots and contributions</summary>
+  <div class="calc">
+    <fieldset>
+      <div class="row">
+        <div><label for="startAge">Age now</label><input type="number" id="startAge" min="18" max="80" value="43"></div>
+        <div><label for="growth">Real growth (%)</label><input type="number" id="growth" min="0" max="12" step="0.5" value="6"></div>
+      </div>
+      <div class="row">
+        <div><label for="dc">Workplace pension (£)</label><input type="number" id="dc" min="0" value="41000"></div>
+        <div><label for="dcMonthly">Added monthly (£)</label><input type="number" id="dcMonthly" min="0" value="500"></div>
+      </div>
+      <div><label for="contributionsUntil">Contributions stop at age</label><input type="number" id="contributionsUntil" min="18" max="100" value="48"></div>
+    </fieldset>
+    <fieldset>
+      <div class="row">
+        <div><label for="sipp">SIPP (£)</label><input type="number" id="sipp" min="0" value="120000"></div>
+        <div><label for="isa">Stocks and Shares ISA (£)</label><input type="number" id="isa" min="0" value="138000"></div>
+      </div>
+    </fieldset>
+  </div>
+</details>
+<details class="f2-section">
+  <summary>Pensions and income</summary>
+  <div class="calc">
+    <fieldset>
+      <legend>Defined benefit pension</legend>
+      <div class="row">
+        <div><label for="dbAmount">Yearly (£)</label><input type="number" id="dbAmount" min="0" value="9400"></div>
+        <div><label for="dbAge">From age</label><input type="number" id="dbAge" min="50" max="100" value="65"></div>
+      </div>
+      <div><label for="dbLump">Tax-free lump sum (£)</label><input type="number" id="dbLump" min="0" value="28000"><p class="note">Added to the ISA when the pension starts.</p></div>
+    </fieldset>
+    <fieldset>
+      <legend>State Pension and other income</legend>
+      <div class="row">
+        <div><label for="spAmount">State Pension (£ a year)</label><input type="number" id="spAmount" min="0" value="12500"></div>
+        <div><label for="spAge">From age</label><input type="number" id="spAge" min="60" max="75" value="68"></div>
+      </div>
+      <div class="row">
+        <div><label for="otherIncome">Other income before retiring (£ a year)</label><input type="number" id="otherIncome" min="0" value="57000"></div>
+        <div><label for="otherIncomeUntil">Until age</label><input type="number" id="otherIncomeUntil" min="18" max="100" value="48"></div>
+      </div>
+    </fieldset>
+  </div>
+</details>
+<div class="toolbar f2-tabs" role="tablist">
+  <button type="button" role="tab" class="link" id="tabCharts" aria-selected="true">Charts</button>
+  <button type="button" role="tab" class="link" id="tabTable" aria-selected="false">Year by year</button>
+</div>
+<div id="chartsView">
+  <div class="chart-box"><canvas id="potChart" aria-label="Pot values by age"></canvas></div>
+  <div class="chart-box"><canvas id="incomeChart" aria-label="Retirement income by source"></canvas></div>
+</div>
+<div id="tableView" hidden>
+  <div class="calc-section"><div class="table-wrap tall"><table class="money"><thead><tr><th>Age</th><th>Pots</th><th>Drawdown</th><th>DB</th><th>State</th><th>Income</th><th>+/−</th></tr></thead><tbody id="table"></tbody></table></div></div>
+</div>

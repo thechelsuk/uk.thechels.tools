@@ -1,0 +1,63 @@
+---
+title: SQL Pretty Printer
+permalink: /sql-pretty-printer
+category: formatters
+tags: [sql, formatter, developer]
+added: 2025-03-12
+summary: Format SQL for SQLite, Postgres, MySQL and standard SQL.
+description: "Free online SQL formatter. Pretty print queries for SQLite, PostgreSQL, MySQL or standard SQL with your choice of indent and keyword case, in your browser."
+vendor: [sql-formatter]
+scripts: [app.js]
+how_to:
+  - Paste a query into **Input**, or press **Load sample**.
+  - Choose the SQL dialect, tab width, keyword case and indent style. The result updates as you type.
+  - Copy the formatted query or download it as a `.sql` file.
+about: |
+  Queries copied out of logs, ORMs or old scripts tend to be one long line, or indented in whatever style the last person liked. This lays them out consistently so they're easier to read, review and diff.
+
+  Formatting uses the open source [sql-formatter](/sbom#sql-formatter) library, served from this site. Pick the dialect you're writing for: it changes which keywords and operators the formatter recognises, so PostgreSQL's `::` casts or MySQL's backtick quoting come out right.
+
+  **Tabular** indent styles line keywords up in a column, which some teams prefer for long `SELECT` lists. Your query isn't uploaded anywhere.
+faq:
+  - q: Does it check my SQL is valid?
+    a: No. It formats the query's layout but doesn't run it or check it against a schema. If the formatter can't make sense of the input, it shows an error instead.
+  - q: Which dialect should I pick?
+    a: The database you'll run the query on. Standard SQL works for most simple queries.
+  - q: Will it change what my query does?
+    a: No. Only whitespace and, if you choose, keyword case change.
+related: [/json-pretty-printer, /escape-entities]
+config:
+  sample: "select o.id, c.name, sum(i.qty * i.price) as total from orders o join customers c on c.id = o.customer_id join items i on i.order_id = o.id where o.created_at >= '2026-01-01' group by o.id, c.name having sum(i.qty * i.price) > 100 order by total desc limit 20;"
+---
+<div class="toolbar">
+  <span class="field"><label for="dialect">Dialect</label>
+    <select id="dialect">
+      <option value="sqlite">SQLite</option>
+      <option value="sql">Standard SQL</option>
+      <option value="postgresql">PostgreSQL</option>
+      <option value="mysql">MySQL</option>
+      <option value="tsql">SQL Server</option>
+    </select></span>
+  <span class="field"><label for="tabWidth">Tab width</label>
+    <input type="number" class="narrow" id="tabWidth" value="2" min="1" max="8"></span>
+  <span class="field"><label for="keywordCase">Keywords</label>
+    <select id="keywordCase"><option value="preserve">As typed</option><option value="upper">UPPER</option><option value="lower">lower</option></select></span>
+  <span class="field"><label for="indentStyle">Indent</label>
+    <select id="indentStyle"><option value="standard">Standard</option><option value="tabularLeft">Tabular, left</option><option value="tabularRight">Tabular, right</option></select></span>
+  <button type="button" class="link push" id="sample">Load sample</button>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="input">Input</label><span id="count">0 chars</span></div>
+    <textarea id="input" spellcheck="false" autocomplete="off" placeholder="select * from table"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><label for="output">Formatted</label><span class="status" id="status" aria-live="polite"></span></div>
+    <textarea id="output" spellcheck="false" readonly></textarea>
+  </div>
+</div>
+<div class="actions">
+  <button type="button" class="primary" id="copy">Copy result</button>
+  <button type="button" id="download">Download .sql</button>
+  <button type="button" class="link" id="clear">Clear</button>
+</div>

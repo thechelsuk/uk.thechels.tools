@@ -1,0 +1,35 @@
+---
+title: Image Resize and Quality Comparison
+permalink: /image-resize-quality
+category: images
+tags: [images, jpeg, compression]
+added: 2025-03-12
+summary: See one image at ten combinations of size and JPEG quality, with file sizes, and download the best.
+description: "Free image compression comparison. Preview an image at full and half width across five JPEG quality levels, compare file sizes side by side, and download the one you want."
+scripts: [app.js]
+how_to:
+  - Drop an image on the box, click to choose one, or paste one.
+  - Compare the ten versions. Click any preview to see it full size.
+  - Download the smallest one that still looks right.
+about: |
+  Choosing a JPEG quality by number is guesswork; seeing the results side by side isn't. This makes ten versions of your image, at full and half width and at 100%, 90%, 70%, 50% and 30% quality, and shows how big each file is.
+
+  Halving the width usually cuts the file to about a quarter of the size, which matters far more than quality for images that are shown small. If your image has transparent areas, choose a **Background** colour to fill them, since JPEG can't store transparency.
+
+  Your image is processed in the browser and never uploaded.
+faq:
+  - q: Why is quality 100% so much bigger than 90%?
+    a: The top end keeps detail that's almost impossible to see. 85–90% is usually indistinguishable at a fraction of the size.
+related: [/image-to-jpeg, /exif]
+---
+<div class="win-body">
+  <input type="file" id="file" accept="image/*" hidden>
+  <div class="dropzone" id="drop" role="button" tabindex="0"><strong>Drop an image here, click to choose, or paste</strong><small>It stays on your device</small></div>
+</div>
+<div id="result" hidden>
+  <div class="toolbar">
+    <span class="field" id="bg-field" hidden><label for="background">Background</label><input type="color" id="background" value="#ffffff"></span>
+    <span class="status push" id="status" aria-live="polite"></span>
+  </div>
+  <div class="win-body"><ul class="variant-grid" id="grid"></ul></div>
+</div>

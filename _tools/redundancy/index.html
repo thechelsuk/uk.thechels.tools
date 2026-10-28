@@ -1,0 +1,95 @@
+---
+title: UK Redundancy Pay Calculator
+seo_title: "UK Redundancy Calculator 2026/27: Statutory Pay, Tax and Refund · Toolkit by thechelsuk"
+permalink: /uk-redundancy-pay-calculator
+category: finance
+tags: [uk-tax, redundancy, payroll, finance]
+added: 2026-08-24
+uk_rates: true
+summary: Statutory redundancy, notice and holiday pay for 2026/27, with tax, NI and the likely HMRC refund.
+description: "UK redundancy calculator for 2026/27: age-banded statutory pay, notice and holiday pay, the £30,000 tax-free limit, PAYE, NI, student loan, and your likely tax refund."
+scripts: [app.js]
+how_to:
+  - Enter your date of birth, when your continuous employment started, and your last day.
+  - Add your salary and, if your average weekly pay differs, the weekly figure. Add any enhanced or ex gratia payment.
+  - Fill in your holiday entitlement and days taken. Tick carry forward if sickness stopped you taking leave.
+  - Enter your year-to-date pay and tax from your last payslip, then press **Calculate**.
+about: |
+  Being made redundant means a lot of numbers land on you at once: statutory redundancy pay, notice pay, holiday pay, and a final payslip taxed in a way that rarely matches what you actually owe for the year. This brings them together for the 2026/27 tax year in England, Wales and Northern Ireland.
+
+  It works out **age-banded statutory redundancy pay** year by year, adds **notice pay** (the statutory minimum or your contract, whichever is longer) and **pro-rata holiday pay**, including days carried forward from a previous leave year.
+
+  On tax, it applies the **£30,000 tax-free limit** to redundancy pay, estimates **cumulative PAYE** and **employee and employer NI** on the taxable parts, and includes **pension salary sacrifice** and **student loan** repayments if they apply. Because a large one-off payment is usually over-taxed under cumulative PAYE, it also estimates your **true tax for the year** and the refund you'd likely get if you have no more income before April.
+
+  These are estimates using standard PAYE and NI rules, not advice. Scottish income tax bands, more than one student loan plan, and tapered pension allowances aren't modelled. Check figures with your employer's payroll team or HMRC.
+faq:
+  - q: How much statutory redundancy pay am I entitled to in 2026/27?
+    a: "It depends on age and length of service: half a week's pay for each full year under 22, one week's pay for each full year aged 22 to 40, and one and a half weeks' pay for each full year aged 41 or over. Weekly pay is capped at £751, service is capped at 20 years, and you need at least 2 complete years to qualify."
+  - q: Is redundancy pay taxed in the UK?
+    a: The first £30,000 of combined statutory and enhanced redundancy pay is free of tax and NI. Anything above £30,000 is taxed but still free of employee NI. Notice pay and holiday pay are taxed and NI'd as normal earnings.
+  - q: Can I carry forward holiday I couldn't take because I was off sick?
+    a: Yes. Workers who couldn't take statutory holiday because of sickness can carry it forward, commonly for up to 18 months after the leave year ends, depending on the circumstances and your employer's policy.
+  - q: Why might I be overtaxed on my final payslip?
+    a: PAYE gives you a fraction of your personal allowance each month. A large final payment in one month is taxed as if it repeats every month. If you have no further income that tax year, HMRC usually refunds the difference automatically or through a P800 or P50 claim.
+related: [/uk-runway-calculator-drawdown, /fire]
+---
+<form id="form" novalidate>
+  <div class="calc">
+    <fieldset>
+      <legend>Service</legend>
+      <div><label for="dob">Date of birth</label><input type="date" id="dob" required></div>
+      <div><label for="serviceStart">Continuous employment started</label><input type="date" id="serviceStart" required></div>
+      <div><label for="terminationDate">Last day of employment</label><input type="date" id="terminationDate" required></div>
+      <div><label for="contractualNoticeWeeks">Contractual notice (weeks)</label><input type="number" id="contractualNoticeWeeks" min="0" step="1" value="0">
+        <p class="note">Leave at 0 to use the statutory minimum: a week per full year, up to 12.</p></div>
+    </fieldset>
+    <fieldset>
+      <legend>Pay</legend>
+      <div><label for="annualSalary">Annual gross salary (£)</label><input type="number" id="annualSalary" min="0" step="500" value="45000"></div>
+      <div><label for="weeklyPay">Average weekly pay (£)</label><input type="number" id="weeklyPay" min="0" step="10" value="865.38">
+        <p class="note">Filled in from salary ÷ 52. Change it if your last 12 weeks' average differs. The statutory calculation caps it at <span data-rate="redundancy.weekly_pay_cap"></span>.</p></div>
+      <div><label for="enhancedPay">Enhanced or ex gratia payment (£)</label><input type="number" id="enhancedPay" min="0" step="100" value="0"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Holiday</legend>
+      <div class="row">
+        <div><label for="annualHolidayDays">Days a year</label><input type="number" id="annualHolidayDays" min="0" step="0.5" value="28"></div>
+        <div><label for="daysTaken">Days taken</label><input type="number" id="daysTaken" min="0" step="0.5" value="0"></div>
+      </div>
+      <div><label for="leaveYearStart">Leave year started</label><input type="date" id="leaveYearStart" required></div>
+      <label class="check"><input type="checkbox" id="carryForwardToggle" data-reveals="carryForwardGroup"> Include days carried forward (for example, from sickness)</label>
+      <div id="carryForwardGroup" hidden><label for="carryForwardDays">Days carried forward</label><input type="number" id="carryForwardDays" min="0" step="0.5" value="0"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Tax so far this year</legend>
+      <div><label for="personalAllowance">Personal allowance (£)</label><input type="number" id="personalAllowance" min="0" step="10">
+        <p class="note">Standard is <span data-rate="income_tax.personal_allowance"></span>. Adjust for Marriage Allowance or a taper above £100,000.</p></div>
+      <div><label for="taxMonth">Tax month of the final payslip</label><input type="number" id="taxMonth" min="1" max="12" step="1" value="6"><p class="note">1 is April, 12 is March.</p></div>
+      <div class="row">
+        <div><label for="ytdGross">Taxable pay so far (£)</label><input type="number" id="ytdGross" min="0" step="100" value="22500"></div>
+        <div><label for="ytdTax">Tax paid so far (£)</label><input type="number" id="ytdTax" min="0" step="10" value="1980"></div>
+      </div>
+      <div><label for="furtherIncome">More taxable income this tax year?</label><select id="furtherIncome"><option value="no">No</option><option value="yes">Yes, a new job or similar</option></select></div>
+    </fieldset>
+    <fieldset>
+      <legend>Deductions</legend>
+      <label class="check"><input type="checkbox" id="salSacToggle" data-reveals="salSacGroup"> Pension by salary sacrifice</label>
+      <div id="salSacGroup" hidden><label for="salSacPercent">Sacrifice (% of notice and holiday pay)</label><input type="number" id="salSacPercent" min="0" max="100" step="0.5" value="5"></div>
+      <label class="check"><input type="checkbox" id="studentLoanToggle" data-reveals="studentLoanGroup"> Student loan</label>
+      <div id="studentLoanGroup" hidden><label for="studentLoanPlan">Plan</label><select id="studentLoanPlan"></select></div>
+    </fieldset>
+  </div>
+  <div class="actions">
+    <button type="submit" class="primary">Calculate</button>
+    <span class="status" id="status" aria-live="polite"></span>
+  </div>
+</form>
+<div class="calc-results" id="results" hidden>
+  <div class="cards" id="cards"></div>
+  <div class="calc-section">
+    <h3>Breakdown</h3>
+    <div class="table-wrap"><table class="money"><tbody id="breakdown"></tbody></table></div>
+    <h3>Statutory redundancy by year of service</h3>
+    <div class="table-wrap"><table class="money"><thead><tr><th>Service year</th><th>Age at start</th><th>Band</th><th>Weeks</th><th>Amount</th></tr></thead><tbody id="service"></tbody></table></div>
+  </div>
+</div>

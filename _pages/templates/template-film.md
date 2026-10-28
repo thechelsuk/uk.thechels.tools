@@ -1,9 +1,11 @@
 ---
-
-layout: page
-title: Template - Film
+layout: doc
+title: "Film Post Template"
 seo: Film
 permalink: /templates/film
+category: templates
+summary: "Markdown front matter for a film post."
+group: posts
 ---
 
 ```markdown

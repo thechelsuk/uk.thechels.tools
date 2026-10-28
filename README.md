@@ -7,21 +7,25 @@ Hopefully helpful tools and a bit of a playground for experiments. The site uses
 
 There are several optional settings for you to configure. Use the `_config.yml` file in the repo.
 
-## Running Jekyll Locally
+## Running locally
 
-To preview the site locally:
+Needs Ruby 3.3 (see `.ruby-version`) and Node 24.
 
-1. Install [Ruby](https://www.ruby-lang.org/en/documentation/installation/) and [Bundler](https://bundler.io/).
-2. Install dependencies:
+```sh
+npm install          # third-party browser libraries, pinned in package.json
+bundle install       # Jekyll and plugins, installed into vendor/bundle
+npm run serve        # copies libraries into assets/vendor, then serves on http://localhost:4002
+```
 
-    ```sh
-    bundle install
-    ```
+`npm test` runs the unit tests for tool logic and the vendor script.
 
-3. Start the Jekyll server:
+## How the site is organised
 
-    ```sh
-    bundle exec jekyll serve --watch
-    ```
+- `_tools/<slug>/` – one folder per tool: `index.html` (front matter and the markup inside the tool window), `app.js`, and any logic modules. Pages keep their URL through `permalink`.
+- `_layouts/tool.html` – wraps a tool in the window frame and renders the How to use, About and Questions sections from front matter.
+- `_data/categories.yml` – the groups on the home page; `_data/elsewhere.yml` – feeds, apps and other sites.
+- `assets/css/site.css` – the one stylesheet, built on CSS variables.
+- `package.json` – every third-party library, at an exact version. `npm run vendor` copies them into `assets/vendor/`, writes `_data/vendor.json` and the CycloneDX `sbom.json`. Dependabot keeps them up to date.
+- `.github/workflows/pages.yml` – builds and deploys the site with GitHub Actions.
 
-4. Visit [http://localhost:4000](http://localhost:4000) in your browser.
+Documents (templates, policies, role profiles) live in `_pages/` as Markdown on the `doc` layout, with `category` and `group` front matter for the home and templates pages.

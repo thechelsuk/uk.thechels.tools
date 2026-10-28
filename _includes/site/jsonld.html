@@ -1,0 +1,105 @@
+{%- comment -%}
+  Structured data for search engines and AI crawlers. Built from the same
+  front matter that renders the visible page, so the two always agree.
+{%- endcomment -%}
+{%- include site/entries.html -%}
+{%- assign home = "/" | absolute_url -%}
+{%- assign url = page.url | absolute_url -%}
+{%- assign desc = page.description | default: page.summary | default: site.description | strip_html | strip -%}
+{%- assign modified = page.last_modified_at | default: site.time -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "{{ site.owner.url }}#me",
+      "name": "{{ site.owner.name }}",
+      "url": "{{ site.owner.url }}",
+      "image": "{{ site.owner.avatar }}",
+      "sameAs": {{ site.owner.sameAs | jsonify }}
+    },
+    {
+      "@type": "WebSite",
+      "@id": "{{ home }}#website",
+      "url": "{{ home }}",
+      "name": "Toolkit by thechelsuk",
+      "description": "A digital garden of browser tools, templates and notes.",
+      "inLanguage": "en-GB",
+      "author": { "@id": "{{ site.owner.url }}#me" }
+    }
+    {%- if page.url == "/" %},
+    {
+      "@type": "CollectionPage",
+      "@id": "{{ home }}#page",
+      "url": "{{ home }}",
+      "name": "Toolkit",
+      "description": {{ desc | jsonify }},
+      "inLanguage": "en-GB",
+      "isPartOf": { "@id": "{{ home }}#website" },
+      "dateModified": "{{ site.time | date_to_xmlschema }}",
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": {{ home_entries.size }},
+        "itemListElement": [
+          {%- for e in home_entries %}
+          { "@type": "ListItem", "position": {{ forloop.index }}, "url": "{{ e.url | absolute_url }}", "name": {{ e.title | jsonify }} }{% unless forloop.last %},{% endunless %}
+          {%- endfor %}
+        ]
+      }
+    }
+    {%- else %},
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{ url }}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Toolkit", "item": "{{ home }}" }
+        {%- if entry_cat %},
+        { "@type": "ListItem", "position": 2, "name": {{ entry_cat.title | jsonify }}, "item": "{{ home }}#{{ entry_cat.id }}" }
+        {%- endif %},
+        { "@type": "ListItem", "position": {% if entry_cat %}3{% else %}2{% endif %}, "name": {{ page.title | jsonify }}, "item": "{{ url }}" }
+      ]
+    },
+    {
+      {%- if page.collection == "tools" %}
+      "@type": "WebApplication",
+      "applicationCategory": "{% if page.category == 'finance' %}FinanceApplication{% else %}UtilitiesApplication{% endif %}",
+      "operatingSystem": "Any (runs in a web browser)",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+      {%- else %}
+      "@type": "WebPage",
+      {%- endif %}
+      "@id": "{{ url }}#page",
+      "url": "{{ url }}",
+      "name": {{ page.title | jsonify }},
+      "description": {{ desc | jsonify }},
+      "inLanguage": "en-GB",
+      "dateModified": "{{ modified | date_to_xmlschema }}",
+      {%- if page.added %}
+      "dateCreated": "{{ page.added | date_to_xmlschema }}",
+      {%- endif %}
+      {%- if page.tags %}
+      "keywords": {{ page.tags | join: ", " | jsonify }},
+      {%- endif %}
+      "isPartOf": { "@id": "{{ home }}#website" },
+      "breadcrumb": { "@id": "{{ url }}#breadcrumb" },
+      "author": { "@id": "{{ site.owner.url }}#me" }
+    }
+    {%- if page.faq %},
+    {
+      "@type": "FAQPage",
+      "@id": "{{ url }}#faq",
+      "url": "{{ url }}",
+      "mainEntity": [
+        {%- for f in page.faq %}
+        { "@type": "Question", "name": {{ f.q | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ f.a | markdownify | strip_html | strip | jsonify }} } }{% unless forloop.last %},{% endunless %}
+        {%- endfor %}
+      ]
+    }
+    {%- endif %}
+    {%- endif %}
+  ]
+}
+</script>

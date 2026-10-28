@@ -1,9 +1,11 @@
 ---
-layout: page
+layout: doc
 title: Strategy Template
 permalink: /strategy-template
 description: "A software engineering team leader strategy starter for 10 template"
-category: work
+category: templates
+summary: "Template for creating strategies."
+group: engineering
 ---
 
 > Notes:

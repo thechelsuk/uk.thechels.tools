@@ -1,0 +1,68 @@
+---
+title: ISA Bridge Apex Calculator
+seo_title: "ISA Bridge Calculator: Find Your FIRE Apex · Toolkit by thechelsuk"
+permalink: /the-ISA-retirement-apex-bridge-tool
+category: finance
+tags: [fire, isa, retirement, pension, finance]
+added: 2026-08-11
+summary: Find the ISA "apex" that bridges you from early retirement to your pension, or the earliest age you could stop.
+description: "Free UK ISA bridge calculator. Find the ISA apex needed to retire early and bridge to pension age, or solve for your earliest FIRE age, at a range of growth rates."
+vendor: [chart.js]
+scripts: [app.js]
+how_to:
+  - Enter your age, ISA balance, what you add each year, and what you'd withdraw each year once you stop work.
+  - Set the age your pension or other income starts, and a real growth rate.
+  - Choose **Target age** to test a retirement age you have in mind, or **Earliest age** to solve for it.
+  - Read the result, then compare the three growth rates on the chart and table.
+about: |
+  Retiring before your pension can be taken (from 57 or 58, or 68 for the State Pension) means something has to pay for the years in between. For many people that's an ISA. This finds your **ISA apex**: the balance your ISA needs to reach on the day you stop work, so that withdrawals carry you exactly to the day your pension starts.
+
+  Before the apex your ISA grows with contributions; after it, withdrawals run it down to roughly zero by the end of the bridge. The calculator compares the balance you're projected to have with the apex you need, and tells you the shortfall or surplus, plus the yearly contribution that would hit your target age.
+
+  Everything is in **today's money**: the growth rate is a *real* rate, after inflation and fees (for example, 8% market return minus 3% inflation and fees is about 5% real). Results are shown 1% either side of your rate, because small changes in growth move the answer more than people expect. It's a model, not financial advice.
+
+  This accompanies the article [The Road to FIRE: Building the ISA Bridge to 58 and Finding the Apex](https://thechels.uk/the-ISA-retirement-bridge), which walks through the reasoning and a worked example.
+faq:
+  - q: What is the ISA apex?
+    a: The highest point your ISA reaches, on the day you retire. From then on withdrawals bring it down, ideally to about zero just as your pension starts.
+  - q: Why use a real growth rate?
+    a: So every figure is in today's money. A flat withdrawal in real terms means your spending keeps pace with inflation.
+  - q: Why do the earliest ages look the same at different growth rates?
+    a: Ages are whole years, so small differences can round to the same age. The exact crossover point, shown in months, reveals the difference.
+related: [/fire, /fire-two, /uk-runway-calculator-drawdown]
+---
+<form id="form" novalidate>
+  <div class="calc">
+    <fieldset>
+      <legend>Your ISA</legend>
+      <div class="row">
+        <div><label for="currentAge">Age now</label><input type="number" id="currentAge" min="18" max="100" value="43"></div>
+        <div><label for="bridgeEndAge">Pension starts at</label><input type="number" id="bridgeEndAge" min="19" max="100" value="58"></div>
+      </div>
+      <div><label for="isaBalance">ISA balance (£)</label><input type="number" id="isaBalance" min="0" step="1000" value="147000"></div>
+      <div class="row">
+        <div><label for="annualContribution">Added each year (£)</label><input type="number" id="annualContribution" min="0" step="500" value="20000"></div>
+        <div><label for="annualWithdrawal">Withdrawn each year (£)</label><input type="number" id="annualWithdrawal" min="0" step="500" value="36000"></div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Assumptions</legend>
+      <div><label for="growthRate">Real growth: <b id="growthValue">5%</b></label><input type="range" id="growthRate" min="2" max="8" step="1" value="5">
+        <p class="note">Market return minus inflation and fees. The chart also shows 1% either side.</p></div>
+      <div role="radiogroup" aria-label="What to work out">
+        <label class="check"><input type="radio" name="mode" value="target" checked> Test a target retirement age</label>
+        <label class="check"><input type="radio" name="mode" value="solve"> Find my earliest retirement age</label>
+      </div>
+      <div id="targetGroup"><label for="targetFireAge">Target retirement age</label><input type="number" id="targetFireAge" min="19" max="99" value="50"></div>
+    </fieldset>
+  </div>
+  <div class="actions"><button type="submit" class="primary">Calculate</button><span class="status" id="status" aria-live="polite"></span></div>
+</form>
+<div class="calc-results" id="results" hidden>
+  <div class="cards" id="cards"></div>
+  <div class="chart-box tall"><canvas id="chart" aria-label="ISA balance by age at three growth rates"></canvas></div>
+  <div class="calc-section">
+    <h3>Year by year</h3>
+    <div class="table-wrap tall"><table class="money"><thead id="thead"></thead><tbody id="table"></tbody></table></div>
+  </div>
+</div>

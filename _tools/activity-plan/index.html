@@ -1,0 +1,46 @@
+---
+title: ME/CFS Activity Plan
+permalink: /activity-plan
+category: planning
+tags: [health, pacing, me-cfs, planner, printable]
+added: 2026-01-14
+summary: Plan or record four weeks of activity hour by hour, from sleep to high effort, and print it.
+description: "Free ME/CFS and long COVID pacing planner. Colour-code every hour across four weeks by effort level, see each day's load, save it in your browser and print it."
+scripts: [app.js]
+how_to:
+  - Choose the date your plan starts.
+  - Pick a level under **Paint with**, then click or drag across the hours to fill them in. Choose **Cycle** to step through the levels one click at a time instead.
+  - Each day's **Load** adds up its effort, to help you spot boom-and-bust patterns.
+  - Your plan saves automatically in this browser. Use **Print** for a paper copy for appointments.
+about: |
+  Pacing is one of the main ways people with ME/CFS, long COVID and other energy-limiting conditions manage their symptoms: planning activity and rest to stay within the energy available, rather than pushing through and crashing. An hour-by-hour plan or diary makes patterns visible, both for you and for the people supporting you.
+
+  Each hour can be **sleep**, **rest**, or **low**, **medium** or **high effort**, shaded from light to dark blue so busy days stand out. The daily load counts low effort as 1 point, medium as 2 and high as 3, so you can compare days and aim for a steadier spread.
+
+  Everything is stored only in this browser on this device. Nothing is sent anywhere, so you don't need an account. Clearing your browser's site data will remove the plan, so print it if you want a permanent record.
+faq:
+  - q: Can I use it as a diary instead of a plan?
+    a: Yes. Many people fill it in at the end of each day to record what actually happened, which is often more useful for spotting patterns.
+  - q: Can I move my plan to another device?
+    a: Not yet. It's stored in this browser only. Printing to PDF is the easiest way to share it.
+  - q: Is this medical advice?
+    a: No. It's a planning aid. Talk to your clinician or an occupational therapist about pacing that's right for you.
+related: [/pomodoro]
+config:
+  weeks: 4
+  levels:
+    - { id: blank, label: Blank, short: "" }
+    - { id: sleep, label: Sleep, short: "1" }
+    - { id: rest, label: Rest, short: "2" }
+    - { id: low-effort, label: Low effort, short: "3" }
+    - { id: medium-effort, label: Medium effort, short: "4" }
+    - { id: high-effort, label: High effort, short: "5" }
+---
+<div class="toolbar no-print-controls">
+  <span class="field"><label for="start">Starts</label><input type="date" id="start"></span>
+  <span class="field"><span>Paint with</span>
+    <span class="ap-brushes" id="brushes" role="radiogroup" aria-label="Paint with"></span></span>
+  <button type="button" class="push" id="print">Print</button>
+  <button type="button" class="link" id="clear">Clear plan</button>
+</div>
+<div class="win-body ap-body"><div id="plan" class="ap-plan"></div></div>

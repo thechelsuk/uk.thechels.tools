@@ -1,9 +1,11 @@
 ---
-
-layout: page
-title: Template - Post
+layout: doc
+title: "Regular Post Template"
 seo: Post
 permalink: /templates/post
+category: templates
+summary: "Markdown front matter for a regular post."
+group: posts
 ---
 
 ```markdown

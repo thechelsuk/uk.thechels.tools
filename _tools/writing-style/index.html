@@ -1,0 +1,50 @@
+---
+title: Writing Style Checker
+permalink: /writing-style
+category: text
+tags: [writing, text]
+added: 2025-03-12
+summary: Highlight weasel words, passive voice and repeated words in your writing.
+description: "Free writing style checker. Paste text to highlight weasel words, passive voice and accidentally repeated words, based on Matt Might's well-known scripts."
+scripts: [app.js]
+how_to:
+  - Paste or type your writing into **Text**.
+  - Findings are highlighted in **Highlights** as you type, colour coded by kind.
+  - Rewrite the highlighted parts, or leave them if they're what you meant.
+about: |
+  Adapted from [Matt Might's shell scripts](https://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/) for academic writing, which look for three habits that make text weaker:
+
+  - **Weasel words** like *very*, *quite* and *significantly* sound precise but say little. Replace them with a number or cut them.
+  - **Passive voice**, like *the test was run*, hides who did something. *We ran the test* is shorter and clearer.
+  - **Repeated words**, like *the the*, are easy to miss when a line breaks between them.
+
+  The passive voice check is a rule of thumb: a form of *to be* followed by a word ending in *-ed* or a common irregular past participle. It flags some false positives, such as *he is tired*, so read each one rather than changing it automatically.
+
+  Your text stays in your browser.
+faq:
+  - q: Is passive voice always wrong?
+    a: No. It's useful when the actor doesn't matter or isn't known. The check is there to make you choose it deliberately.
+  - q: Can I change the word lists?
+    a: The lists live in this page's settings in the site's source, so they're easy to edit there.
+related: [/lorem, /string-sorter]
+config:
+  weasel_words: [many, various, very, fairly, several, extremely, exceedingly, quite, remarkably, few, surprisingly, mostly, largely, huge, tiny, excellent, interestingly, significantly, substantially, clearly, vast, relatively, completely]
+  irregular_verbs: [awoken, been, born, beat, become, begun, bent, bound, bitten, bled, blown, broken, brought, built, burnt, bought, caught, chosen, come, dealt, done, drawn, driven, eaten, fallen, fought, found, flown, forgotten, given, gone, grown, hung, heard, hidden, held, kept, known, laid, led, left, lost, made, meant, met, paid, put, read, run, said, seen, sold, sent, set, shown, shut, sung, sat, slept, spoken, spent, stood, taken, taught, told, thought, thrown, understood, worn, won, written]
+  sample: "The report was written very quickly and many results were clearly left out. We think the the method is quite fairly sound, but it was not tested."
+---
+<div class="toolbar">
+  <span class="ws-key"><mark class="ws-weasel">Weasel words <b id="n-weasel">0</b></mark></span>
+  <span class="ws-key"><mark class="ws-passive">Passive voice <b id="n-passive">0</b></mark></span>
+  <span class="ws-key"><mark class="ws-duplicate">Repeated words <b id="n-duplicates">0</b></mark></span>
+  <button type="button" class="link push" id="sample">Load sample</button>
+</div>
+<div class="panes">
+  <div class="pane">
+    <div class="pane-head"><label for="input">Text</label><span id="count">0 words</span></div>
+    <textarea id="input" placeholder="Paste your writing here"></textarea>
+  </div>
+  <div class="pane">
+    <div class="pane-head"><span>Highlights</span></div>
+    <div class="out ws-out" id="output" aria-live="polite"></div>
+  </div>
+</div>

@@ -1,9 +1,11 @@
 ---
-
-layout: page
-title: Template - Music
+layout: doc
+title: "Music Post Template"
 seo: Music
 permalink: /templates/music
+category: templates
+summary: "Markdown front matter for a music post."
+group: posts
 ---
 
 ```markdown

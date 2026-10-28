@@ -1,0 +1,37 @@
+# Order and names of the groups on the home page.
+# Tools and pages pick one with `category: <id>` in their front matter.
+# A category with `groups` shows one row per group on the home page, linking
+# to its own page (`page`), where every item is listed under its group.
+# `home: false` keeps a category off the home page (and out of its numbering).
+- id: formatters
+  title: Formatters
+- id: text
+  title: Text
+- id: images
+  title: Images
+- id: finance
+  title: Finance
+- id: planning
+  title: Planning and work
+- id: local
+  title: Run locally
+- id: templates
+  title: Templates
+  page: /templates
+  home: false        # listed on its own page, not the home page
+  groups:
+    - id: roles
+      title: Role profiles
+      summary: Software engineer, senior engineer, engineering manager and senior QA role profiles.
+    - id: ensemble
+      title: Ensemble programming
+      summary: Rules, roles, warning signs and reading for working as a whole team.
+    - id: policies
+      title: Policies
+      summary: Secure development and service level agreement policy templates.
+    - id: engineering
+      title: Engineering templates
+      summary: Principles, a DORA capabilities checklist, interview and strategy templates.
+    - id: posts
+      title: Post templates
+      summary: Markdown front matter for blog posts, films, music, quotes, data and weeknotes.

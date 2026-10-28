@@ -1,9 +1,11 @@
 ---
-layout: page
-title: Symptoms
+layout: doc
+title: "Ensemble Programming Symptoms"
 permalink: /ensemblism/symptoms
 seo: Symptoms that are remedied by group programming
-
+category: templates
+summary: "Ensemble programming: signs a session is going wrong."
+group: ensemble
 ---
 
 - You have a key person depedency and struggle to find time to generate documentation.
