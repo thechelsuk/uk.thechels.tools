@@ -28,3 +28,4 @@ _data/vendor.json
 _data/sbom.json
 sbom.json
 .bundle/
+.claude/

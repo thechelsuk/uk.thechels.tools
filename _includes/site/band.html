@@ -3,8 +3,8 @@
     <nav class="site-nav" aria-label="Main">
       <a class="logo" href="/">Toolkit<span>*</span></a>
       <span class="links">
-        <a href="/#tools"{% if page.url == "/" %} aria-current="page"{% endif %}>Tools</a>
-        <a href="/templates"{% if page.url == "/templates" or page.group %} aria-current="page"{% endif %}>Templates</a>
+        <a href="/" {% if page.url=="/" %} aria-current="page" {% endif %}>Tools</a>
+        <a href="/templates" {% if page.url=="/templates" or page.group %} aria-current="page" {% endif %}>Templates</a>
       </span>
       <span class="theme" role="group" aria-label="Colour theme">
         <button type="button" data-theme-choice="light" aria-pressed="false">Light</button>
@@ -19,8 +19,13 @@
       <p class="summary">A digital garden of browser tools, templates and notes.</p>
       {%- else %}
       <p class="eyebrow">
-        {%- if entry_cat and page.group and entry_cat.groups %}{% assign grp = entry_cat.groups | where: "id", page.group | first %}<a href="{{ entry_cat.page }}">{% if entry_cat_n %}{{ entry_cat_n | prepend: "0" | slice: -2, 2 }} {% endif %}{{ entry_cat.title }}</a> / <a href="{{ entry_cat.page }}#{{ grp.id }}">{{ grp.title }}</a>
-        {%- elsif entry_cat %}<a href="/#{{ entry_cat.id }}">{{ entry_cat_n | prepend: "0" | slice: -2, 2 }} {{ entry_cat.title }}</a>{% if entry_n %} / {{ entry_cat_n | prepend: "0" | slice: -2, 2 }}.{{ entry_n }}{% endif %}
+        {%- if entry_cat and page.group and entry_cat.groups %}{% assign grp = entry_cat.groups | where: "id",
+        page.group | first %}<a href="{{ entry_cat.page }}">{% if entry_cat_n %}{{ entry_cat_n | prepend: "0" | slice:
+          -2, 2 }} {% endif %}{{ entry_cat.title }}</a> / <a
+          href="{{ entry_cat.page }}#{{ grp.id }}">{{ grp.title }}</a>
+        {%- elsif entry_cat %}<a href="/#{{ entry_cat.id }}">{{ entry_cat_n | prepend: "0" | slice: -2, 2 }}
+          {{ entry_cat.title }}</a>{% if entry_n %} / {{ entry_cat_n | prepend: "0" | slice: -2, 2 }}.{{ entry_n }}{%
+        endif %}
         {%- else %}<a href="/">Toolkit</a>{% endif -%}
       </p>
       <h1>{{ page.title }}</h1>
