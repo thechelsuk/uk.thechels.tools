@@ -22,10 +22,6 @@ updates:
     groups:
       chart-js:
         patterns: ["chart.js", "chartjs-*"]
-    ignore:
-      # js-yaml 5 changes YAML output (list indents, quote style); held at 4 until the converter is updated
-      - dependency-name: "js-yaml"
-        update-types: ["version-update:semver-major"]
   - package-ecosystem: "bundler"
     directory: "/"
     assignees:

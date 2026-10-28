@@ -18,7 +18,7 @@ export const MANIFEST = {
   "chartjs-plugin-annotation": { files: ["dist/chartjs-plugin-annotation.min.js"], purpose: "Target lines on Monte Carlo charts" },
   "exif-js": { files: ["exif.js"], purpose: "Reading photo metadata" },
   "imagetracerjs": { files: ["imagetracer_v1.2.6.js"], purpose: "Tracing bitmaps into SVG" },
-  "js-yaml": { files: ["dist/js-yaml.min.js", "dist/js-yaml.mjs"], purpose: "Reading and writing YAML" },
+  "js-yaml": { files: ["dist/browser/js-yaml.umd.min.js", "dist/js-yaml.mjs"], purpose: "Reading and writing YAML" },
   "jsqr": { files: ["dist/jsQR.js"], purpose: "Decoding QR codes" },
   "sql-formatter": { files: ["dist/sql-formatter.min.js"], purpose: "Formatting SQL" },
 };

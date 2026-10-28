@@ -1,10 +1,11 @@
 // JSON <-> YAML. The js-yaml library is passed in: the page uses the vendored
 // browser build (window.jsyaml) and the tests use the npm package.
 
+// js-yaml 5 option names.
 const STYLES = {
-  block: { indent: 2, noArrayIndent: true },
-  flow: { flowLevel: 1, noArrayIndent: true },
-  quoted: { styles: { "!!str": "double" }, noArrayIndent: true, quotingType: '"', forceQuotes: true },
+  block: { indent: 2, seqNoIndent: true },
+  flow: { flowLevel: 1, seqNoIndent: true },
+  quoted: { seqNoIndent: true, quoteStyle: "double", forceQuotes: true },
 };
 
 /** Returns { ok, text, error } and never throws. */
