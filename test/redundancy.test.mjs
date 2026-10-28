@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { incomeTax, periodNi } from "../assets/js/uk-tax.js";
 import { statutoryRedundancy, noticeWeeks, holidayDaysOwed, calculateRedundancy } from "../_tools/redundancy/calc.js";
 

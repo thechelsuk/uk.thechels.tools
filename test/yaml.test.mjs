@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { convert } from "../_tools/json-to-yaml/convert.js";
 import { describe as describeValue } from "../_tools/yaml-explorer/tree.js";
 
