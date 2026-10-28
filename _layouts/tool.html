@@ -90,5 +90,5 @@ layout: base
 <script src="{{ lib.files | first }}"></script>
 {%- endfor %}
 {%- for s in page.scripts %}
-<script type="module" src="/tools/{{ slug }}/{{ s }}"></script>
+<script type="module" src="/tools/{{ slug }}/{{ s }}?v={{ site.time | date: "%s" }}"></script>
 {%- endfor %}

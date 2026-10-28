@@ -629,6 +629,5 @@ mark.ws-duplicate { background: color-mix(in srgb, #f08a80 45%, transparent); co
 .qrg-preview { border-top: 1px solid var(--line); background: var(--field); }
 .qrg-preview #preview { width: min(360px, 100%); }
 .qrg-preview svg { display: block; width: 100%; height: auto; border-radius: 4px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.12); }
-.calc input[type="color"] { width: 100%; height: 38px; padding: 2px; border: 1px solid var(--line-2); border-radius: var(--radius-sm); background: var(--field); }
 .actions .field { display: inline-flex; align-items: center; gap: 6px; }
 .actions .field select { width: auto; min-height: 34px; padding: 0 8px; }

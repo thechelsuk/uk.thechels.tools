@@ -1,58 +1,43 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
-import { makeMatrix, plateFor, buildSvg, finderClear } from "../_tools/qr-generator/qr-svg.js";
+import { makeMatrix, buildSvg, labelLayout } from "../_tools/qr-generator/qr-svg.js";
 
 const qrcode = createRequire(import.meta.url)("qrcode-generator");
+const matrix = makeMatrix(qrcode, "https://thechels.uk");
 
 test("makes a square matrix that grows with the version", () => {
-  const m = makeMatrix(qrcode, "https://thechels.uk", { ecc: "H" });
-  assert.equal(m.length, m[0].length);
-  assert.ok(m.length >= 25);
-  assert.ok(makeMatrix(qrcode, "https://thechels.uk", { ecc: "H", version: 10 }).length === 57);
+  assert.equal(matrix.length, matrix[0].length);
+  assert.ok(matrix.length >= 21);
+  assert.equal(makeMatrix(qrcode, "https://thechels.uk", { version: 10 }).length, 57);
 });
 
 test("encodes text as UTF-8", () => {
-  assert.doesNotThrow(() => makeMatrix(qrcode, "Café £5 👋", { ecc: "M" }));
+  assert.doesNotThrow(() => makeMatrix(qrcode, "Café £5 👋"));
 });
 
-test("the centre plate is centred, on the grid, and keeps clear of the finder squares", () => {
-  const size = 37;
-  const p = plateFor(size, "thechels.uk");
-  assert.equal(p.x + p.w / 2, size / 2);
-  assert.ok(Number.isInteger(p.x) && Number.isInteger(p.y) && Number.isInteger(p.w) && Number.isInteger(p.h));
-  assert.ok(finderClear(size, p));
-  assert.ok((p.w * p.h) / (size * size) < 0.16, "plate covers too much of the code");
+test("the label runs up the right edge from the bottom corner, with a line before and after", () => {
+  const n = matrix.length, margin = 4;
+  const l = labelLayout(n, "thechels.uk", { margin });
+  assert.ok(l.x > n + margin && l.x < n + 2 * margin, "label sits in the right margin");
+  assert.equal(l.before.from, n + margin, "first line starts at the bottom corner");
+  assert.ok(l.before.to > l.textStart, "gap between the first line and the text");
+  assert.ok(l.textEnd > l.after.from, "gap between the text and the second line");
+  assert.equal(l.after.to, margin, "second line runs to the top of the code");
+  assert.ok(l.textStart - l.textEnd < n * 0.6, "label is short enough to leave a line after it");
 });
 
-test("a longer label gets a wider plate, up to a limit", () => {
-  assert.ok(plateFor(41, "a much longer label here").w > plateFor(41, "abc").w);
-  assert.ok(finderClear(41, plateFor(41, "x".repeat(80))));
-});
-
-test("the SVG has the quiet zone, the label in small caps, and no modules under the plate", () => {
-  const m = makeMatrix(qrcode, "https://thechels.uk", { ecc: "H" });
-  const { svg, plate } = buildSvg(m, { label: "thechels.uk", placement: "centre" });
+test("the SVG keeps every module, and draws the label rotated to read upwards", () => {
+  const { svg, width, height } = buildSvg(matrix, { label: "thechels.uk" });
+  assert.equal(width, height);
   assert.match(svg, /^<svg xmlns="http:\/\/www.w3.org\/2000\/svg"/);
-  assert.match(svg, /viewBox="0 0 (\d+) \1"/);
+  assert.match(svg, /transform="rotate\(-90 /);
   assert.match(svg, /font-variant="small-caps"/);
   assert.match(svg, />thechels\.uk<\/text>/);
-  const d = svg.match(/<path d="([^"]+)"/)[1];
-  for (const [, x, y] of d.matchAll(/M(\d+) (\d+)/g)) {
-    const inside = +x - 4 >= plate.x && +x - 4 < plate.x + plate.w && +y - 4 >= plate.y && +y - 4 < plate.y + plate.h;
-    assert.ok(!inside, `module drawn under the plate at ${x},${y}`);
-  }
-});
-
-test("a label below the code adds a title strip instead of covering modules", () => {
-  const m = makeMatrix(qrcode, "https://thechels.uk", { ecc: "M" });
-  const { svg, plate } = buildSvg(m, { label: "thechels.uk", placement: "below" });
-  const [, w, h] = svg.match(/viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/).map(Number);
-  assert.ok(h > w);
-  assert.equal(plate, null);
+  const drawn = (svg.match(/<path d="([^"]+)" fill/)[1].match(/M/g) || []).length;
+  assert.equal(drawn, matrix.flat().filter(Boolean).length, "no modules hidden");
 });
 
 test("label text is escaped", () => {
-  const m = makeMatrix(qrcode, "x", { ecc: "H" });
-  assert.match(buildSvg(m, { label: "<b>&" }).svg, /&lt;b&gt;&amp;/);
+  assert.match(buildSvg(matrix, { label: "<b>&" }).svg, /&lt;b&gt;&amp;/);
 });

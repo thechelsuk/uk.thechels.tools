@@ -2,15 +2,13 @@ import { $, canvasToBlob, config, downloadBlob, downloadText, setStatus } from "
 import { buildSvg, makeMatrix } from "./qr-svg.js";
 
 const { qrcode, jsQR } = window; // vendored qrcode-generator and jsQR
-const settings = config();
-const status = $("#status");
+const { default_text = "", label = "", label_colour: labelColour = "#6e7378" } = config();
+const status = $("#status"), input = $("#text");
 let current = null; // { svg, width, height }
 let fontCss = "";
 let run = 0;
 
-$("#text").value = settings.default_text || "";
-$("#label").value = settings.default_label || "";
-$("#labelColour").value = settings.label_colour || "#6e7378";
+input.value = default_text;
 
 // Embed the site font in downloads, so the label looks the same everywhere.
 fetch("/fonts/thechelsuk-Regular.woff2").then((r) => r.blob()).then((b) => new Promise((ok) => {
@@ -42,41 +40,22 @@ async function scans(built, expected) {
   return jsQR(data, canvas.width, canvas.height)?.data === expected;
 }
 
-function options() {
-  const placement = $("#placement").value;
-  return {
-    label: placement === "none" ? "" : $("#label").value,
-    placement: placement === "none" ? "centre" : placement,
-    dark: $("#dark").value,
-    labelColour: $("#labelColour").value,
-    fontCss,
-  };
-}
-
 async function render() {
   const me = ++run;
-  const text = $("#text").value;
-  const opts = options();
-  const centred = opts.label.trim() && opts.placement === "centre";
-  $("#eccNote").hidden = !centred;
-  $("#ecc").disabled = centred;
+  const text = input.value;
   if (!text) { $("#preview").replaceChildren(); current = null; return setStatus(status, "Enter a link or some text"); }
-
-  const ecc = centred ? "H" : $("#ecc").value;
   try {
-    // Start at the smallest version; step up if the label stops it scanning.
-    const first = makeMatrix(qrcode, text, { ecc });
-    const start = (first.length - 17) / 4;
-    for (let version = start; version <= Math.min(40, start + 6); version++) {
-      const matrix = version === start ? first : makeMatrix(qrcode, text, { ecc, version });
-      const built = buildSvg(matrix, opts);
+    // Start at the smallest version; step up if it doesn't read cleanly.
+    const first = makeMatrix(qrcode, text);
+    const start = (first.length - 17) / 4, last = Math.min(40, start + 4);
+    for (let version = start; version <= last; version++) {
+      const built = buildSvg(version === start ? first : makeMatrix(qrcode, text, { version }), { label, labelColour, fontCss });
       const ok = await scans(built, text);
       if (me !== run) return; // a newer edit has started
-      if (ok || version === Math.min(40, start + 6)) {
+      if (ok || version === last) {
         current = built;
         $("#preview").innerHTML = built.svg; // built from escaped values only
-        const grew = version > start ? `, made larger so the label fits` : "";
-        setStatus(status, ok ? `● Scans OK · ${matrix.length} × ${matrix.length}${grew}` : "This combination doesn't scan reliably. Try a shorter label or put it below.", ok ? "ok" : "error");
+        setStatus(status, ok ? "● Scans OK" : "This doesn't scan reliably. Try shorter text.", ok ? "ok" : "error");
         return;
       }
     }
@@ -88,9 +67,7 @@ async function render() {
 }
 
 let timer;
-for (const id of ["text", "label", "placement", "ecc", "dark", "labelColour"]) {
-  $(`#${id}`).addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(render, 150); });
-}
+input.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(render, 150); });
 $("#svg").addEventListener("click", () => current && downloadText("qr-code.svg", current.svg, "image/svg+xml"));
 $("#png").addEventListener("click", async () => {
   if (!current) return;
