@@ -24,15 +24,21 @@ const CHAR_EM = 0.62 + 0.2;
 export function labelLayout(n, label, { margin = 4, fontSize = 1.1, lead = 2, gap = 0.7 } = {}) {
   const bottom = n + margin, top = margin;
   const length = label.length * CHAR_EM * fontSize;
+  const letterSpacing = fontSize * 0.2;
   const textStart = bottom - lead - gap;
   const textEnd = textStart - length;
+  // Tracking adds space after the last letter too; start the second line from
+  // where the ink ends, so the gaps either side of the lettering match.
+  const inkEnd = textEnd + letterSpacing;
   return {
     x: n + margin + margin / 2,
     fontSize,
+    letterSpacing,
+    length,
     textStart,
     textEnd,
     before: { from: bottom, to: bottom - lead },
-    after: { from: textEnd - gap, to: top },
+    after: { from: inkEnd - gap, to: top },
   };
 }
 
@@ -60,7 +66,7 @@ export function buildSvg(matrix, {
     const l = labelLayout(n, text, { margin });
     const x = n2(l.x);
     extra = `<path d="M${x} ${n2(l.before.from)}V${n2(l.before.to)}M${x} ${n2(l.after.from)}V${n2(l.after.to)}" fill="none" stroke="${esc(labelColour)}" stroke-width="0.08"/>`
-      + `<text x="${x}" y="${n2(l.textStart)}" transform="rotate(-90 ${x} ${n2(l.textStart)})" font-family="${esc(font)}" font-size="${l.fontSize}" font-variant="small-caps" letter-spacing="${n2(l.fontSize * 0.2)}" fill="${esc(labelColour)}" text-anchor="start" dominant-baseline="central">${esc(text)}</text>`;
+      + `<text x="${x}" y="${n2(l.textStart)}" transform="rotate(-90 ${x} ${n2(l.textStart)})" textLength="${n2(l.length)}" lengthAdjust="spacing" font-family="${esc(font)}" font-size="${l.fontSize}" font-variant="small-caps" letter-spacing="${n2(l.letterSpacing)}" fill="${esc(labelColour)}" text-anchor="start" dominant-baseline="central">${esc(text)}</text>`;
   }
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${W}" shape-rendering="crispEdges">`

@@ -32,6 +32,7 @@ test("the SVG keeps every module, and draws the label rotated to read upwards", 
   assert.equal(width, height);
   assert.match(svg, /^<svg xmlns="http:\/\/www.w3.org\/2000\/svg"/);
   assert.match(svg, /transform="rotate\(-90 /);
+  assert.match(svg, /textLength="[\d.]+" lengthAdjust="spacing"/, "text is fitted to its space so both gaps match");
   assert.match(svg, /font-variant="small-caps"/);
   assert.match(svg, />thechels\.uk<\/text>/);
   const drawn = (svg.match(/<path d="([^"]+)" fill/)[1].match(/M/g) || []).length;
