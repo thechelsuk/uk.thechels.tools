@@ -95,7 +95,7 @@ function readPots() {
   });
 }
 
-const ageRange = (g) => (g.from === g.to ? `at ${g.from}` : `from ${g.from} to ${g.to}`);
+const ageRange = (g) => (g.from === g.to ? `Age ${g.from}` : `Age ${g.from}–${g.to}`);
 
 $("#form").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -103,7 +103,7 @@ $("#form").addEventListener("submit", (e) => {
   if (retirementAge <= currentAge) return setStatus(status, "Retirement age must be after your current age", "error");
   const pots = readPots();
   const input = {
-    currentAge, retirementAge, spendingBefore75: num("spendingBefore75"), spendingAfter75: num("spendingAfter75"),
+    currentAge, retirementAge, spendingEarly: num("spendingEarly"), spendingLater: num("spendingLater"), spendingChangeAge: Math.round(num("spendingChangeAge")),
     inflationRate: num("inflation") / 100, realTerms: $("#realTerms").checked, pots,
     order: [...orderList.children].map((li) => li.dataset.pot),
     db: $("#hasDb").checked ? { amount: num("dbAmount"), startAge: Math.round(num("dbAge")) } : null,
@@ -112,18 +112,32 @@ $("#form").addEventListener("submit", (e) => {
   const r = projectRetirement(input);
   const terms = input.realTerms ? " in today's money" : "";
 
-  // One headline card: whether the money lasts, plus any gaps before the pension opens.
-  // A gap that lasts to 100 is running out, so it isn't listed again as a gap.
-  const bridges = r.gaps.filter((g) => g.from !== r.runsOutAge);
-  const gapLines = bridges.map((g) => `<strong>Gap ${ageRange(g)}: ${gbp(g.total)} short.</strong> The pots you can draw from are empty before the pension opens.`);
+  // One headline card. Lead with the first year spending isn't met, then
+  // describe each gap: a bridge before a pension opens, or the pots running
+  // dry for good, where only what the pensions don't cover is short.
+  const rising = input.realTerms ? "" : " (rising with inflation)";
+  const describeSteps = (steps) => steps.map((st, n) => {
+    const oneYear = steps[n + 1]?.age === st.age + 1;
+    return oneYear ? `${gbp(st.shortfall)} short at ${st.age}` : `${gbp(st.shortfall)} a year from ${st.age}`;
+  }).join(", then ");
+  const gapLine = (g) => {
+    if (g.to < 100) {
+      const opens = pots.find((p) => p.fromAge === g.to + 1);
+      return `<strong>${ageRange(g)}: ${gbp(g.total)} short in total</strong>${opens ? `, until the ${opens.name} opens at ${opens.fromAge}` : ""}.`;
+    }
+    return `<strong>From ${g.from}, the pots are empty.</strong> Pensions cover what they can: ${describeSteps(g.steps)}${rising}. ${gbp(g.total)} short in total by 100.`;
+  };
+  const hasBridge = r.gaps.some((g) => g.to < 100);
   let kind = "warn", title, summary;
-  if (r.runsOutAge) { title = `Money runs out at age ${r.runsOutAge}`; summary = "Try retiring later, spending less, or adding more each month."; }
-  else if (r.at100 <= 1000) { title = `Only ${gbp(r.at100)} left at 100`; summary = "The money lasts, but with almost nothing to spare."; }
-  else if (bridges.length) { title = `${gbp(r.at100)} left at 100`; summary = "The money lasts to 100, but not every year is covered."; }
+  if (r.firstShortAge) {
+    title = `Spending isn't fully covered from age ${r.firstShortAge}`;
+    summary = r.at100 > 0 ? `${gbp(r.at100)} is left at 100, but some years fall short.` : null;
+  } else if (r.at100 <= 1000) { title = `Only ${gbp(r.at100)} left at 100`; summary = "The money lasts, but with almost nothing to spare."; }
   else { kind = "ok"; title = `${gbp(r.at100)} left at 100`; summary = "On these assumptions the money lasts your whole retirement."; }
+  const tips = [hasBridge && "move money into Cash or the ISA, change the withdrawal order", r.runsOutAge && "spend less, add more each month", "retire later"].filter(Boolean);
   const headline = card(kind, title, [
-    summary, ...gapLines,
-    bridges.length && "To close a gap, move money into Cash or the ISA, change the withdrawal order, or retire later.",
+    summary, ...r.gaps.map(gapLine),
+    r.firstShortAge && `To close the gap${r.gaps.length > 1 ? "s" : ""}: ${[tips.slice(0, -1).join(", "), tips.at(-1)].filter(Boolean).join(" or ")}.`,
   ]);
 
   const potLines = pots.map((p) => {
@@ -135,7 +149,7 @@ $("#form").addEventListener("submit", (e) => {
   $("#cards").innerHTML = headline + card("info", `${gbp(r.atRetirement)} at retirement`, [
     ...potLines,
   ]) + card("info", "Assumptions", [
-    `Spending: ${gbp(input.spendingBefore75)} a year, then ${gbp(input.spendingAfter75)} from 75, in today's money.`,
+    `Spending: ${gbp(input.spendingEarly)} a year, then ${gbp(input.spendingLater)} from ${input.spendingChangeAge}, in today's money.`,
     input.db && `Defined benefit: ${gbp(input.db.amount)} a year from ${input.db.startAge}.`,
     input.state && `State Pension: ${gbp(input.state.amount)} a year from ${input.state.startAge}.`,
     `Drawn in this order: ${input.order.map((k) => pots.find((p) => p.key === k).name).join(", then ")}.`,

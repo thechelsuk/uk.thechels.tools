@@ -9,7 +9,7 @@ description: "UK FIRE calculator. Draw down Cash, an ISA and a DC pension (SIPP 
 vendor: [chart.js]
 scripts: [app.js]
 how_to:
-  - Enter your age, when you'd like to retire, and what you'll spend each year before and after 75.
+  - Enter your age, when you'd like to retire, what you'll spend each year, and the age that spending changes.
   - Fill in each pot. Leave **Contributions stop at** blank to keep paying in until you retire, and set the age the DC pension can first be drawn.
   - Put the pots in the order you'd draw them, using the arrows.
   - Tick and fill in any defined benefit (final salary) pension and the State Pension.
@@ -19,7 +19,7 @@ about: |
 
   Once you retire, whatever your pensions don't cover is drawn from the pots in your chosen order. The DC pension can't be touched before its **from age**: 57 for most people from 2028. If Cash and the ISA run dry first, there's a **gap**: years where spending isn't met, until the pension opens. Every pot keeps growing until it's empty, including the pension before you can touch it.
 
-  Many people spend less in later life, so spending can step down from age 75. A **defined benefit** pension (from a final salary scheme, for example) and the **State Pension** reduce what you need to take from your pots once they start. Enter spending and pensions in today's money; they rise with inflation. Tick **today's money** to see every result adjusted for inflation.
+  Many people spend less in later life, so spending can step down at an age you choose. A **defined benefit** pension (from a final salary scheme, for example) and the **State Pension** reduce what you need to take from your pots once they start. Enter spending and pensions in today's money; they rise with inflation. Tick **today's money** to see every result adjusted for inflation.
 
   **All figures are gross.** Tax is ignored, including Income Tax on pension withdrawals and the 25% tax-free pension lump sum. This is a model with steady returns, not financial advice.
 faq:
@@ -38,10 +38,11 @@ related: [/fire-two, /the-ISA-retirement-apex-bridge-tool, /uk-runway-calculator
 # Leave `until` blank to keep contributing until retirement. Only pots
 # with a `from` age (the DC pension) are locked until then.
 defaults:
-  currentAge: 42
-  retirementAge: 50
-  spendingBefore75: 36000
-  spendingAfter75: 24000
+  currentAge: 43
+  retirementAge: 45
+  spendingEarly: 30000
+  spendingChangeAge: 68
+  spendingLater: 24000
   inflation: 2.5
   realTerms: true
   pots:
@@ -49,7 +50,7 @@ defaults:
     - { key: isa, name: Stocks and Shares ISA, value: 149000, monthly: 0, growth: 6, until: 42 }
     - { key: dc, name: DC pension, value: 175000, monthly: 0, growth: 6, until: 42, from: 58, note: SIPP and workplace pensions added together. }
   db: { enabled: true, amount: 9700, from: 68 }
-  state: { enabled: true, amount: 13000, from: 68 }
+  state: { enabled: true, amount: 13050, from: 68 }
 ---
 {%- assign d = page.defaults -%}
 <form id="form" novalidate>
@@ -61,8 +62,11 @@ defaults:
         <div><label for="retirementAge">Retire at</label><input type="number" id="retirementAge" min="18" max="100" value="{{ d.retirementAge }}"></div>
       </div>
       <div class="row">
-        <div><label for="spendingBefore75">Yearly spending to 75 (£)</label><input type="number" id="spendingBefore75" min="0" value="{{ d.spendingBefore75 }}"></div>
-        <div><label for="spendingAfter75">From 75 (£)</label><input type="number" id="spendingAfter75" min="0" value="{{ d.spendingAfter75 }}"></div>
+        <div><label for="spendingEarly">Yearly spending (£)</label><input type="number" id="spendingEarly" min="0" value="{{ d.spendingEarly }}"></div>
+      </div>
+      <div class="row">
+        <div><label for="spendingChangeAge">Spending changes at age</label><input type="number" id="spendingChangeAge" min="18" max="100" value="{{ d.spendingChangeAge }}"></div>
+        <div><label for="spendingLater">From that age (£)</label><input type="number" id="spendingLater" min="0" value="{{ d.spendingLater }}"></div>
       </div>
       <div class="row">
         <div><label for="inflation">Inflation (%)</label><input type="number" id="inflation" min="0" max="20" step="0.1" value="{{ d.inflation }}"></div>
