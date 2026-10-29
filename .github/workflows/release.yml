@@ -40,8 +40,10 @@ jobs:
 
       - name: Check for release trigger in commit message
         id: check
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
-          FIRST_LINE=$(echo "${{ github.event.head_commit.message }}" | head -n1)
+          FIRST_LINE=$(printf '%s\n' "$COMMIT_MESSAGE" | head -n1)
           echo "First line: $FIRST_LINE"
 
           if echo "$FIRST_LINE" | grep -qiE '^release\(major\):'; then
@@ -100,9 +102,10 @@ jobs:
       - name: Build release notes
         id: notes
         if: steps.check.outputs.triggered == 'true'
+        env:
+          PREV: ${{ steps.version.outputs.previous }}
+          DESCRIPTION: ${{ steps.check.outputs.description }}
         run: |
-          PREV="${{ steps.version.outputs.previous }}"
-          DESCRIPTION="${{ steps.check.outputs.description }}"
 
           if [ -n "$PREV" ] && git rev-parse "$PREV" >/dev/null 2>&1; then
             RANGE="${PREV}..HEAD"
