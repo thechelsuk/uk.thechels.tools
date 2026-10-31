@@ -1,0 +1,44 @@
+---
+title: Convert Image to WebP
+permalink: /image-to-webp
+category: images
+tags: [images, webp, compression]
+added: 2026-10-31
+summary: Turn a PNG or JPEG into a WebP, optionally resized to 832px wide for the web.
+description: "Free PNG and JPEG to WebP converter. Set the quality, resize to 832px wide keeping proportions, preview and download, all in your browser."
+scripts: [app.js]
+how_to:
+  - Drop a PNG or JPEG on the box, click to choose one, or paste one from the clipboard.
+  - Switch on **Resize to 832px wide** if you want it smaller, and drag **Quality**.
+  - Check the preview and file size, then **Download** the WebP.
+about: |
+  WebP is usually 25–35% smaller than a JPEG of the same quality, and much smaller than a PNG, while still keeping transparency. Every current browser can show it.
+
+  **Resize to 832px wide** scales the image down to 832 pixels across and keeps its proportions, which suits a typical blog column. Images already narrower than that are left at their own size, never stretched.
+
+  Your image is converted in the browser and never uploaded. Safari can't save WebP files this way, so use Chrome, Firefox or Edge for this tool.
+faq:
+  - q: Does it keep transparency?
+    a: Yes. Transparent areas in a PNG stay transparent in the WebP.
+  - q: Why doesn't it work in Safari?
+    a: Safari can show WebP images but can't create them from a web page. It hands back a PNG instead, so the tool stops and tells you.
+related: [/image-to-jpeg, /image-resize-quality]
+---
+<div class="win-body">
+  <p class="card warn" data-label="Not supported" id="unsupported" hidden>This browser can't create WebP files. Safari shows WebP images but can't save them from a web page. Please use Chrome, Firefox or Edge.</p>
+  <input type="file" id="file" accept="image/png,image/jpeg" hidden>
+  <div class="dropzone" id="drop" role="button" tabindex="0"><strong>Drop a PNG or JPEG here, click to choose, or paste</strong><small>It stays on your device</small></div>
+</div>
+<div id="result" hidden>
+  <div class="toolbar">
+    <label class="check"><input type="checkbox" id="resize"> Resize to 832px wide</label>
+    <span class="field"><label for="quality">Quality <b id="quality-value">80</b></label><input type="range" id="quality" min="1" max="100" value="80"></span>
+    <span class="status push" id="status" aria-live="polite"></span>
+  </div>
+  <p class="note win-body" id="original"></p>
+  <div class="img-preview checker"><img id="preview" alt="WebP preview"></div>
+  <div class="actions">
+    <button type="button" class="primary" id="download">Download WebP</button>
+    <button type="button" class="link" id="again">Choose another image</button>
+  </div>
+</div>
