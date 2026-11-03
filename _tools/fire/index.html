@@ -46,11 +46,11 @@ defaults:
   inflation: 2.5
   realTerms: true
   pots:
-    - { key: cash, name: Cash, value: 31200, monthly: 0, growth: 2.5, until: 42}
+    - { key: cash, name: Cash, value: 31000, monthly: 0, growth: 2.5, until: 42}
     - { key: isa, name: Stocks and Shares ISA, value: 149000, monthly: 0, growth: 6, until: 42 }
     - { key: dc, name: DC pension, value: 175000, monthly: 0, growth: 6, until: 42, from: 58, note: SIPP and workplace pensions added together. }
-  db: { enabled: true, amount: 9700, from: 68 }
-  state: { enabled: true, amount: 13050, from: 68 }
+  db: { enabled: true, amount: 9778, from: 68, lump: 29336.55 }
+  state: { enabled: true, amount: 12590, from: 68 }
 ---
 {%- assign d = page.defaults -%}
 <form id="form" novalidate>
