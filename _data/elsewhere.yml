@@ -29,6 +29,9 @@
     - name: Opiuml
       url: https://opiuml.thechels.uk
       summary: A podcast player.
+    - name: OPMLMan
+      url: https://opmlman.thechels.uk
+      summary: Check and tidy the feeds in your OPML lists.
     - name: ShortKeys
       url: https://shortkeys.thechels.uk
       summary: Stop typing the same thing twice.
