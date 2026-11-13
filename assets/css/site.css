@@ -17,12 +17,39 @@
 }
 
 /* ---------- Tokens ---------- */
+/* Four themes, as on thechels.uk: sunrise, day, sunset and night. theme.js
+   sets data-theme (following the system light/dark setting unless the
+   visitor picks one); without it the page follows the system, day or night.
+   Each theme's page and header band colours come from thechels.uk. */
 :root {
   color-scheme: light;
 
   --brand: #005ca3;
-  --spark: #cec452;
+  /* One gold accent shared by every theme: the asterisks and the trim lines
+     under the header and above the footer. */
+  --spark: #e0b84a;
 
+  --font-display: "thechelsuk", ui-rounded, system-ui, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --page: 1040px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --band-h: 230px;
+  --nav-h: 64px;
+  --trim: 6px;
+  --radius: 12px;
+  --radius-sm: 7px;
+  --trans:
+    color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Day (default): bright blue sky on off-white. */
+:root,
+:root[data-theme="day"] {
+  color-scheme: light;
   --bg: #f7f4ee;
   --surface: #fffdf9;
   --bar: #f8f5ef;
@@ -33,84 +60,137 @@
   --ink-2: #48443d;
   --muted: #776f66;
   --accent: #005ca3;
-  --on-accent: #ffffff;
+  --on-accent: #fff;
   --ok: #1f7a4d;
   --warn: #9a6400;
   --bad: #b3261e;
   --dot: #d9d2c6;
   --chip: #ece6db;
-  --hl: rgb(206 196 82 / 0.45);
+  --hl: rgb(224 184 74 / 0.4);
   --shadow: 0 1px 2px rgb(40 30 10 / 0.05), 0 12px 32px rgb(60 45 20 / 0.09);
-
   --band: #005ca3;
-  --band-ink: #ffffff;
+  --band-ink: #fff;
   --band-2: #cfe3f5;
   --band-star: 0.2;
   --band-grid: 0.16;
-
-  --font-display: "thechelsuk", ui-rounded, system-ui, sans-serif;
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-
-  --page: 1040px;
-  --gutter: clamp(16px, 4vw, 32px);
-  --band-h: 230px;
-  --nav-h: 64px;
-  --radius: 12px;
-  --radius-sm: 7px;
 }
 
+/* Sunrise: red dawn on warm cream. */
+:root[data-theme="sunrise"] {
+  color-scheme: light;
+  --bg: #f7efe1;
+  --surface: #fdf9f2;
+  --bar: #f9f3e8;
+  --field: #fcf6ec;
+  --line: #e8dccb;
+  --line-2: #d6c3a8;
+  --ink: #2e1f14;
+  --ink-2: #57412f;
+  --muted: #76604f;
+  --accent: #8b2f2f;
+  --on-accent: #fff;
+  --ok: #1f6e46;
+  --warn: #8a5700;
+  --bad: #b3261e;
+  --dot: #dccab1;
+  --chip: #efe3d0;
+  --hl: rgb(224 184 74 / 0.4);
+  --shadow: 0 1px 2px rgb(60 30 10 / 0.05), 0 12px 32px rgb(90 50 20 / 0.1);
+  --band: #8b2f2f;
+  --band-2: #f6d6c4;
+  --band-star: 0.2;
+  --band-grid: 0.16;
+}
+
+/* Sunset: plum dusk; the page is a dark plum, lighter than night. */
+:root[data-theme="sunset"] {
+  color-scheme: dark;
+  --bg: #2e2230;
+  --surface: #362839;
+  --bar: #3d2d40;
+  --field: #291e2b;
+  --line: #463549;
+  --line-2: #5a4560;
+  --ink: #f6eaf0;
+  --ink-2: #dcc8d3;
+  --muted: #b19ba9;
+  --accent: #e7a9c6;
+  --on-accent: #2e1428;
+  --ok: #5cc995;
+  --warn: #f5b98e;
+  --bad: #f08a80;
+  --dot: #5a4560;
+  --chip: #3d2d40;
+  --hl: rgb(224 184 74 / 0.2);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px rgb(0 0 0 / 0.4);
+  --band: #6e2f63;
+  --band-2: #f1d3e8;
+  --band-star: 0.13;
+  --band-grid: 0.09;
+}
+
+/* Night: midnight band over a soft slate page (not black). */
+:root[data-theme="night"] {
+  color-scheme: dark;
+  --bg: #222838;
+  --surface: #283044;
+  --bar: #2c3346;
+  --field: #1e2433;
+  --line: #343c52;
+  --line-2: #465069;
+  --ink: #e3e7ef;
+  --ink-2: #c3c9d6;
+  --muted: #9aa3b8;
+  --accent: #8fbaff;
+  --on-accent: #0b1426;
+  --ok: #5cc995;
+  --warn: #e0ac4a;
+  --bad: #f08a80;
+  --dot: #4a5370;
+  --chip: #2c3346;
+  --hl: rgb(224 184 74 / 0.2);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px rgb(0 0 0 / 0.4);
+  --band: #151b2e;
+  --band-2: #b7c3e0;
+  --band-star: 0.13;
+  --band-grid: 0.09;
+}
+
+/* No script: follow the system setting. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     color-scheme: dark;
-    --bg: #151310;
-    --surface: #1d1a16;
-    --bar: #221f1a;
-    --field: #191713;
-    --line: #2f2b25;
-    --line-2: #3e3831;
-    --ink: #efebe5;
-    --ink-2: #c4bdb3;
-    --muted: #958d83;
-    --accent: #6cb4f0;
-    --on-accent: #08192a;
+    --bg: #222838;
+    --surface: #283044;
+    --bar: #2c3346;
+    --field: #1e2433;
+    --line: #343c52;
+    --line-2: #465069;
+    --ink: #e3e7ef;
+    --ink-2: #c3c9d6;
+    --muted: #9aa3b8;
+    --accent: #8fbaff;
+    --on-accent: #0b1426;
     --ok: #5cc995;
     --warn: #e0ac4a;
     --bad: #f08a80;
-    --dot: #4a433b;
-    --chip: #29251f;
-    --hl: rgb(206 196 82 / 0.22);
+    --dot: #4a5370;
+    --chip: #2c3346;
+    --hl: rgb(224 184 74 / 0.2);
     --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px rgb(0 0 0 / 0.4);
-    --band: #0b2a45;
-    --band-2: #8fb9de;
+    --band: #151b2e;
+    --band-2: #b7c3e0;
     --band-star: 0.13;
     --band-grid: 0.09;
   }
 }
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #151310;
-  --surface: #1d1a16;
-  --bar: #221f1a;
-  --field: #191713;
-  --line: #2f2b25;
-  --line-2: #3e3831;
-  --ink: #efebe5;
-  --ink-2: #c4bdb3;
-  --muted: #958d83;
-  --accent: #6cb4f0;
-  --on-accent: #08192a;
-  --ok: #5cc995;
-  --warn: #e0ac4a;
-  --bad: #f08a80;
-  --dot: #4a433b;
-  --chip: #29251f;
-  --hl: rgb(206 196 82 / 0.22);
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px rgb(0 0 0 / 0.4);
-  --band: #0b2a45;
-  --band-2: #8fb9de;
-  --band-star: 0.13;
-  --band-grid: 0.09;
+
+/* No colour transitions on first paint (theme.js removes this class). */
+.no-transition,
+.no-transition *,
+.no-transition *::before,
+.no-transition *::after {
+  transition: none !important;
 }
 
 /* ---------- Base ---------- */
@@ -124,6 +204,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font: 16px/1.6 var(--font-body);
+  transition: var(--trans);
 }
 main { flex: 1; }
 img, svg, canvas, video { max-width: 100%; height: auto; }
@@ -143,7 +224,12 @@ pre { background: var(--field); border: 1px solid var(--line); padding: 14px 16p
 .skip-link:focus { top: 12px; }
 
 /* ---------- Band (same height on every page) ---------- */
-.band { height: var(--band-h); background: var(--band); color: var(--band-ink); position: relative; overflow: hidden; }
+/* Gold trim underneath, as on thechels.uk; content-box keeps the band's
+   own height and adds the trim below it. */
+.band {
+  box-sizing: content-box; height: var(--band-h); border-bottom: var(--trim) solid var(--spark);
+  background: var(--band); color: var(--band-ink); position: relative; overflow: hidden; transition: var(--trans);
+}
 /* Faint diagonal grid, strongest at the left edge and gone by the middle. */
 .band::before {
   content: "";
@@ -161,23 +247,33 @@ pre { background: var(--field); border: 1px solid var(--line); padding: 14px 16p
   font: 700 560px/1 var(--font-display);
   color: var(--spark); opacity: var(--band-star);
   pointer-events: none;
+  transition: rotate 1s ease-in-out;
 }
+/* Big faint asterisk; it turns with the logo asterisk on hover. */
+.band:has(.logo span:hover)::after { rotate: 180deg; }
+/* Gold focus ring on the band: the page's --accent can match the band colour. */
+.band :focus-visible { outline-color: var(--spark); }
 .band .wrap { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
 
 .site-nav { height: var(--nav-h); display: flex; align-items: center; gap: 24px; font-size: 14px; }
-.site-nav .logo { font: 700 20px/1 var(--font-display); color: #fff; text-decoration: none; margin-right: auto; }
-.site-nav .logo span { color: var(--spark); }
+.site-nav .logo { font: 700 20px/1 var(--font-display); color: #fff; text-decoration: none; margin-right: auto; white-space: nowrap; }
+/* The logo asterisk spins and turns white on hover, as on thechels.uk. */
+.site-nav .logo span {
+  color: var(--spark); display: inline-block;
+  transition: color 1s ease-in-out, rotate 1s ease-in-out;
+}
+.site-nav .logo span:hover { rotate: 180deg; color: #fff; }
 .site-nav .links { display: flex; gap: 24px; }
 .site-nav a:not(.logo) { color: var(--band-2); text-decoration: none; white-space: nowrap; }
 .site-nav a:not(.logo):hover, .site-nav a[aria-current="page"] { color: #fff; }
 
 .theme { display: inline-flex; gap: 1px; padding: 2px; border-radius: 999px; background: rgb(255 255 255 / 0.14); }
 .theme button {
-  appearance: none; border: 0; background: none; cursor: pointer; color: #d6e6f5;
+  appearance: none; border: 0; background: none; cursor: pointer; color: var(--band-2); transition: var(--trans);
   display: grid; place-items: center; width: 26px; height: 26px; min-height: 0; padding: 0; border-radius: 999px;
 }
 .theme button:hover { color: #fff; background: rgb(255 255 255 / 0.12); }
-.theme button[aria-pressed="true"] { background: #fff; color: #0b2a45; }
+.theme button[aria-pressed="true"] { background: #fff; color: var(--band); }
 .theme svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
 .band-body { flex: 1; display: flex; align-items: center; gap: 20px; padding-bottom: 8px; min-width: 0; }
@@ -218,8 +314,10 @@ pre { background: var(--field); border: 1px solid var(--line); padding: 14px 16p
 
 @media (max-width: 640px) {
   :root { --band-h: 250px; --nav-h: 56px; }
-  .site-nav { gap: 10px; font-size: 13px; }
-  .site-nav .links { gap: 10px; }
+  /* Five theme buttons and the links don't fit one row: the picker sits top
+     right and the links get their own row underneath, as on thechels.uk. */
+  .site-nav { height: auto; flex-wrap: wrap; gap: 6px 10px; padding-top: 12px; font-size: 13px; }
+  .site-nav .links { order: 2; width: 100%; gap: 14px; }
   .theme button { width: 24px; height: 24px; }
   .band::after { font-size: 420px; top: -40px; right: -90px; }
   .band .summary { font-size: 15px; }
@@ -375,7 +473,8 @@ th { font-size: 12px; font-weight: 600; color: var(--muted); }
 .table-wrap td, .table-wrap th { overflow-wrap: normal; word-break: normal; hyphens: manual; }
 
 /* ---------- Footer ---------- */
-.site-footer { margin-top: 56px; border-top: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 85%, transparent); }
+/* Gold trim above, matching the one under the header. */
+.site-footer { margin-top: 56px; border-top: var(--trim) solid var(--spark); background: color-mix(in srgb, var(--bg) 85%, transparent); }
 .site-footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; padding-block: 20px; font-size: 13px; color: var(--muted); }
 .site-footer a { color: var(--ink-2); text-decoration: none; }
 .site-footer a:hover { color: var(--ink); text-decoration: underline; }
@@ -387,7 +486,7 @@ th { font-size: 12px; font-weight: 600; color: var(--muted); }
   .band, .site-footer, .win-bar, .actions, .toolbar, .related, .no-print { display: none !important; }
   .win { border: 0; box-shadow: none; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
 
 /* ---------- Exif Viewer ---------- */
 .exif-preview { flex: 1; display: grid; place-items: center; background: var(--field); padding: 14px; min-height: 280px; }
