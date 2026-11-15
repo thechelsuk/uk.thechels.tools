@@ -14,3 +14,6 @@ jobs:
       ruby_version: "3.3"
       jekyll_args: --baseurl ""
       post_build: npm ci && npm run vendor && JEKYLL_ENV=production bundle exec jekyll build --baseurl ""
+      # rouge.jneen.net comes from the rouge gem's own metadata (via npm run
+      # vendor) and that site is down; GitHub's Dependabot page needs a login.
+      extra_args: --exclude 'rouge\.jneen\.' --exclude 'github\.com/thechelsuk/[^/]+/network/updates'
