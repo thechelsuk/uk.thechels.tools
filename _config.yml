@@ -13,7 +13,7 @@ owner:
   avatar: "https://thechels.uk/.well-known/avatar.png"
   sameAs:
     - "https://reddit.com/user/thechelsuk"
-    - "https://youtube.com/thechelsuk"
+    - "https://youtube.com/@thechelsuk"
     - "https://bsky.app/profile/thechels.uk"
     - "https://twitch.tv/thechelsuk"
     - "https://github.com/thechelsuk"
@@ -26,7 +26,7 @@ organization:
   logo: "https://thechels.uk/.well-known/avatar.png"
   sameAs:
     - "https://reddit.com/user/thechelsuk"
-    - "https://youtube.com/thechelsuk"
+    - "https://youtube.com/@thechelsuk"
     - "https://bsky.app/profile/thechels.uk"
     - "https://twitch.tv/thechelsuk"
     - "https://github.com/thechelsuk"
