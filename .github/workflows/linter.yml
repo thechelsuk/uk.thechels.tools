@@ -22,4 +22,6 @@ jobs:
               env:
                   VALIDATE_ALL_CODEBASE: false
                   DEFAULT_BRANCH: main
+                  # The tools are standalone pages that share boilerplate by design
+                  VALIDATE_JSCPD: false
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
