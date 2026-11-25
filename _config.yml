@@ -57,7 +57,6 @@ defaults:
     values:
       layout: tool
 plugins:
-  - jekyll-feed
   - jekyll-last-modified-at
 exclude:
   - package.json
